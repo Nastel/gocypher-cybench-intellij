@@ -1,19 +1,15 @@
 <idea-plugin>
     <id>com.github.mjok.cybenchintellij</id>
     <name>CyBench-Intellij</name>
-    <vendor>mjok</vendor>
+    <vendor>CyBench</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.platform</depends>,
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.mjok.cybenchintellij.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.mjok.cybenchintellij.services.MyProjectService"/>
+        <runLineMarkerContributor language="JAVA" implementationClass="com.gocypher.cybench.JmhRunLineMarkerContributor"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.mjok.cybenchintellij.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
