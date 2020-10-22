@@ -21,13 +21,13 @@ public class JmhRunLineMarkerContributor extends RunLineMarkerContributor {
         boolean isBenchmarkMethod = ConfigurationUtils.isBenchmarkMethod(psiElement);
         if (isBenchmarkMethod) {
             final AnAction[] actions = ExecutorAction.getActions(0);
-            return new Info(AllIcons.RunConfigurations.TestState.Run, new TooltipProvider(actions), actions);
+            return new Info(CyBenchIcons.cyBenchRun, new TooltipProvider(actions), actions);
         }
 
         boolean isBenchmarkClass = ConfigurationUtils.isBenchmarkClass(psiElement);
         if (isBenchmarkClass) {
             final AnAction[] actions = ExecutorAction.getActions(0);
-            return new Info(AllIcons.RunConfigurations.TestState.Run_run, new TooltipProvider(actions), actions);
+            return new Info(CyBenchIcons.cyBenchRun, new TooltipProvider(actions), actions);
         }
 
         return null;
@@ -45,7 +45,7 @@ public class JmhRunLineMarkerContributor extends RunLineMarkerContributor {
             return StringUtil.join(ContainerUtil.mapNotNull(actions, new Function<AnAction, String>() {
                 @Override
                 public String fun(AnAction action) {
-                    return getText(action, element);
+                    return "cybench" + getText(action, element);
                 }
             }), "\n");
         }

@@ -9,6 +9,9 @@
     <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <configurationType implementation="com.github.JmhConfigurationType"/>
+        <runConfigurationProducer implementation="com.github.JmhClassConfigurationProducer"/>
+
         <runLineMarkerContributor language="JAVA" implementationClass="com.gocypher.cybench.JmhRunLineMarkerContributor"/>
     </extensions>
 
