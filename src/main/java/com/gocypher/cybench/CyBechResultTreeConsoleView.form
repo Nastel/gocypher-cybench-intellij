@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.gocypher.cybench.CyBechResultTreeConsoleView">
+  <grid id="27dc6" binding="rootPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="27" y="20" width="700" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="2ed1f" binding="consoleViewPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="b58ee" class="javax.swing.JTree" binding="tree" default-binding="true">
+            <constraints border-constraint="West"/>
+            <properties/>
+          </component>
+          <tabbedpane id="59db1" binding="tabs">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <tabPlacement value="1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="f7053" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints>
+                  <tabbedpane title="Untitled"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </tabbedpane>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

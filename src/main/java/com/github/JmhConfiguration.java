@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JmhConfiguration extends ModuleBasedConfiguration<JavaRunConfigurationModule, Object>
+public class JmhConfiguration extends ModuleBasedConfiguration<JavaRunConfigurationModule, Element>
         implements CommonJavaRunConfigurationParameters, CompatibilityAwareRunProfile {
 
     public static final String ATTR_VM_PARAMETERS = "vm-parameters";

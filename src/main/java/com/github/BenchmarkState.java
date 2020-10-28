@@ -1,14 +1,17 @@
 package com.github;
 
+import com.gocypher.cybench.CyBechResultTreeConsoleView;
 import com.intellij.compiler.CompilerConfiguration;
 import com.intellij.compiler.CompilerConfigurationImpl;
 import com.intellij.execution.ExecutionException;
+import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.*;
 import com.intellij.execution.filters.TextConsoleBuilder;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
+import com.intellij.execution.runners.ProgramRunner;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.util.JavaParametersUtil;
 import com.intellij.ide.DataManager;
@@ -21,8 +24,6 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.application.PluginPathManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ModuleRootManager;
-import com.intellij.openapi.roots.ProjectRootManager;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +33,6 @@ import org.jetbrains.jps.model.java.compiler.ProcessorConfigProfile;
 import java.io.File;
 import java.io.FileFilter;
 import java.lang.reflect.Field;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,12 +47,13 @@ public class BenchmarkState extends CommandLineState {
     public static final FileFilter PLUGINS_JAR_FILTER = new WildcardFileFilter("*.jar", IOCase.INSENSITIVE) {
         @Override
         public boolean accept(File file) {
-            if ( file.getName().startsWith("CyBench-Intellij") ) return false;
+            if (file.getName().startsWith("CyBench-Intellij")) return false;
             return super.accept(file);
         }
     };
     private final Project project;
     private final JmhConfiguration configuration;
+    private CyBechResultTreeConsoleView cyBechResultTreeConsoleView;
 
     public BenchmarkState(Project project, JmhConfiguration configuration, ExecutionEnvironment environment) {
         super(environment);
@@ -66,6 +67,8 @@ public class BenchmarkState extends CommandLineState {
             processorConfigProfile.setEnabled(true);
             compilerConfiguration.getState();
         }
+        cyBechResultTreeConsoleView = new CyBechResultTreeConsoleView(project);
+
     }
 
     protected JavaParameters createJavaParameters() throws ExecutionException {
@@ -122,18 +125,30 @@ public class BenchmarkState extends CommandLineState {
         return super.getConsoleBuilder();
     }
 
+    @NotNull
+    @Override
+    public ExecutionResult execute(@NotNull Executor executor, @NotNull ProgramRunner runner) throws ExecutionException {
+        return super.execute(executor, runner);
+    }
+
     @Nullable
     @Override
     protected ConsoleView createConsole(@NotNull Executor executor) throws ExecutionException {
-        ConsoleView console = super.createConsole(executor);
+
+        ConsoleView console = cyBechResultTreeConsoleView;
         return console;
+    }
+
+    @Override
+    public void setConsoleBuilder(TextConsoleBuilder consoleBuilder) {
+        super.setConsoleBuilder(consoleBuilder);
     }
 
     @NotNull
     @Override
     protected ProcessHandler startProcess() throws ExecutionException {
         OSProcessHandler osProcessHandler = JavaCommandLineStateUtil.startProcess(createCommandLine(), false);
-
+        osProcessHandler.addProcessListener(new CyBenchMessageHandler(cyBechResultTreeConsoleView));
         return osProcessHandler;
     }
 

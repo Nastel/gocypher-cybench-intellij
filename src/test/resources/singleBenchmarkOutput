@@ -1,0 +1,2064 @@
+"C:\Program Files\Java\jdk1.8.0_102\bin\java.exe" -DbenchmarkClasses=com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks -Dfile.encoding=UTF-8 -classpath "C:\Program Files\Java\jdk1.8.0_102\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\access-bridge-64.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\cldrdata.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\dnsns.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\jaccess.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\jfxrt.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\localedata.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\nashorn.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\sunec.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\sunjce_provider.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\sunmscapi.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\sunpkcs11.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\zipfs.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\jfxswt.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\management-agent.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\plugin.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_102\jre\lib\rt.jar;C:\workspace\gocypher-cybench-java-core\gocypher-cybench-jvm\target\test-classes;C:\workspace\gocypher-cybench-java-core\gocypher-cybench-jvm\target\classes;C:\Users\slabs\.m2\repository\org\openjdk\jmh\jmh-generator-annprocess\1.26\jmh-generator-annprocess-1.26.jar;C:\Users\slabs\.m2\repository\org\openjdk\jmh\jmh-core\1.26\jmh-core-1.26.jar;C:\Users\slabs\.m2\repository\net\sf\jopt-simple\jopt-simple\4.6\jopt-simple-4.6.jar;C:\Users\slabs\.m2\repository\org\apache\commons\commons-math3\3.2\commons-math3-3.2.jar;C:\Users\slabs\.m2\repository\org\slf4j\slf4j-api\1.7.30\slf4j-api-1.7.30.jar;C:\Users\slabs\.m2\repository\org\slf4j\slf4j-log4j12\1.7.30\slf4j-log4j12-1.7.30.jar;C:\Users\slabs\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;C:\Users\slabs\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.11.2\jackson-core-2.11.2.jar;C:\Users\slabs\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.11.2\jackson-databind-2.11.2.jar;C:\Users\slabs\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.11.2\jackson-annotations-2.11.2.jar;C:\Users\slabs\.m2\repository\com\gocypher\cybench\client\gocypher-cybench-runner\1.0.0\gocypher-cybench-runner-1.0.0.jar;C:\Users\slabs\.m2\repository\com\github\oshi\oshi-core\5.2.5\oshi-core-5.2.5.jar;C:\Users\slabs\.m2\repository\net\java\dev\jna\jna\5.6.0\jna-5.6.0.jar;C:\Users\slabs\.m2\repository\net\java\dev\jna\jna-platform\5.6.0\jna-platform-5.6.0.jar;C:\Users\slabs\.m2\repository\org\reflections\reflections\0.9.12\reflections-0.9.12.jar;C:\Users\slabs\.m2\repository\org\javassist\javassist\3.26.0-GA\javassist-3.26.0-GA.jar;C:\Users\slabs\.m2\repository\com\gocypher\cybench\client\gocypher-cybench-core\1.0.0\gocypher-cybench-core-1.0.0.jar;C:\Users\slabs\.m2\repository\org\apache\httpcomponents\httpclient\4.5.10\httpclient-4.5.10.jar;C:\Users\slabs\.m2\repository\org\apache\httpcomponents\httpcore\4.4.12\httpcore-4.4.12.jar;C:\Users\slabs\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\slabs\.m2\repository\commons-codec\commons-codec\1.11\commons-codec-1.11.jar;C:\Users\slabs\.m2\repository\org\jhardware\jHardware\0.8.6\jHardware-0.8.6.jar;C:\Users\slabs\.m2\repository\com\profesorfalken\WMI4Java\1.6.2\WMI4Java-1.6.2.jar;C:\Users\slabs\.m2\repository\com\profesorfalken\jPowerShell\2.0\jPowerShell-2.0.jar;C:\Users\slabs\.m2\repository\com\profesorfalken\jSensors\2.1\jSensors-2.1.jar;C:\Users\slabs\.m2\repository\com\jcabi\jcabi-manifests\1.1\jcabi-manifests-1.1.jar;C:\Users\slabs\.m2\repository\com\jcabi\jcabi-log\0.14\jcabi-log-0.14.jar;C:\Users\slabs\.m2\repository\org\junit\jupiter\junit-jupiter\5.7.0\junit-jupiter-5.7.0.jar;C:\Users\slabs\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.7.0\junit-jupiter-api-5.7.0.jar;C:\Users\slabs\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\slabs\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\slabs\.m2\repository\org\junit\platform\junit-platform-commons\1.7.0\junit-platform-commons-1.7.0.jar;C:\Users\slabs\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.7.0\junit-jupiter-params-5.7.0.jar;C:\Users\slabs\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.7.0\junit-jupiter-engine-5.7.0.jar;C:\Users\slabs\.m2\repository\org\junit\platform\junit-platform-engine\1.7.0\junit-platform-engine-1.7.0.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\commons-codec-1.11.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\commons-logging-1.2.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\commons-math3-3.2.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\gocypher-cybench-core-1.0.0.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\gocypher-cybench-runner-1.0.0.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\httpclient-4.5.10.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\httpcore-4.4.12.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jackson-annotations-2.11.2.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jackson-core-2.11.2.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jackson-databind-2.11.2.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\javassist-3.26.0-GA.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jcabi-log-0.14.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jcabi-manifests-1.1.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jHardware-0.8.6.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jmh-core-1.26.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jna-5.6.0.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jna-platform-5.6.0.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jopt-simple-4.6.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jPowerShell-2.0.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\jSensors-2.1.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\log4j-1.2.17.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\oshi-core-5.2.5.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\reflections-0.9.12.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\slf4j-api-1.7.30.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\slf4j-log4j12-1.7.30.jar;C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins\CyBench-Intellij\lib\WMI4Java-1.6.2.jar" com.gocypher.cybench.launcher.BenchmarkRunner
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/C:/Users/slabs/.m2/repository/org/slf4j/slf4j-log4j12/1.7.30/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2020-10-26 12:59:56,021 INFO  [main!BenchmarkRunner] - -----------------------------------------------------------------------------------------
+SLF4J: Found binding in [jar:file:/C:/workspace/CyBench-Intellij/build/idea-sandbox/plugins/CyBench-Intellij/lib/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2020-10-26 12:59:56,022 INFO  [main!BenchmarkRunner] -                                  Starting CyBench benchmarks
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+2020-10-26 12:59:56,022 INFO  [main!BenchmarkRunner] - -----------------------------------------------------------------------------------------
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+2020-10-26 12:59:56,029 ERROR [main!ConfigurationHandler] - Configuration file provided not found, will try to use default configuration file.
+2020-10-26 12:59:56,030 ERROR [main!ConfigurationHandler] - ALERT: Default configuration file is missing, try re-downloading the project or use our documentation to create your own configuration file
+2020-10-26 12:59:56,030 INFO  [main!BenchmarkRunner] - Collecting hardware, software information...
+2020-10-26 12:59:56,088 INFO  [main!CollectSystemInformation] - Looking for Processor info OSHI...
+2020-10-26 12:59:56,096 WARN  [main!FileUtil] - Configuration conflict: there is more than one oshi.properties file on the classpath
+2020-10-26 12:59:57,080 WARN  [main!FileUtil] - Configuration conflict: there is more than one oshi.architecture.properties file on the classpath
+2020-10-26 12:59:57,081 INFO  [main!CollectSystemInformation] - Looking for Memory properties OSHI...
+2020-10-26 12:59:57,115 INFO  [main!CollectSystemInformation] - Looking for GraphicsCard properties OSHI...
+2020-10-26 12:59:57,224 INFO  [main!CollectSystemInformation] - Looking for Disk properties OSHI...
+2020-10-26 13:00:00,343 INFO  [main!CollectSystemInformation] - Looking for OS properties OSHI...
+2020-10-26 13:00:00,677 INFO  [main!CollectSystemInformation] - Looking for Memory properties JHardware...
+2020-10-26 13:00:02,300 INFO  [main!CollectSystemInformation] - Looking for Bios properties JHardware...
+2020-10-26 13:00:02,547 INFO  [main!CollectSystemInformation] - Looking for Motherboard properties JHardware...
+2020-10-26 13:00:02,791 INFO  [main!BenchmarkRunner] - Collecting JVM properties...
+2020-10-26 13:00:02,791 INFO  [main!CollectSystemInformation] - JVM memory properties...
+2020-10-26 13:00:02,794 INFO  [main!CollectSystemInformation] - JVM system properties...
+2020-10-26 13:00:02,794 INFO  [main!BenchmarkRunner] - Executing benchmarks...
+2020-10-26 13:00:02,795 INFO  [main!BenchmarkRunner] - _______________________ BENCHMARK TESTS FOUND _________________________________
+2020-10-26 13:00:02,800 INFO  [main!BenchmarkRunner] - Execute custom benchmarks found in configuration com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks
+2020-10-26 13:00:02,800 INFO  [main!BenchmarkRunner] - benchmarkClass name com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks
+SLF4J: Class path contains multiple SLF4J bindings.
+2020-10-26 13:00:02,805 INFO  [main!SecurityUtils] - Computing hash for class com/gocypher/cybench/jmh/jvm/client/tests/IOAsyncFileSeekBenchmarks.class, classloader sun.misc.Launcher$AppClassLoader@61bbe9ba
+SLF4J: Found binding in [jar:file:/C:/Users/slabs/.m2/repository/org/slf4j/slf4j-log4j12/1.7.30/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2020-10-26 13:00:02,808 INFO  [main!SecurityUtils] - Computed hash f1b86362497eecdc9897234fded079 for class com/gocypher/cybench/jmh/jvm/client/tests/IOAsyncFileSeekBenchmarks.class, classloader sun.misc.Launcher$AppClassLoader@61bbe9ba
+SLF4J: Found binding in [jar:file:/C:/workspace/CyBench-Intellij/build/idea-sandbox/plugins/CyBench-Intellij/lib/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2020-10-26 13:00:02,808 INFO  [main!BenchmarkRunner] - Custom classes found and registered for execution: 1
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+2020-10-26 13:00:02,871 INFO  [main!Manifests] - 62 attributes loaded from 72 stream(s) in 52ms, 62 saved, 976 ignored: ["Agent-Class", "Ant-Version", "Archiver-Version", "Automatic-Module-Name", "Bnd-LastModified", "Build-Date", "Build-Jdk", "Build-Jdk-Spec", "Build-Revision", "Build-Time", "Built-By", "Bundle-ActivationPolicy", "Bundle-Category", "Bundle-Description", "Bundle-Developers", "Bundle-DocURL", "Bundle-License", "Bundle-ManifestVersion", "Bundle-Name", "Bundle-NativeCode", "Bundle-RequiredExecutionEnvironment", "Bundle-SCM", "Bundle-SymbolicName", "Bundle-Vendor", "Bundle-Version", "Class-Path", "Copyright", "Created-By", "Export-Package", "Extension-Name", "Fragment-Host", "Git-Revision", "Ignore-Package", "Implementation-Build", "Implementation-Build-Date", "Implementation-Title", "Implementation-URL", "Implementation-Vendor", "Implementation-Vendor-Id", "Implementation-Version", "Import-Package", "Include-Resource", "JCabi-Build", "JCabi-Date", "JCabi-Version", "Main-Class", "Manifest-Version", "Multi-Release", "Os-Arch", "Os-Name", "Os-Version", "Premain-Class", "Private-Package", "Require-Bundle", "Require-Capability", "Specification-Title", "Specification-Vendor", "Specification-Version", "Tool", "X-Compile-Source-JDK", "X-Compile-Target-JDK", "url"]
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+# JMH version: 1.26
+# VM version: JDK 1.8.0_102, Java HotSpot(TM) 64-Bit Server VM, 25.102-b14
+# VM invoker: C:\Program Files\Java\jdk1.8.0_102\jre\bin\java.exe
+# VM options: -DbenchmarkClasses=com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 5 s each
+# Measurement: 5 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks
+
+# Run progress: 0,00% complete, ETA 00:00:00
+# Fork: 1 of 1
+# Preparing profilers: SafepointsProfiler
+# Profilers consume stdout from target VM, use -v EXTRA to copy to console
+# Warmup Iteration   1: 2020-10-26 13:00:04,179 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Will generate binary file for tests...
+2020-10-26 13:00:21,998 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Generated file binary.bin for processing, size(B):1073741824
+2020-10-26 13:00:21,999 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Will generate an array of random numbers for file positions
+2020-10-26 13:00:22,075 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Generated all prerequisites!
+2020-10-26 13:00:22,076 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:00:25,248 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2630,874 ms/op
+Iteration   1: 2020-10-26 13:00:26,464 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:00:29,621 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2376,890 ms/op
+                 ·gc.alloc.rate:                 283,443 MB/sec
+                 ·gc.alloc.rate.norm:            1090541704,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,080 ms
+                 ·rt.safepointTime:              1,852 ms
+                 ·rt.safepoints:                 84,000 counts
+                 ·rt.sync.contendedLockAttempts: 93,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     59,000 monitors
+                 ·rt.sync.monitorInflations:     61,000 monitors
+                 ·rt.sync.notifications:         12,000 counts
+                 ·rt.sync.parks:                 22,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               10,000 threads
+
+Iteration   2: 2020-10-26 13:00:30,790 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:00:33,445 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+1999,002 ms/op
+                 ·gc.alloc.rate:                 329,489 MB/sec
+                 ·gc.alloc.rate.norm:            1090534200,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,083 ms
+                 ·rt.safepointTime:              2,222 ms
+                 ·rt.safepoints:                 88,000 counts
+                 ·rt.sync.contendedLockAttempts: 93,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     62,000 monitors
+                 ·rt.sync.monitorInflations:     64,000 monitors
+                 ·rt.sync.notifications:         16,000 counts
+                 ·rt.sync.parks:                 26,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               12,000 threads
+
+Iteration   3: 2020-10-26 13:00:34,590 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:00:37,449 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2178,616 ms/op
+                 ·gc.alloc.rate:                 308,012 MB/sec
+                 ·gc.alloc.rate.norm:            1090534200,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,083 ms
+                 ·rt.safepointTime:              2,462 ms
+                 ·rt.safepoints:                 90,000 counts
+                 ·rt.sync.contendedLockAttempts: 93,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     64,000 monitors
+                 ·rt.sync.monitorInflations:     66,000 monitors
+                 ·rt.sync.notifications:         18,000 counts
+                 ·rt.sync.parks:                 28,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               14,000 threads
+
+Iteration   4: 2020-10-26 13:00:38,612 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:00:41,635 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2299,199 ms/op
+                 ·gc.alloc.rate:                 294,867 MB/sec
+                 ·gc.alloc.rate.norm:            1090534200,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,091 ms
+                 ·rt.safepointTime:              2,711 ms
+                 ·rt.safepoints:                 93,000 counts
+                 ·rt.sync.contendedLockAttempts: 93,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     66,000 monitors
+                 ·rt.sync.monitorInflations:     68,000 monitors
+                 ·rt.sync.notifications:         20,000 counts
+                 ·rt.sync.parks:                 30,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               16,000 threads
+
+Iteration   5: 2020-10-26 13:00:42,784 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:00:45,357 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2020-10-26 13:00:45,358 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Generated files were closed successfully!
+1993,829 ms/op
+                 ·gc.alloc.rate:                 336,888 MB/sec
+                 ·gc.alloc.rate.norm:            1090541240,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,093 ms
+                 ·rt.safepointTime:              2,973 ms
+                 ·rt.safepoints:                 96,000 counts
+                 ·rt.sync.contendedLockAttempts: 93,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     68,000 monitors
+                 ·rt.sync.monitorInflations:     70,000 monitors
+                 ·rt.sync.notifications:         22,000 counts
+                 ·rt.sync.parks:                 32,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               18,000 threads
+
+# Processing profiler results: SafepointsProfiler
+
+
+Result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks":
+  N = 5
+  mean =   2169,507 ±(99.9%) 666,522 ms/op
+
+  Histogram, ms/op:
+    [1900,000, 1950,000) = 0
+    [1950,000, 2000,000) = 2
+    [2000,000, 2050,000) = 0
+    [2050,000, 2100,000) = 0
+    [2100,000, 2150,000) = 0
+    [2150,000, 2200,000) = 1
+    [2200,000, 2250,000) = 0
+    [2250,000, 2300,000) = 1
+    [2300,000, 2350,000) = 0
+
+  Percentiles, ms/op:
+      p(0,0000) =   1993,829 ms/op
+     p(50,0000) =   2178,616 ms/op
+     p(90,0000) =   2376,890 ms/op
+     p(95,0000) =   2376,890 ms/op
+     p(99,0000) =   2376,890 ms/op
+     p(99,9000) =   2376,890 ms/op
+     p(99,9900) =   2376,890 ms/op
+     p(99,9990) =   2376,890 ms/op
+     p(99,9999) =   2376,890 ms/op
+    p(100,0000) =   2376,890 ms/op
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·gc.alloc.rate":
+  310,540 ±(99.9%) 86,950 MB/sec [Average]
+  (min, avg, max) = (283,443, 310,540, 336,888), stdev = 22,581
+  CI (99.9%): [223,590, 397,490] (assumes normal distribution)
+SLF4J: Class path contains multiple SLF4J bindings.
+
+SLF4J: Found binding in [jar:file:/C:/Users/slabs/.m2/repository/org/slf4j/slf4j-log4j12/1.7.30/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/C:/workspace/CyBench-Intellij/build/idea-sandbox/plugins/CyBench-Intellij/lib/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·gc.alloc.rate.norm":
+  1090537108,800 ±(99.9%) 15350,266 B/op [Average]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+  (min, avg, max) = (1090534200,000, 1090537108,800, 1090541704,000), stdev = 3986,415
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+  CI (99.9%): [1090521758,534, 1090552459,066] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·gc.count":
+  ≈ 0 counts
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.safepointSyncTime":
+  0,093 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,080, 0,086, 0,093), stdev = 0,006
+  CI (99.9%): [0,093, 0,093] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.safepointTime":
+  2,973 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (1,852, 2,444, 2,973), stdev = 0,433
+  CI (99.9%): [2,973, 2,973] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.safepoints":
+  96,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (84,000, 90,200, 96,000), stdev = 4,604
+  CI (99.9%): [96,000, 96,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.contendedLockAttempts":
+  93,000 ±(99.9%) 0,001 locks [Maximum]
+  (min, avg, max) = (93,000, 93,000, 93,000), stdev = 0,001
+  CI (99.9%): [93,000, 93,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.fatMonitors":
+  128,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (128,000, 128,000, 128,000), stdev = 0,001
+  CI (99.9%): [128,000, 128,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.futileWakeups":
+  4,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (4,000, 4,000, 4,000), stdev = 0,001
+  CI (99.9%): [4,000, 4,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.monitorDeflations":
+  68,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (59,000, 63,800, 68,000), stdev = 3,493
+  CI (99.9%): [68,000, 68,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.monitorInflations":
+  70,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (61,000, 65,800, 70,000), stdev = 3,493
+  CI (99.9%): [70,000, 70,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.notifications":
+  22,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (12,000, 17,600, 22,000), stdev = 3,847
+  CI (99.9%): [22,000, 22,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.parks":
+  32,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (22,000, 27,600, 32,000), stdev = 3,847
+  CI (99.9%): [32,000, 32,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.interval":
+  20102,000 ms
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause":
+  191,718 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,087, 11,982, 60,097), stdev = 15,636
+  CI (99.9%): [191,718, 191,718] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp":
+  4,746 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,016, 0,297, 3,297), stdev = 0,819
+  CI (99.9%): [4,746, 4,746] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·threads.alive":
+  6,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (6,000, 6,000, 6,000), stdev = 0,001
+  CI (99.9%): [6,000, 6,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·threads.daemon":
+  5,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (5,000, 5,000, 5,000), stdev = 0,001
+  CI (99.9%): [5,000, 5,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·threads.started":
+  18,000 ±(99.9%) 0,001 threads [Maximum]
+  (min, avg, max) = (10,000, 14,000, 18,000), stdev = 3,162
+  CI (99.9%): [18,000, 18,000] (assumes normal distribution)
+
+
+# JMH version: 1.26
+# VM version: JDK 1.8.0_102, Java HotSpot(TM) 64-Bit Server VM, 25.102-b14
+# VM invoker: C:\Program Files\Java\jdk1.8.0_102\jre\bin\java.exe
+# VM options: -DbenchmarkClasses=com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 5 s each
+# Measurement: 5 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks
+
+# Run progress: 16,67% complete, ETA 00:03:35
+# Fork: 1 of 1
+# Preparing profilers: SafepointsProfiler
+# Profilers consume stdout from target VM, use -v EXTRA to copy to console
+# Warmup Iteration   1: 2020-10-26 13:00:47,579 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Will generate binary file for tests...
+2020-10-26 13:00:47,582 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOUtils] - Data file for tests exists, a new one will not be created
+2020-10-26 13:00:47,583 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Generated file binary.bin for processing, size(B):1073741824
+2020-10-26 13:00:47,584 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Will generate an array of random numbers for file positions
+2020-10-26 13:00:47,664 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Generated all prerequisites!
+2020-10-26 13:00:47,665 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:00:53,662 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+5802,243 ms/op
+Iteration   1: 2020-10-26 13:00:54,831 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:00,822 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+5305,221 ms/op
+                 ·gc.alloc.rate:                   158,925 MB/sec
+                 ·gc.alloc.rate.norm:              1082642800,000 B/op
+                 ·gc.churn.PS_Eden_Space:          156,310 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1064828928,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,063 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 425984,000 B/op
+                 ·gc.count:                        24,000 counts
+                 ·gc.time:                         22,000 ms
+                 ·rt.safepointSyncTime:            0,013 ms
+                 ·rt.safepointTime:                1,161 ms
+                 ·rt.safepoints:                   51,000 counts
+                 ·rt.sync.contendedLockAttempts:   68,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           5,000 counts
+                 ·rt.sync.monitorDeflations:       57,000 monitors
+                 ·rt.sync.monitorInflations:       59,000 monitors
+                 ·rt.sync.notifications:           12,000 counts
+                 ·rt.sync.parks:                   19,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 10,000 threads
+
+Iteration   2: 2020-10-26 13:01:01,990 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:07,568 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+5071,152 ms/op
+                 ·gc.alloc.rate:                   168,691 MB/sec
+                 ·gc.alloc.rate.norm:              1077954400,000 B/op
+                 ·gc.churn.PS_Eden_Space:          165,570 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1058013184,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,026 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 163840,000 B/op
+                 ·gc.count:                        32,000 counts
+                 ·gc.time:                         26,000 ms
+                 ·rt.safepointSyncTime:            0,022 ms
+                 ·rt.safepointTime:                1,893 ms
+                 ·rt.safepoints:                   86,000 counts
+                 ·rt.sync.contendedLockAttempts:   68,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           5,000 counts
+                 ·rt.sync.monitorDeflations:       60,000 monitors
+                 ·rt.sync.monitorInflations:       62,000 monitors
+                 ·rt.sync.notifications:           16,000 counts
+                 ·rt.sync.parks:                   23,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 12,000 threads
+
+Iteration   3: 2020-10-26 13:01:08,714 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:14,578 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+5484,063 ms/op
+                 ·gc.alloc.rate:                   161,383 MB/sec
+                 ·gc.alloc.rate.norm:              1077954400,000 B/op
+                 ·gc.churn.PS_Eden_Space:          158,005 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1055391744,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,010 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 65536,000 B/op
+                 ·gc.count:                        33,000 counts
+                 ·gc.time:                         26,000 ms
+                 ·rt.safepointSyncTime:            0,031 ms
+                 ·rt.safepointTime:                2,390 ms
+                 ·rt.safepoints:                   122,000 counts
+                 ·rt.sync.contendedLockAttempts:   68,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           5,000 counts
+                 ·rt.sync.monitorDeflations:       62,000 monitors
+                 ·rt.sync.monitorInflations:       64,000 monitors
+                 ·rt.sync.notifications:           18,000 counts
+                 ·rt.sync.parks:                   25,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 14,000 threads
+
+Iteration   4: 2020-10-26 13:01:15,729 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:21,187 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+5183,584 ms/op
+                 ·gc.alloc.rate:                   172,211 MB/sec
+                 ·gc.alloc.rate.norm:              1077954400,000 B/op
+                 ·gc.churn.PS_Eden_Space:          168,607 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1055391744,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,016 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 98304,000 B/op
+                 ·gc.count:                        33,000 counts
+                 ·gc.time:                         26,000 ms
+                 ·rt.safepointSyncTime:            0,040 ms
+                 ·rt.safepointTime:                2,873 ms
+                 ·rt.safepoints:                   158,000 counts
+                 ·rt.sync.contendedLockAttempts:   68,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           5,000 counts
+                 ·rt.sync.monitorDeflations:       64,000 monitors
+                 ·rt.sync.monitorInflations:       66,000 monitors
+                 ·rt.sync.notifications:           20,000 counts
+                 ·rt.sync.parks:                   27,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 16,000 threads
+
+Iteration   5: 2020-10-26 13:01:22,326 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:28,202 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2020-10-26 13:01:28,204 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Generated files were closed successfully!
+5272,890 ms/op
+                 ·gc.alloc.rate:                   160,998 MB/sec
+                 ·gc.alloc.rate.norm:              1077961304,000 B/op
+                 ·gc.churn.PS_Eden_Space:          157,627 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1055391744,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,020 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 131072,000 B/op
+                 ·gc.count:                        33,000 counts
+                 ·gc.time:                         27,000 ms
+                 ·rt.safepointSyncTime:            0,050 ms
+                 ·rt.safepointTime:                3,358 ms
+                 ·rt.safepoints:                   193,000 counts
+                 ·rt.sync.contendedLockAttempts:   68,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           5,000 counts
+                 ·rt.sync.monitorDeflations:       66,000 monitors
+                 ·rt.sync.monitorInflations:       68,000 monitors
+                 ·rt.sync.notifications:           22,000 counts
+                 ·rt.sync.parks:                   29,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 18,000 threads
+
+# Processing profiler results: SafepointsProfiler
+
+
+Result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks":
+  N = 5
+  mean =   5263,382 ±(99.9%) 589,857 ms/op
+
+  Histogram, ms/op:
+    [5000,000, 5050,000) = 0
+    [5050,000, 5100,000) = 1
+    [5100,000, 5150,000) = 0
+    [5150,000, 5200,000) = 1
+    [5200,000, 5250,000) = 0
+    [5250,000, 5300,000) = 1
+    [5300,000, 5350,000) = 1
+    [5350,000, 5400,000) = 0
+    [5400,000, 5450,000) = 0
+
+  Percentiles, ms/op:
+      p(0,0000) =   5071,152 ms/op
+     p(50,0000) =   5272,890 ms/op
+     p(90,0000) =   5484,063 ms/op
+     p(95,0000) =   5484,063 ms/op
+     p(99,0000) =   5484,063 ms/op
+     p(99,9000) =   5484,063 ms/op
+     p(99,9900) =   5484,063 ms/op
+     p(99,9990) =   5484,063 ms/op
+     p(99,9999) =   5484,063 ms/op
+    p(100,0000) =   5484,063 ms/op
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.alloc.rate":
+  164,442 ±(99.9%) 21,959 MB/sec [Average]
+  (min, avg, max) = (158,925, 164,442, 172,211), stdev = 5,703
+  CI (99.9%): [142,483, 186,400] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.alloc.rate.norm":
+  1078893460,800 ±(99.9%) 8070743,520 B/op [Average]
+  (min, avg, max) = (1077954400,000, 1078893460,800, 1082642800,000), stdev = 2095946,463
+  CI (99.9%): [1070822717,280, 1086964204,320] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.churn.PS_Eden_Space":
+  161,224 ±(99.9%) 21,165 MB/sec [Average]
+  (min, avg, max) = (156,310, 161,224, 168,607), stdev = 5,497
+  CI (99.9%): [140,058, 182,389] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.churn.PS_Eden_Space.norm":
+  1057803468,800 ±(99.9%) 15741824,571 B/op [Average]
+  (min, avg, max) = (1055391744,000, 1057803468,800, 1064828928,000), stdev = 4088101,851
+  CI (99.9%): [1042061644,229, 1073545293,371] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.churn.PS_Survivor_Space":
+  0,027 ±(99.9%) 0,080 MB/sec [Average]
+  (min, avg, max) = (0,010, 0,027, 0,063), stdev = 0,021
+  CI (99.9%): [≈ 0, 0,107] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.churn.PS_Survivor_Space.norm":
+  176947,200 ±(99.9%) 554321,790 B/op [Average]
+  (min, avg, max) = (65536,000, 176947,200, 425984,000), stdev = 143955,608
+  CI (99.9%): [≈ 0, 731268,990] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.count":
+  155,000 ±(99.9%) 0,001 counts [Sum]
+  (min, avg, max) = (24,000, 31,000, 33,000), stdev = 3,937
+  CI (99.9%): [155,000, 155,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.time":
+  127,000 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (22,000, 25,400, 27,000), stdev = 1,949
+  CI (99.9%): [127,000, 127,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.safepointSyncTime":
+  0,050 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,013, 0,031, 0,050), stdev = 0,014
+  CI (99.9%): [0,050, 0,050] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.safepointTime":
+  3,358 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (1,161, 2,335, 3,358), stdev = 0,854
+  CI (99.9%): [3,358, 3,358] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.safepoints":
+  193,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (51,000, 122,000, 193,000), stdev = 56,289
+  CI (99.9%): [193,000, 193,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.contendedLockAttempts":
+  68,000 ±(99.9%) 0,001 locks [Maximum]
+  (min, avg, max) = (68,000, 68,000, 68,000), stdev = 0,001
+  CI (99.9%): [68,000, 68,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.fatMonitors":
+  128,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (128,000, 128,000, 128,000), stdev = 0,001
+  CI (99.9%): [128,000, 128,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.futileWakeups":
+  5,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (5,000, 5,000, 5,000), stdev = 0,001
+  CI (99.9%): [5,000, 5,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.monitorDeflations":
+  66,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (57,000, 61,800, 66,000), stdev = 3,493
+  CI (99.9%): [66,000, 66,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.monitorInflations":
+  68,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (59,000, 63,800, 68,000), stdev = 3,493
+  CI (99.9%): [68,000, 68,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.notifications":
+  22,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (12,000, 17,600, 22,000), stdev = 3,847
+  CI (99.9%): [22,000, 22,000] (assumes normal distribution)
+SLF4J: Class path contains multiple SLF4J bindings.
+
+SLF4J: Found binding in [jar:file:/C:/Users/slabs/.m2/repository/org/slf4j/slf4j-log4j12/1.7.30/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.parks":
+  29,000 ±(99.9%) 0,001 counts [Maximum]
+SLF4J: Found binding in [jar:file:/C:/workspace/CyBench-Intellij/build/idea-sandbox/plugins/CyBench-Intellij/lib/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+  (min, avg, max) = (19,000, 24,600, 29,000), stdev = 3,847
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+  CI (99.9%): [29,000, 29,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.interval":
+  34528,000 ms
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause":
+  242,836 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,060, 1,454, 34,996), stdev = 2,993
+  CI (99.9%): [242,836, 242,836] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp":
+  4,220 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,015, 0,025, 0,183), stdev = 0,018
+  CI (99.9%): [4,220, 4,220] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·threads.alive":
+  6,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (6,000, 6,000, 6,000), stdev = 0,001
+  CI (99.9%): [6,000, 6,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·threads.daemon":
+  5,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (5,000, 5,000, 5,000), stdev = 0,001
+  CI (99.9%): [5,000, 5,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·threads.started":
+  18,000 ±(99.9%) 0,001 threads [Maximum]
+  (min, avg, max) = (10,000, 14,000, 18,000), stdev = 3,162
+  CI (99.9%): [18,000, 18,000] (assumes normal distribution)
+
+
+# JMH version: 1.26
+# VM version: JDK 1.8.0_102, Java HotSpot(TM) 64-Bit Server VM, 25.102-b14
+# VM invoker: C:\Program Files\Java\jdk1.8.0_102\jre\bin\java.exe
+# VM options: -DbenchmarkClasses=com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 5 s each
+# Measurement: 5 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks
+
+# Run progress: 33,33% complete, ETA 00:02:51
+# Fork: 1 of 1
+# Preparing profilers: SafepointsProfiler
+# Profilers consume stdout from target VM, use -v EXTRA to copy to console
+# Warmup Iteration   1: 2020-10-26 13:01:32,774 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Will generate binary file for tests...
+2020-10-26 13:01:32,778 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOUtils] - Data file for tests exists, a new one will not be created
+2020-10-26 13:01:32,779 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Generated file binary.bin for processing, size(B):1073741824
+2020-10-26 13:01:32,781 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Will generate an array of random numbers for file positions
+2020-10-26 13:01:32,864 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Generated all prerequisites!
+2020-10-26 13:01:32,864 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:33,703 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+837,126 ms/op
+Iteration   1: 2020-10-26 13:01:34,880 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:35,594 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+712,090 ms/op
+                 ·gc.alloc.rate:                   841,652 MB/sec
+                 ·gc.alloc.rate.norm:              1073764568,000 B/op
+                 ·gc.churn.PS_Eden_Space:          834,300 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1064385344,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,051 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 65536,000 B/op
+                 ·gc.count:                        2,000 counts
+                 ·gc.time:                         3,000 ms
+                 ·rt.safepointSyncTime:            0,004 ms
+                 ·rt.safepointTime:                0,779 ms
+                 ·rt.safepoints:                   17,000 counts
+                 ·rt.sync.contendedLockAttempts:   61,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           4,000 counts
+                 ·rt.sync.monitorDeflations:       54,000 monitors
+                 ·rt.sync.monitorInflations:       56,000 monitors
+                 ·rt.sync.notifications:           12,000 counts
+                 ·rt.sync.parks:                   21,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 10,000 threads
+
+Iteration   2: 2020-10-26 13:01:36,739 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:37,588 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+848,400 ms/op
+                 ·gc.alloc.rate:                 754,950 MB/sec
+                 ·gc.alloc.rate.norm:            1073763848,000 B/op
+                 ·gc.churn.PS_Eden_Space:        750,878 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:   1067971592,000 B/op
+                 ·gc.count:                      1,000 counts
+                 ·gc.time:                       ≈ 0 ms
+                 ·rt.safepointSyncTime:          0,007 ms
+                 ·rt.safepointTime:              1,029 ms
+                 ·rt.safepoints:                 22,000 counts
+                 ·rt.sync.contendedLockAttempts: 61,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     57,000 monitors
+                 ·rt.sync.monitorInflations:     59,000 monitors
+                 ·rt.sync.notifications:         16,000 counts
+                 ·rt.sync.parks:                 25,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               12,000 threads
+
+Iteration   3: 2020-10-26 13:01:38,722 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:39,329 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+606,042 ms/op
+                 ·gc.alloc.rate:                 913,814 MB/sec
+                 ·gc.alloc.rate.norm:            1073763848,000 B/op
+                 ·gc.churn.PS_Eden_Space:        862,992 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:   1014046808,000 B/op
+                 ·gc.count:                      1,000 counts
+                 ·gc.time:                       1,000 ms
+                 ·rt.safepointSyncTime:          0,008 ms
+                 ·rt.safepointTime:              1,186 ms
+                 ·rt.safepoints:                 25,000 counts
+                 ·rt.sync.contendedLockAttempts: 61,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     59,000 monitors
+                 ·rt.sync.monitorInflations:     61,000 monitors
+                 ·rt.sync.notifications:         18,000 counts
+                 ·rt.sync.parks:                 27,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               14,000 threads
+
+Iteration   4: 2020-10-26 13:01:40,487 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:41,108 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+614,242 ms/op
+                 ·gc.alloc.rate:                 901,959 MB/sec
+                 ·gc.alloc.rate.norm:            1073763848,000 B/op
+                 ·gc.churn.PS_Eden_Space:        807,391 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:   961182536,000 B/op
+                 ·gc.count:                      1,000 counts
+                 ·gc.time:                       1,000 ms
+                 ·rt.safepointSyncTime:          0,010 ms
+                 ·rt.safepointTime:              1,370 ms
+                 ·rt.safepoints:                 29,000 counts
+                 ·rt.sync.contendedLockAttempts: 61,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     61,000 monitors
+                 ·rt.sync.monitorInflations:     63,000 monitors
+                 ·rt.sync.notifications:         20,000 counts
+                 ·rt.sync.parks:                 29,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               16,000 threads
+
+Iteration   5: 2020-10-26 13:01:42,267 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:42,876 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2020-10-26 13:01:42,876 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Generated files were closed successfully!
+607,823 ms/op
+                 ·gc.alloc.rate:                 917,088 MB/sec
+                 ·gc.alloc.rate.norm:            1073764536,000 B/op
+                 ·gc.churn.PS_Eden_Space:        790,674 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:   925753712,000 B/op
+                 ·gc.count:                      1,000 counts
+                 ·gc.time:                       1,000 ms
+                 ·rt.safepointSyncTime:          0,011 ms
+                 ·rt.safepointTime:              1,605 ms
+                 ·rt.safepoints:                 32,000 counts
+                 ·rt.sync.contendedLockAttempts: 61,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         4,000 counts
+                 ·rt.sync.monitorDeflations:     63,000 monitors
+                 ·rt.sync.monitorInflations:     65,000 monitors
+                 ·rt.sync.notifications:         22,000 counts
+                 ·rt.sync.parks:                 31,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               18,000 threads
+
+# Processing profiler results: SafepointsProfiler
+
+
+Result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks":
+  N = 5
+  mean =    677,719 ±(99.9%) 405,534 ms/op
+
+  Histogram, ms/op:
+    [600,000, 625,000) = 3
+    [625,000, 650,000) = 0
+    [650,000, 675,000) = 0
+    [675,000, 700,000) = 0
+    [700,000, 725,000) = 1
+    [725,000, 750,000) = 0
+    [750,000, 775,000) = 0
+    [775,000, 800,000) = 0
+    [800,000, 825,000) = 0
+    [825,000, 850,000) = 1
+    [850,000, 875,000) = 0
+
+  Percentiles, ms/op:
+      p(0,0000) =    606,042 ms/op
+     p(50,0000) =    614,242 ms/op
+     p(90,0000) =    848,400 ms/op
+     p(95,0000) =    848,400 ms/op
+     p(99,0000) =    848,400 ms/op
+     p(99,9000) =    848,400 ms/op
+     p(99,9900) =    848,400 ms/op
+     p(99,9990) =    848,400 ms/op
+     p(99,9999) =    848,400 ms/op
+    p(100,0000) =    848,400 ms/op
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.alloc.rate":
+  865,892 ±(99.9%) 266,183 MB/sec [Average]
+  (min, avg, max) = (754,950, 865,892, 917,088), stdev = 69,127
+  CI (99.9%): [599,710, 1132,075] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.alloc.rate.norm":
+  1073764129,600 ±(99.9%) 1485,434 B/op [Average]
+  (min, avg, max) = (1073763848,000, 1073764129,600, 1073764568,000), stdev = 385,763
+  CI (99.9%): [1073762644,166, 1073765615,034] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.churn.PS_Eden_Space":
+  809,247 ±(99.9%) 164,179 MB/sec [Average]
+  (min, avg, max) = (750,878, 809,247, 862,992), stdev = 42,637
+  CI (99.9%): [645,068, 973,426] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.churn.PS_Eden_Space.norm":
+  1006667998,400 ±(99.9%) 241702057,895 B/op [Average]
+  (min, avg, max) = (925753712,000, 1006667998,400, 1067971592,000), stdev = 62769256,878
+  CI (99.9%): [764965940,505, 1248370056,295] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.churn.PS_Survivor_Space":
+  0,010 ±(99.9%) 0,088 MB/sec [Average]
+  (min, avg, max) = (≈ 0, 0,010, 0,051), stdev = 0,023
+  CI (99.9%): [≈ 0, 0,099] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.churn.PS_Survivor_Space.norm":
+  13107,200 ±(99.9%) 112856,945 B/op [Average]
+  (min, avg, max) = (≈ 0, 13107,200, 65536,000), stdev = 29308,590
+  CI (99.9%): [≈ 0, 125964,145] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.count":
+  6,000 ±(99.9%) 0,001 counts [Sum]
+  (min, avg, max) = (1,000, 1,200, 2,000), stdev = 0,447
+  CI (99.9%): [6,000, 6,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.time":
+  6,000 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (≈ 0, 1,200, 3,000), stdev = 1,095
+  CI (99.9%): [6,000, 6,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.safepointSyncTime":
+  0,011 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,004, 0,008, 0,011), stdev = 0,003
+  CI (99.9%): [0,011, 0,011] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.safepointTime":
+  1,605 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,779, 1,194, 1,605), stdev = 0,316
+  CI (99.9%): [1,605, 1,605] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.safepoints":
+  32,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (17,000, 25,000, 32,000), stdev = 5,874
+  CI (99.9%): [32,000, 32,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.contendedLockAttempts":
+  61,000 ±(99.9%) 0,001 locks [Maximum]
+  (min, avg, max) = (61,000, 61,000, 61,000), stdev = 0,001
+  CI (99.9%): [61,000, 61,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.fatMonitors":
+  128,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (128,000, 128,000, 128,000), stdev = 0,001
+  CI (99.9%): [128,000, 128,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.futileWakeups":
+  4,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (4,000, 4,000, 4,000), stdev = 0,001
+  CI (99.9%): [4,000, 4,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.monitorDeflations":
+  63,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (54,000, 58,800, 63,000), stdev = 3,493
+  CI (99.9%): [63,000, 63,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.monitorInflations":
+  65,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (56,000, 60,800, 65,000), stdev = 3,493
+  CI (99.9%): [65,000, 65,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.notifications":
+  22,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (12,000, 17,600, 22,000), stdev = 3,847
+  CI (99.9%): [22,000, 22,000] (assumes normal distribution)
+SLF4J: Class path contains multiple SLF4J bindings.
+
+SLF4J: Found binding in [jar:file:/C:/Users/slabs/.m2/repository/org/slf4j/slf4j-log4j12/1.7.30/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.parks":
+SLF4J: Found binding in [jar:file:/C:/workspace/CyBench-Intellij/build/idea-sandbox/plugins/CyBench-Intellij/lib/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+  31,000 ±(99.9%) 0,001 counts [Maximum]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+  (min, avg, max) = (21,000, 26,600, 31,000), stdev = 3,847
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+  CI (99.9%): [31,000, 31,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.interval":
+  9161,000 ms
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause":
+  93,219 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,097, 4,906, 15,712), stdev = 4,824
+  CI (99.9%): [93,219, 93,219] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp":
+  0,800 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,015, 0,042, 0,081), stdev = 0,020
+  CI (99.9%): [0,800, 0,800] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·threads.alive":
+  6,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (6,000, 6,000, 6,000), stdev = 0,001
+  CI (99.9%): [6,000, 6,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·threads.daemon":
+  5,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (5,000, 5,000, 5,000), stdev = 0,001
+  CI (99.9%): [5,000, 5,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·threads.started":
+  18,000 ±(99.9%) 0,001 threads [Maximum]
+  (min, avg, max) = (10,000, 14,000, 18,000), stdev = 3,162
+  CI (99.9%): [18,000, 18,000] (assumes normal distribution)
+
+
+# JMH version: 1.26
+# VM version: JDK 1.8.0_102, Java HotSpot(TM) 64-Bit Server VM, 25.102-b14
+# VM invoker: C:\Program Files\Java\jdk1.8.0_102\jre\bin\java.exe
+# VM options: -DbenchmarkClasses=com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 5 s each
+# Measurement: 5 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks
+
+# Run progress: 50,00% complete, ETA 00:01:40
+# Fork: 1 of 1
+# Preparing profilers: SafepointsProfiler
+# Profilers consume stdout from target VM, use -v EXTRA to copy to console
+# Warmup Iteration   1: 2020-10-26 13:01:47,459 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Will generate binary file for tests...
+2020-10-26 13:01:47,463 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOUtils] - Data file for tests exists, a new one will not be created
+2020-10-26 13:01:47,465 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Generated file binary.bin for processing, size(B):1073741824
+2020-10-26 13:01:47,466 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Will generate an array of random numbers for file positions
+2020-10-26 13:01:47,552 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Generated all prerequisites!
+2020-10-26 13:01:47,553 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:50,479 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2925,400 ms/op
+Iteration   1: 2020-10-26 13:01:51,683 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:54,287 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2601,176 ms/op
+                 ·gc.alloc.rate:                   332,225 MB/sec
+                 ·gc.alloc.rate.norm:              1086083776,000 B/op
+                 ·gc.churn.PS_Eden_Space:          310,326 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1014494736,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,070 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 229376,000 B/op
+                 ·gc.count:                        10,000 counts
+                 ·gc.time:                         12,000 ms
+                 ·rt.safepointSyncTime:            0,007 ms
+                 ·rt.safepointTime:                1,169 ms
+                 ·rt.safepoints:                   27,000 counts
+                 ·rt.sync.contendedLockAttempts:   79,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           2,000 counts
+                 ·rt.sync.monitorDeflations:       58,000 monitors
+                 ·rt.sync.monitorInflations:       60,000 monitors
+                 ·rt.sync.notifications:           12,000 counts
+                 ·rt.sync.parks:                   18,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 10,000 threads
+
+Iteration   2: 2020-10-26 13:01:55,447 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:01:58,077 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2628,782 ms/op
+                 ·gc.alloc.rate:                   327,514 MB/sec
+                 ·gc.alloc.rate.norm:              1077950288,000 B/op
+                 ·gc.churn.PS_Eden_Space:          317,952 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1046478848,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,060 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 196608,000 B/op
+                 ·gc.count:                        14,000 counts
+                 ·gc.time:                         12,000 ms
+                 ·rt.safepointSyncTime:            0,011 ms
+                 ·rt.safepointTime:                1,586 ms
+                 ·rt.safepoints:                   43,000 counts
+                 ·rt.sync.contendedLockAttempts:   79,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           2,000 counts
+                 ·rt.sync.monitorDeflations:       61,000 monitors
+                 ·rt.sync.monitorInflations:       63,000 monitors
+                 ·rt.sync.notifications:           16,000 counts
+                 ·rt.sync.parks:                   22,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 12,000 threads
+
+Iteration   3: 2020-10-26 13:01:59,212 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:02,063 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2848,626 ms/op
+                 ·gc.alloc.rate:                   306,534 MB/sec
+                 ·gc.alloc.rate.norm:              1077950288,000 B/op
+                 ·gc.churn.PS_Eden_Space:          304,293 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1070071808,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,047 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 163840,000 B/op
+                 ·gc.count:                        20,000 counts
+                 ·gc.time:                         19,000 ms
+                 ·rt.safepointSyncTime:            0,017 ms
+                 ·rt.safepointTime:                1,954 ms
+                 ·rt.safepoints:                   65,000 counts
+                 ·rt.sync.contendedLockAttempts:   79,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           2,000 counts
+                 ·rt.sync.monitorDeflations:       63,000 monitors
+                 ·rt.sync.monitorInflations:       65,000 monitors
+                 ·rt.sync.notifications:           18,000 counts
+                 ·rt.sync.parks:                   24,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 14,000 threads
+
+Iteration   4: 2020-10-26 13:02:03,192 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:05,921 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2723,495 ms/op
+                 ·gc.alloc.rate:                   318,022 MB/sec
+                 ·gc.alloc.rate.norm:              1077950288,000 B/op
+                 ·gc.churn.PS_Eden_Space:          315,543 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1069547520,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,039 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 131072,000 B/op
+                 ·gc.count:                        27,000 counts
+                 ·gc.time:                         23,000 ms
+                 ·rt.safepointSyncTime:            0,024 ms
+                 ·rt.safepointTime:                2,371 ms
+                 ·rt.safepoints:                   94,000 counts
+                 ·rt.sync.contendedLockAttempts:   79,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           2,000 counts
+                 ·rt.sync.monitorDeflations:       65,000 monitors
+                 ·rt.sync.monitorInflations:       67,000 monitors
+                 ·rt.sync.notifications:           20,000 counts
+                 ·rt.sync.parks:                   26,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 16,000 threads
+
+Iteration   5: 2020-10-26 13:02:07,066 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:09,750 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2020-10-26 13:02:09,751 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Generated files were closed successfully!
+2683,788 ms/op
+                 ·gc.alloc.rate:                   322,254 MB/sec
+                 ·gc.alloc.rate.norm:              1077957192,000 B/op
+                 ·gc.churn.PS_Eden_Space:          316,448 MB/sec
+                 ·gc.churn.PS_Eden_Space.norm:     1058537472,000 B/op
+                 ·gc.churn.PS_Survivor_Space:      0,069 MB/sec
+                 ·gc.churn.PS_Survivor_Space.norm: 229376,000 B/op
+                 ·gc.count:                        28,000 counts
+                 ·gc.time:                         22,000 ms
+                 ·rt.safepointSyncTime:            0,033 ms
+                 ·rt.safepointTime:                2,838 ms
+                 ·rt.safepoints:                   124,000 counts
+                 ·rt.sync.contendedLockAttempts:   79,000 locks
+                 ·rt.sync.fatMonitors:             128,000 monitors
+                 ·rt.sync.futileWakeups:           2,000 counts
+                 ·rt.sync.monitorDeflations:       67,000 monitors
+                 ·rt.sync.monitorInflations:       69,000 monitors
+                 ·rt.sync.notifications:           22,000 counts
+                 ·rt.sync.parks:                   28,000 counts
+                 ·threads.alive:                   6,000 threads
+                 ·threads.daemon:                  5,000 threads
+                 ·threads.started:                 18,000 threads
+
+# Processing profiler results: SafepointsProfiler
+
+
+Result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks":
+  N = 5
+  mean =   2697,173 ±(99.9%) 373,844 ms/op
+
+  Histogram, ms/op:
+    [2600,000, 2625,000) = 1
+    [2625,000, 2650,000) = 1
+    [2650,000, 2675,000) = 0
+    [2675,000, 2700,000) = 1
+    [2700,000, 2725,000) = 1
+    [2725,000, 2750,000) = 0
+    [2750,000, 2775,000) = 0
+    [2775,000, 2800,000) = 0
+    [2800,000, 2825,000) = 0
+    [2825,000, 2850,000) = 1
+    [2850,000, 2875,000) = 0
+
+  Percentiles, ms/op:
+      p(0,0000) =   2601,176 ms/op
+     p(50,0000) =   2683,788 ms/op
+     p(90,0000) =   2848,626 ms/op
+     p(95,0000) =   2848,626 ms/op
+     p(99,0000) =   2848,626 ms/op
+     p(99,9000) =   2848,626 ms/op
+     p(99,9900) =   2848,626 ms/op
+     p(99,9990) =   2848,626 ms/op
+     p(99,9999) =   2848,626 ms/op
+    p(100,0000) =   2848,626 ms/op
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.alloc.rate":
+  321,310 ±(99.9%) 37,907 MB/sec [Average]
+  (min, avg, max) = (306,534, 321,310, 332,225), stdev = 9,844
+  CI (99.9%): [283,402, 359,217] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.alloc.rate.norm":
+  1079578366,400 ±(99.9%) 14003389,373 B/op [Average]
+  (min, avg, max) = (1077950288,000, 1079578366,400, 1086083776,000), stdev = 3636635,751
+  CI (99.9%): [1065574977,027, 1093581755,773] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.churn.PS_Eden_Space":
+  312,913 ±(99.9%) 21,594 MB/sec [Average]
+  (min, avg, max) = (304,293, 312,913, 317,952), stdev = 5,608
+  CI (99.9%): [291,318, 334,507] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.churn.PS_Eden_Space.norm":
+  1051826076,800 ±(99.9%) 88527571,476 B/op [Average]
+  (min, avg, max) = (1014494736,000, 1051826076,800, 1070071808,000), stdev = 22990329,181
+  CI (99.9%): [963298505,324, 1140353648,276] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.churn.PS_Survivor_Space":
+  0,057 ±(99.9%) 0,053 MB/sec [Average]
+  (min, avg, max) = (0,039, 0,057, 0,070), stdev = 0,014
+  CI (99.9%): [0,004, 0,110] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.churn.PS_Survivor_Space.norm":
+  190054,400 ±(99.9%) 164515,854 B/op [Average]
+  (min, avg, max) = (131072,000, 190054,400, 229376,000), stdev = 42724,245
+  CI (99.9%): [25538,546, 354570,254] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.count":
+  99,000 ±(99.9%) 0,001 counts [Sum]
+  (min, avg, max) = (10,000, 19,800, 28,000), stdev = 7,887
+  CI (99.9%): [99,000, 99,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.time":
+  88,000 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (12,000, 17,600, 23,000), stdev = 5,320
+  CI (99.9%): [88,000, 88,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.safepointSyncTime":
+  0,033 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,007, 0,018, 0,033), stdev = 0,010
+  CI (99.9%): [0,033, 0,033] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.safepointTime":
+  2,838 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (1,169, 1,984, 2,838), stdev = 0,653
+  CI (99.9%): [2,838, 2,838] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.safepoints":
+  124,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (27,000, 70,600, 124,000), stdev = 39,029
+  CI (99.9%): [124,000, 124,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.contendedLockAttempts":
+  79,000 ±(99.9%) 0,001 locks [Maximum]
+  (min, avg, max) = (79,000, 79,000, 79,000), stdev = 0,001
+  CI (99.9%): [79,000, 79,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.fatMonitors":
+  128,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (128,000, 128,000, 128,000), stdev = 0,001
+  CI (99.9%): [128,000, 128,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.futileWakeups":
+  2,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (2,000, 2,000, 2,000), stdev = 0,001
+  CI (99.9%): [2,000, 2,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.monitorDeflations":
+  67,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (58,000, 62,800, 67,000), stdev = 3,493
+  CI (99.9%): [67,000, 67,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.monitorInflations":
+  69,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (60,000, 64,800, 69,000), stdev = 3,493
+  CI (99.9%): [69,000, 69,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.notifications":
+  22,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (12,000, 17,600, 22,000), stdev = 3,847
+  CI (99.9%): [22,000, 22,000] (assumes normal distribution)
+SLF4J: Class path contains multiple SLF4J bindings.
+
+SLF4J: Found binding in [jar:file:/C:/Users/slabs/.m2/repository/org/slf4j/slf4j-log4j12/1.7.30/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.parks":
+SLF4J: Found binding in [jar:file:/C:/workspace/CyBench-Intellij/build/idea-sandbox/plugins/CyBench-Intellij/lib/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+  28,000 ±(99.9%) 0,001 counts [Maximum]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+  (min, avg, max) = (18,000, 23,600, 28,000), stdev = 3,847
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+  CI (99.9%): [28,000, 28,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.interval":
+  19249,000 ms
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause":
+  233,893 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,085, 2,107, 48,103), stdev = 5,071
+  CI (99.9%): [233,893, 233,893] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp":
+  2,981 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,015, 0,027, 0,084), stdev = 0,013
+  CI (99.9%): [2,981, 2,981] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·threads.alive":
+  6,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (6,000, 6,000, 6,000), stdev = 0,001
+  CI (99.9%): [6,000, 6,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·threads.daemon":
+  5,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (5,000, 5,000, 5,000), stdev = 0,001
+  CI (99.9%): [5,000, 5,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·threads.started":
+  18,000 ±(99.9%) 0,001 threads [Maximum]
+  (min, avg, max) = (10,000, 14,000, 18,000), stdev = 3,162
+  CI (99.9%): [18,000, 18,000] (assumes normal distribution)
+
+
+# JMH version: 1.26
+# VM version: JDK 1.8.0_102, Java HotSpot(TM) 64-Bit Server VM, 25.102-b14
+# VM invoker: C:\Program Files\Java\jdk1.8.0_102\jre\bin\java.exe
+# VM options: -DbenchmarkClasses=com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 5 s each
+# Measurement: 5 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks
+
+# Run progress: 66,67% complete, ETA 00:01:03
+# Fork: 1 of 1
+# Preparing profilers: SafepointsProfiler
+# Profilers consume stdout from target VM, use -v EXTRA to copy to console
+# Warmup Iteration   1: 2020-10-26 13:02:14,419 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Will generate binary file for tests...
+2020-10-26 13:02:14,421 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOUtils] - Data file for tests exists, a new one will not be created
+2020-10-26 13:02:14,425 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Generated file binary.bin for processing, size(B):1073741824
+2020-10-26 13:02:14,427 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Will generate an array of random numbers for file positions
+2020-10-26 13:02:14,513 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Generated all prerequisites!
+2020-10-26 13:02:14,514 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:15,257 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+742,130 ms/op
+Iteration   1: 2020-10-26 13:02:16,441 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:17,253 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+811,392 ms/op
+                 ·gc.alloc.rate:                 0,015 MB/sec
+                 ·gc.alloc.rate.norm:            21040,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,003 ms
+                 ·rt.safepointTime:              0,649 ms
+                 ·rt.safepoints:                 10,000 counts
+                 ·rt.sync.contendedLockAttempts: 47,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         ≈ 0 counts
+                 ·rt.sync.monitorDeflations:     53,000 monitors
+                 ·rt.sync.monitorInflations:     55,000 monitors
+                 ·rt.sync.notifications:         10,000 counts
+                 ·rt.sync.parks:                 11,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               10,000 threads
+
+Iteration   2: 2020-10-26 13:02:18,414 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:19,111 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+695,789 ms/op
+                 ·gc.alloc.rate:                 0,017 MB/sec
+                 ·gc.alloc.rate.norm:            21040,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,020 ms
+                 ·rt.safepointTime:              0,893 ms
+                 ·rt.safepoints:                 14,000 counts
+                 ·rt.sync.contendedLockAttempts: 47,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         ≈ 0 counts
+                 ·rt.sync.monitorDeflations:     56,000 monitors
+                 ·rt.sync.monitorInflations:     58,000 monitors
+                 ·rt.sync.notifications:         14,000 counts
+                 ·rt.sync.parks:                 15,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               12,000 threads
+
+Iteration   3: 2020-10-26 13:02:20,267 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:20,964 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+695,163 ms/op
+                 ·gc.alloc.rate:                 0,013 MB/sec
+                 ·gc.alloc.rate.norm:            16144,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,037 ms
+                 ·rt.safepointTime:              1,073 ms
+                 ·rt.safepoints:                 17,000 counts
+                 ·rt.sync.contendedLockAttempts: 47,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         ≈ 0 counts
+                 ·rt.sync.monitorDeflations:     58,000 monitors
+                 ·rt.sync.monitorInflations:     60,000 monitors
+                 ·rt.sync.notifications:         16,000 counts
+                 ·rt.sync.parks:                 17,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               14,000 threads
+
+Iteration   4: 2020-10-26 13:02:22,116 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:22,810 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+686,103 ms/op
+                 ·gc.alloc.rate:                 0,013 MB/sec
+                 ·gc.alloc.rate.norm:            16144,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,058 ms
+                 ·rt.safepointTime:              1,292 ms
+                 ·rt.safepoints:                 20,000 counts
+                 ·rt.sync.contendedLockAttempts: 47,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         ≈ 0 counts
+                 ·rt.sync.monitorDeflations:     60,000 monitors
+                 ·rt.sync.monitorInflations:     62,000 monitors
+                 ·rt.sync.notifications:         18,000 counts
+                 ·rt.sync.parks:                 19,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               16,000 threads
+
+Iteration   5: 2020-10-26 13:02:23,947 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:24,654 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2020-10-26 13:02:24,745 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Generated files were closed successfully!
+706,757 ms/op
+                 ·gc.alloc.rate:                 0,020 MB/sec
+                 ·gc.alloc.rate.norm:            26624,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,059 ms
+                 ·rt.safepointTime:              1,417 ms
+                 ·rt.safepoints:                 22,000 counts
+                 ·rt.sync.contendedLockAttempts: 47,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         ≈ 0 counts
+                 ·rt.sync.monitorDeflations:     62,000 monitors
+                 ·rt.sync.monitorInflations:     64,000 monitors
+                 ·rt.sync.notifications:         20,000 counts
+                 ·rt.sync.parks:                 21,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               18,000 threads
+
+# Processing profiler results: SafepointsProfiler
+
+
+Result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks":
+  N = 5
+  mean =    719,041 ±(99.9%) 200,782 ms/op
+
+  Histogram, ms/op:
+    [600,000, 625,000) = 0
+    [625,000, 650,000) = 0
+    [650,000, 675,000) = 0
+    [675,000, 700,000) = 3
+    [700,000, 725,000) = 1
+    [725,000, 750,000) = 0
+    [750,000, 775,000) = 0
+    [775,000, 800,000) = 0
+    [800,000, 825,000) = 1
+    [825,000, 850,000) = 0
+    [850,000, 875,000) = 0
+
+  Percentiles, ms/op:
+      p(0,0000) =    686,103 ms/op
+     p(50,0000) =    695,789 ms/op
+     p(90,0000) =    811,392 ms/op
+     p(95,0000) =    811,392 ms/op
+     p(99,0000) =    811,392 ms/op
+     p(99,9000) =    811,392 ms/op
+     p(99,9900) =    811,392 ms/op
+     p(99,9990) =    811,392 ms/op
+     p(99,9999) =    811,392 ms/op
+    p(100,0000) =    811,392 ms/op
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·gc.alloc.rate":
+  0,015 ±(99.9%) 0,011 MB/sec [Average]
+  (min, avg, max) = (0,013, 0,015, 0,020), stdev = 0,003
+SLF4J: Class path contains multiple SLF4J bindings.
+  CI (99.9%): [0,004, 0,026] (assumes normal distribution)
+SLF4J: Found binding in [jar:file:/C:/Users/slabs/.m2/repository/org/slf4j/slf4j-log4j12/1.7.30/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+
+SLF4J: Found binding in [jar:file:/C:/workspace/CyBench-Intellij/build/idea-sandbox/plugins/CyBench-Intellij/lib/slf4j-log4j12-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·gc.alloc.rate.norm":
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+  20198,400 ±(99.9%) 16738,262 B/op [Average]
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+  (min, avg, max) = (16144,000, 20198,400, 26624,000), stdev = 4346,873
+  CI (99.9%): [3460,138, 36936,662] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·gc.count":
+  ≈ 0 counts
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.safepointSyncTime":
+  0,059 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,003, 0,035, 0,059), stdev = 0,024
+  CI (99.9%): [0,059, 0,059] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.safepointTime":
+  1,417 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,649, 1,065, 1,417), stdev = 0,307
+  CI (99.9%): [1,417, 1,417] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.safepoints":
+  22,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (10,000, 16,600, 22,000), stdev = 4,775
+  CI (99.9%): [22,000, 22,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.contendedLockAttempts":
+  47,000 ±(99.9%) 0,001 locks [Maximum]
+  (min, avg, max) = (47,000, 47,000, 47,000), stdev = 0,001
+  CI (99.9%): [47,000, 47,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.fatMonitors":
+  128,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (128,000, 128,000, 128,000), stdev = 0,001
+  CI (99.9%): [128,000, 128,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.futileWakeups":
+  ≈ 0 counts
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.monitorDeflations":
+  62,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (53,000, 57,800, 62,000), stdev = 3,493
+  CI (99.9%): [62,000, 62,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.monitorInflations":
+  64,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (55,000, 59,800, 64,000), stdev = 3,493
+  CI (99.9%): [64,000, 64,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.notifications":
+  20,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (10,000, 15,600, 20,000), stdev = 3,847
+  CI (99.9%): [20,000, 20,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.parks":
+  21,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (11,000, 16,600, 21,000), stdev = 3,847
+  CI (99.9%): [21,000, 21,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.interval":
+  9461,000 ms
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause":
+  85,771 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,127, 6,126, 14,926), stdev = 4,524
+  CI (99.9%): [85,771, 85,771] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp":
+  5,637 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,017, 0,403, 1,903), stdev = 0,688
+  CI (99.9%): [5,637, 5,637] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·threads.alive":
+  6,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (6,000, 6,000, 6,000), stdev = 0,001
+  CI (99.9%): [6,000, 6,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·threads.daemon":
+  5,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (5,000, 5,000, 5,000), stdev = 0,001
+  CI (99.9%): [5,000, 5,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·threads.started":
+  18,000 ±(99.9%) 0,001 threads [Maximum]
+  (min, avg, max) = (10,000, 14,000, 18,000), stdev = 3,162
+  CI (99.9%): [18,000, 18,000] (assumes normal distribution)
+
+
+# JMH version: 1.26
+# VM version: JDK 1.8.0_102, Java HotSpot(TM) 64-Bit Server VM, 25.102-b14
+# VM invoker: C:\Program Files\Java\jdk1.8.0_102\jre\bin\java.exe
+# VM options: -DbenchmarkClasses=com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks -Dfile.encoding=UTF-8
+# Warmup: 1 iterations, 5 s each
+# Measurement: 5 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks
+
+# Run progress: 83,33% complete, ETA 00:00:28
+# Fork: 1 of 1
+# Preparing profilers: SafepointsProfiler
+# Profilers consume stdout from target VM, use -v EXTRA to copy to console
+# Warmup Iteration   1: 2020-10-26 13:02:26,942 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Will generate binary file for tests...
+2020-10-26 13:02:26,947 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOUtils] - Data file for tests exists, a new one will not be created
+2020-10-26 13:02:26,949 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+-->Generated file binary.bin for processing, size(B):1073741824
+2020-10-26 13:02:26,950 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Will generate an array of random numbers for file positions
+2020-10-26 13:02:27,042 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] - Generated all prerequisites!
+2020-10-26 13:02:27,042 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:30,659 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+3615,050 ms/op
+Iteration   1: 2020-10-26 13:02:31,850 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:35,497 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+3646,169 ms/op
+                 ·gc.alloc.rate:                 0,003 MB/sec
+                 ·gc.alloc.rate.norm:            14224,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,004 ms
+                 ·rt.safepointTime:              0,726 ms
+                 ·rt.safepoints:                 13,000 counts
+                 ·rt.sync.contendedLockAttempts: 57,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         3,000 counts
+                 ·rt.sync.monitorDeflations:     54,000 monitors
+                 ·rt.sync.monitorInflations:     56,000 monitors
+                 ·rt.sync.notifications:         10,000 counts
+                 ·rt.sync.parks:                 19,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               10,000 threads
+
+Iteration   2: 2020-10-26 13:02:36,652 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:40,079 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+3426,880 ms/op
+                 ·gc.alloc.rate:                 0,003 MB/sec
+                 ·gc.alloc.rate.norm:            14224,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,006 ms
+                 ·rt.safepointTime:              0,976 ms
+                 ·rt.safepoints:                 16,000 counts
+                 ·rt.sync.contendedLockAttempts: 57,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         3,000 counts
+                 ·rt.sync.monitorDeflations:     57,000 monitors
+                 ·rt.sync.monitorInflations:     59,000 monitors
+                 ·rt.sync.notifications:         14,000 counts
+                 ·rt.sync.parks:                 23,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               12,000 threads
+
+Iteration   3: 2020-10-26 13:02:41,221 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:44,680 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+3457,483 ms/op
+                 ·gc.alloc.rate:                 0,003 MB/sec
+                 ·gc.alloc.rate.norm:            14224,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,007 ms
+                 ·rt.safepointTime:              1,133 ms
+                 ·rt.safepoints:                 18,000 counts
+                 ·rt.sync.contendedLockAttempts: 57,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         3,000 counts
+                 ·rt.sync.monitorDeflations:     59,000 monitors
+                 ·rt.sync.monitorInflations:     61,000 monitors
+                 ·rt.sync.notifications:         16,000 counts
+                 ·rt.sync.parks:                 25,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               14,000 threads
+
+Iteration   4: 2020-10-26 13:02:45,827 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:49,350 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+3515,990 ms/op
+                 ·gc.alloc.rate:                 0,003 MB/sec
+                 ·gc.alloc.rate.norm:            14224,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,008 ms
+                 ·rt.safepointTime:              1,253 ms
+                 ·rt.safepoints:                 21,000 counts
+                 ·rt.sync.contendedLockAttempts: 57,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         3,000 counts
+                 ·rt.sync.monitorDeflations:     61,000 monitors
+                 ·rt.sync.monitorInflations:     63,000 monitors
+                 ·rt.sync.notifications:         18,000 counts
+                 ·rt.sync.parks:                 27,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               16,000 threads
+
+Iteration   5: 2020-10-26 13:02:50,495 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+ Will setup for iteration...
+2020-10-26 13:02:54,027 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Iteration clean up successful!
+2020-10-26 13:02:54,057 INFO  [com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks-jmh-worker-1!IOAsyncFileSeekBenchmarks] -
+==>Generated files were closed successfully!
+3529,766 ms/op
+                 ·gc.alloc.rate:                 0,005 MB/sec
+                 ·gc.alloc.rate.norm:            21176,000 B/op
+                 ·gc.count:                      ≈ 0 counts
+                 ·rt.safepointSyncTime:          0,008 ms
+                 ·rt.safepointTime:              1,380 ms
+                 ·rt.safepoints:                 23,000 counts
+                 ·rt.sync.contendedLockAttempts: 57,000 locks
+                 ·rt.sync.fatMonitors:           128,000 monitors
+                 ·rt.sync.futileWakeups:         3,000 counts
+                 ·rt.sync.monitorDeflations:     63,000 monitors
+                 ·rt.sync.monitorInflations:     65,000 monitors
+                 ·rt.sync.notifications:         20,000 counts
+                 ·rt.sync.parks:                 29,000 counts
+                 ·threads.alive:                 6,000 threads
+                 ·threads.daemon:                5,000 threads
+                 ·threads.started:               18,000 threads
+
+# Processing profiler results: SafepointsProfiler
+
+
+Result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks":
+  N = 5
+  mean =   3515,257 ±(99.9%) 325,018 ms/op
+
+  Histogram, ms/op:
+    [3400,000, 3425,000) = 0
+    [3425,000, 3450,000) = 1
+    [3450,000, 3475,000) = 1
+    [3475,000, 3500,000) = 0
+    [3500,000, 3525,000) = 1
+    [3525,000, 3550,000) = 1
+    [3550,000, 3575,000) = 0
+    [3575,000, 3600,000) = 0
+    [3600,000, 3625,000) = 0
+    [3625,000, 3650,000) = 1
+    [3650,000, 3675,000) = 0
+
+  Percentiles, ms/op:
+      p(0,0000) =   3426,880 ms/op
+     p(50,0000) =   3515,990 ms/op
+     p(90,0000) =   3646,169 ms/op
+     p(95,0000) =   3646,169 ms/op
+     p(99,0000) =   3646,169 ms/op
+     p(99,9000) =   3646,169 ms/op
+     p(99,9900) =   3646,169 ms/op
+     p(99,9990) =   3646,169 ms/op
+     p(99,9999) =   3646,169 ms/op
+    p(100,0000) =   3646,169 ms/op
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·gc.alloc.rate":
+  0,004 ±(99.9%) 0,003 MB/sec [Average]
+  (min, avg, max) = (0,003, 0,004, 0,005), stdev = 0,001
+  CI (99.9%): [0,001, 0,006] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·gc.alloc.rate.norm":
+  15614,400 ±(99.9%) 11971,763 B/op [Average]
+  (min, avg, max) = (14224,000, 15614,400, 21176,000), stdev = 3109,029
+  CI (99.9%): [3642,637, 27586,163] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·gc.count":
+  ≈ 0 counts
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.safepointSyncTime":
+  0,008 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,004, 0,007, 0,008), stdev = 0,002
+  CI (99.9%): [0,008, 0,008] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.safepointTime":
+  1,380 ±(99.9%) 0,001 ms [Maximum]
+  (min, avg, max) = (0,726, 1,094, 1,380), stdev = 0,254
+  CI (99.9%): [1,380, 1,380] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.safepoints":
+  23,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (13,000, 18,200, 23,000), stdev = 3,962
+  CI (99.9%): [23,000, 23,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.contendedLockAttempts":
+  57,000 ±(99.9%) 0,001 locks [Maximum]
+  (min, avg, max) = (57,000, 57,000, 57,000), stdev = 0,001
+  CI (99.9%): [57,000, 57,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.fatMonitors":
+  128,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (128,000, 128,000, 128,000), stdev = 0,001
+  CI (99.9%): [128,000, 128,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.futileWakeups":
+  3,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (3,000, 3,000, 3,000), stdev = 0,001
+  CI (99.9%): [3,000, 3,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.monitorDeflations":
+  63,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (54,000, 58,800, 63,000), stdev = 3,493
+  CI (99.9%): [63,000, 63,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.monitorInflations":
+  65,000 ±(99.9%) 0,001 monitors [Maximum]
+  (min, avg, max) = (56,000, 60,800, 65,000), stdev = 3,493
+  CI (99.9%): [65,000, 65,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.notifications":
+  20,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (10,000, 15,600, 20,000), stdev = 3,847
+  CI (99.9%): [20,000, 20,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.parks":
+  29,000 ±(99.9%) 0,001 counts [Maximum]
+  (min, avg, max) = (19,000, 24,600, 29,000), stdev = 3,847
+  CI (99.9%): [29,000, 29,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.interval":
+  23387,000 ms
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause":
+  115,678 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,068, 7,712, 40,501), stdev = 10,236
+  CI (99.9%): [115,678, 115,678] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp":
+  0,548 ±(99.9%) 0,001 ms [Sum]
+  (min, avg, max) = (0,018, 0,037, 0,127), stdev = 0,027
+  CI (99.9%): [0,548, 0,548] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·threads.alive":
+  6,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (6,000, 6,000, 6,000), stdev = 0,001
+  CI (99.9%): [6,000, 6,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·threads.daemon":
+  5,000 ±(99.9%) 0,001 threads [Average]
+  (min, avg, max) = (5,000, 5,000, 5,000), stdev = 0,001
+  CI (99.9%): [5,000, 5,000] (assumes normal distribution)
+
+Secondary result "com.gocypher.cybench.jmh.jvm.client.tests.IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·threads.started":
+  18,000 ±(99.9%) 0,001 threads [Maximum]
+  (min, avg, max) = (10,000, 14,000, 18,000), stdev = 3,162
+  CI (99.9%): [18,000, 18,000] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:02:51
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                                                                                   Mode  Cnt           Score           Error     Units
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks                                      ss    5        2169,507 ±       666,522     ms/op
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·gc.alloc.rate                       ss    5         310,540 ±        86,950    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·gc.alloc.rate.norm                  ss    5  1090537108,800 ±     15350,266      B/op
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·gc.count                            ss    5             ≈ 0                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.safepointSyncTime                ss    5           0,093                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.safepointTime                    ss    5           2,973                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.safepoints                       ss    5          96,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.contendedLockAttempts       ss    5          93,000                     locks
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.fatMonitors                 ss    5         128,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.futileWakeups               ss    5           4,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.monitorDeflations           ss    5          68,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.monitorInflations           ss    5          70,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.notifications               ss    5          22,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·rt.sync.parks                       ss    5          32,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.interval                 ss            20102,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause                    ss   16         191,718                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.avg                ss               11,982                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.count              ss               16,000                         #
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.p0.00              ss                0,087                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.p0.50              ss                6,369                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.p0.90              ss               38,948                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.p0.95              ss               60,097                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.p0.99              ss               60,097                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.p0.999             ss               60,097                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.p0.9999            ss               60,097                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.pause.p1.00              ss               60,097                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp                     ss   16           4,746                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.avg                 ss                0,297                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.count               ss               16,000                         #
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.p0.00               ss                0,016                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.p0.50               ss                0,052                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.p0.90               ss                1,510                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.p0.95               ss                3,297                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.p0.99               ss                3,297                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.p0.999              ss                3,297                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.p0.9999             ss                3,297                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·safepoints.ttsp.p1.00               ss                3,297                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·threads.alive                       ss    5           6,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·threads.daemon                      ss    5           5,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingHugeChunks:·threads.started                     ss    5          18,000                   threads
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks                                     ss    5        5263,382 ±       589,857     ms/op
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.alloc.rate                      ss    5         164,442 ±        21,959    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.alloc.rate.norm                 ss    5  1078893460,800 ±   8070743,520      B/op
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.churn.PS_Eden_Space             ss    5         161,224 ±        21,165    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.churn.PS_Eden_Space.norm        ss    5  1057803468,800 ±  15741824,571      B/op
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.churn.PS_Survivor_Space         ss    5           0,027 ±         0,080    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.churn.PS_Survivor_Space.norm    ss    5      176947,200 ±    554321,790      B/op
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.count                           ss    5         155,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·gc.time                            ss    5         127,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.safepointSyncTime               ss    5           0,050                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.safepointTime                   ss    5           3,358                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.safepoints                      ss    5         193,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.contendedLockAttempts      ss    5          68,000                     locks
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.fatMonitors                ss    5         128,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.futileWakeups              ss    5           5,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.monitorDeflations          ss    5          66,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.monitorInflations          ss    5          68,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.notifications              ss    5          22,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·rt.sync.parks                      ss    5          29,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.interval                ss            34528,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause                   ss  167         242,836                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.avg               ss                1,454                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.count             ss              167,000                         #
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.p0.00             ss                0,060                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.p0.50             ss                0,985                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.p0.90             ss                1,318                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.p0.95             ss                4,706                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.p0.99             ss               17,861                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.p0.999            ss               34,996                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.p0.9999           ss               34,996                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.pause.p1.00             ss               34,996                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp                    ss  167           4,220                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.avg                ss                0,025                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.count              ss              167,000                         #
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.p0.00              ss                0,015                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.p0.50              ss                0,017                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.p0.90              ss                0,046                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.p0.95              ss                0,050                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.p0.99              ss                0,117                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.p0.999             ss                0,183                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.p0.9999            ss                0,183                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·safepoints.ttsp.p1.00              ss                0,183                        ms
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·threads.alive                      ss    5           6,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·threads.daemon                     ss    5           5,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndCopyFileUsingSmallChunks:·threads.started                    ss    5          18,000                   threads
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks                                      ss    5         677,719 ±       405,534     ms/op
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.alloc.rate                       ss    5         865,892 ±       266,183    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.alloc.rate.norm                  ss    5  1073764129,600 ±      1485,434      B/op
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.churn.PS_Eden_Space              ss    5         809,247 ±       164,179    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.churn.PS_Eden_Space.norm         ss    5  1006667998,400 ± 241702057,895      B/op
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.churn.PS_Survivor_Space          ss    5           0,010 ±         0,088    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.churn.PS_Survivor_Space.norm     ss    5       13107,200 ±    112856,945      B/op
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.count                            ss    5           6,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·gc.time                             ss    5           6,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.safepointSyncTime                ss    5           0,011                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.safepointTime                    ss    5           1,605                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.safepoints                       ss    5          32,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.contendedLockAttempts       ss    5          61,000                     locks
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.fatMonitors                 ss    5         128,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.futileWakeups               ss    5           4,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.monitorDeflations           ss    5          63,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.monitorInflations           ss    5          65,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.notifications               ss    5          22,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·rt.sync.parks                       ss    5          31,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.interval                 ss             9161,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause                    ss   19          93,219                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.avg                ss                4,906                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.count              ss               19,000                         #
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.p0.00              ss                0,097                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.p0.50              ss                2,261                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.p0.90              ss               12,190                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.p0.95              ss               15,712                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.p0.99              ss               15,712                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.p0.999             ss               15,712                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.p0.9999            ss               15,712                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.pause.p1.00              ss               15,712                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp                     ss   19           0,800                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.avg                 ss                0,042                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.count               ss               19,000                         #
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.p0.00               ss                0,015                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.p0.50               ss                0,039                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.p0.90               ss                0,076                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.p0.95               ss                0,081                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.p0.99               ss                0,081                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.p0.999              ss                0,081                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.p0.9999             ss                0,081                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·safepoints.ttsp.p1.00               ss                0,081                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·threads.alive                       ss    5           6,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·threads.daemon                      ss    5           5,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingHugeChunks:·threads.started                     ss    5          18,000                   threads
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks                                     ss    5        2697,173 ±       373,844     ms/op
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.alloc.rate                      ss    5         321,310 ±        37,907    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.alloc.rate.norm                 ss    5  1079578366,400 ±  14003389,373      B/op
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.churn.PS_Eden_Space             ss    5         312,913 ±        21,594    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.churn.PS_Eden_Space.norm        ss    5  1051826076,800 ±  88527571,476      B/op
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.churn.PS_Survivor_Space         ss    5           0,057 ±         0,053    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.churn.PS_Survivor_Space.norm    ss    5      190054,400 ±    164515,854      B/op
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.count                           ss    5          99,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·gc.time                            ss    5          88,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.safepointSyncTime               ss    5           0,033                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.safepointTime                   ss    5           2,838                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.safepoints                      ss    5         124,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.contendedLockAttempts      ss    5          79,000                     locks
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.fatMonitors                ss    5         128,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.futileWakeups              ss    5           2,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.monitorDeflations          ss    5          67,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.monitorInflations          ss    5          69,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.notifications              ss    5          22,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·rt.sync.parks                      ss    5          28,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.interval                ss            19249,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause                   ss  111         233,893                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.avg               ss                2,107                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.count             ss              111,000                         #
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.p0.00             ss                0,085                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.p0.50             ss                1,026                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.p0.90             ss                1,747                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.p0.95             ss                7,271                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.p0.99             ss               44,631                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.p0.999            ss               48,103                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.p0.9999           ss               48,103                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.pause.p1.00             ss               48,103                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp                    ss  111           2,981                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.avg                ss                0,027                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.count              ss              111,000                         #
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.p0.00              ss                0,015                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.p0.50              ss                0,028                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.p0.90              ss                0,044                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.p0.95              ss                0,053                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.p0.99              ss                0,081                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.p0.999             ss                0,084                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.p0.9999            ss                0,084                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·safepoints.ttsp.p1.00              ss                0,084                        ms
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·threads.alive                      ss    5           6,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·threads.daemon                     ss    5           5,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndReadFileUsingSmallChunks:·threads.started                    ss    5          18,000                   threads
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks                                     ss    5         719,041 ±       200,782     ms/op
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·gc.alloc.rate                      ss    5           0,015 ±         0,011    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·gc.alloc.rate.norm                 ss    5       20198,400 ±     16738,262      B/op
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·gc.count                           ss    5             ≈ 0                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.safepointSyncTime               ss    5           0,059                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.safepointTime                   ss    5           1,417                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.safepoints                      ss    5          22,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.contendedLockAttempts      ss    5          47,000                     locks
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.fatMonitors                ss    5         128,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.futileWakeups              ss    5             ≈ 0                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.monitorDeflations          ss    5          62,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.monitorInflations          ss    5          64,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.notifications              ss    5          20,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·rt.sync.parks                      ss    5          21,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.interval                ss             9461,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause                   ss   14          85,771                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.avg               ss                6,126                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.count             ss               14,000                         #
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.p0.00             ss                0,127                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.p0.50             ss                6,431                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.p0.90             ss               13,328                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.p0.95             ss               14,926                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.p0.99             ss               14,926                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.p0.999            ss               14,926                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.p0.9999           ss               14,926                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.pause.p1.00             ss               14,926                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp                    ss   14           5,637                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.avg                ss                0,403                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.count              ss               14,000                         #
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.p0.00              ss                0,017                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.p0.50              ss                0,069                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.p0.90              ss                1,765                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.p0.95              ss                1,903                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.p0.99              ss                1,903                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.p0.999             ss                1,903                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.p0.9999            ss                1,903                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·safepoints.ttsp.p1.00              ss                1,903                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·threads.alive                      ss    5           6,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·threads.daemon                     ss    5           5,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingHugeChunks:·threads.started                    ss    5          18,000                   threads
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks                                    ss    5        3515,257 ±       325,018     ms/op
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·gc.alloc.rate                     ss    5           0,004 ±         0,003    MB/sec
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·gc.alloc.rate.norm                ss    5       15614,400 ±     11971,763      B/op
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·gc.count                          ss    5             ≈ 0                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.safepointSyncTime              ss    5           0,008                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.safepointTime                  ss    5           1,380                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.safepoints                     ss    5          23,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.contendedLockAttempts     ss    5          57,000                     locks
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.fatMonitors               ss    5         128,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.futileWakeups             ss    5           3,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.monitorDeflations         ss    5          63,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.monitorInflations         ss    5          65,000                  monitors
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.notifications             ss    5          20,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·rt.sync.parks                     ss    5          29,000                    counts
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.interval               ss            23387,000                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause                  ss   15         115,678                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.avg              ss                7,712                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.count            ss               15,000                         #
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.p0.00            ss                0,068                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.p0.50            ss                6,259                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.p0.90            ss               26,139                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.p0.95            ss               40,501                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.p0.99            ss               40,501                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.p0.999           ss               40,501                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.p0.9999          ss               40,501                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.pause.p1.00            ss               40,501                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp                   ss   15           0,548                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.avg               ss                0,037                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.count             ss               15,000                         #
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.p0.00             ss                0,018                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.p0.50             ss                0,030                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.p0.90             ss                0,084                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.p0.95             ss                0,127                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.p0.99             ss                0,127                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.p0.999            ss                0,127                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.p0.9999           ss                0,127                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·safepoints.ttsp.p1.00             ss                0,127                        ms
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·threads.alive                     ss    5           6,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·threads.daemon                    ss    5           5,000 ±         0,001   threads
+IOAsyncFileSeekBenchmarks.seekAndWriteFileUsingSmallChunks:·threads.started                   ss    5          18,000                   threads
+2020-10-26 13:03:09,239 INFO  [main!BenchmarkRunner] - Benchmark finished, executed tests count:6
+2020-10-26 13:03:09,699 INFO  [main!CollectSystemInformation] - Unclassified JVM and GC properties...
+2020-10-26 13:03:09,701 INFO  [main!BenchmarkRunner] - Generating JSON report...
+2020-10-26 13:03:09,701 INFO  [main!ReportingService] - Preparing report: encrypt and sign...
+2020-10-26 13:03:10,433 INFO  [main!ReportingService] - Report prepared: encrypted and signed
+2020-10-26 13:03:10,565 INFO  [main!DeliveryService] - -->Sending benchmark report to URL https://www.gocypher.com/gocypher-benchmarks-reports/services/v1/reports/report
+2020-10-26 13:03:11,514 INFO  [main!DeliveryService] - Benchmark report submitted successfully to reportUrl
+2020-10-26 13:03:11,514 INFO  [main!DeliveryService] - Your report is available at https://www.gocypher.com/cybench/benchmark/5dd6aabb-c5da-4c9a-954b-baba23dffef6
+2020-10-26 13:03:11,515 INFO  [main!DeliveryService] - NOTE: It may take a few minutes for your report to appear online
+2020-10-26 13:03:11,522 INFO  [main!BenchmarkRunner] - Saving test results to '.\reports\report.json'
+2020-10-26 13:03:11,525 INFO  [main!BenchmarkRunner] - Saving ecnrypted test results to '.\reports\report.cyb'
+2020-10-26 13:03:11,527 INFO  [main!BenchmarkRunner] - Removing all temporary auto-generated files....
+2020-10-26 13:03:11,637 INFO  [main!BenchmarkRunner] - Removed all temporary auto-generated files!!!
+2020-10-26 13:03:11,638 INFO  [main!BenchmarkRunner] - -----------------------------------------------------------------------------------------
+2020-10-26 13:03:11,638 INFO  [main!BenchmarkRunner] -                                  Finished CyBench benchmarking (00:03:15.618)
+2020-10-26 13:03:11,638 INFO  [main!BenchmarkRunner] - -----------------------------------------------------------------------------------------
+
+Process finished with exit code 0
