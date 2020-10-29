@@ -3,8 +3,6 @@ package com.gocypher.cybench;
 import com.github.CyBenchMessageHandler;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.openapi.project.Project;
-import groovy.util.GroovyTestCase;
-import org.junit.Test;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -47,19 +45,19 @@ public class CyBechResultTreeConsoleViewTest  {
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                createAndShowGUI(console.getComponent());
             }
         });
     }
 
-    private static void createAndShowGUI() {
+    public static void createAndShowGUI(JComponent component) {
         //Create and set up the window.
         JFrame frame = new JFrame("HelloWorldSwing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add the ubiquitous "Hello World" label.
         JLabel label = new JLabel("Hello World");
-        frame.getContentPane().add(console.getComponent());
+        frame.getContentPane().add(component);
 
         frame.setPreferredSize(new Dimension(600,600));
         //Display the window.

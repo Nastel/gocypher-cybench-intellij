@@ -18,6 +18,7 @@ package com.gocypher.cybench;
 
 import com.github.CyBenchMessageHandler;
 import com.github.ResultFileParser;
+import com.intellij.execution.filters.Filter;
 import com.intellij.execution.filters.HyperlinkInfo;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.process.ProcessHandler;
@@ -27,8 +28,11 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.components.JBScrollPane;
+import com.intellij.ui.components.JBTabbedPane;
+import com.intellij.ui.treeStructure.Tree;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -65,7 +69,7 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
     ConsoleViewImpl consoleView;
     private JPanel rootPanel;
     private HashMap<String, JScrollPane> testResultTabs = new HashMap<>();
-    private JTree tree;
+    private Tree tree;
     private JTabbedPane tabs;
     private boolean testsFinished;
 
@@ -87,8 +91,10 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
     public void initialize() {
 
         consoleView = new ConsoleViewImpl(project, /*viewer=*/true);
-        consoleViewPanel.add(consoleView.getComponent(), BorderLayout.CENTER);
+        tabs.remove(0);
+        tabs.add("console", consoleView.getComponent());
         tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("CyBenchBenchmark")));
+        tree.putClientProperty(AnimatedIcon.ANIMATION_IN_RENDERER_ALLOWED, true);
         Disposer.register(project, consoleView);
     }
 
@@ -204,7 +210,7 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
     }
 
     @Override
-    public void addMessageFilter(com.intellij.execution.filters.Filter filter) {
+    public void addMessageFilter(Filter filter) {
         consoleView.addMessageFilter(filter);
     }
 
@@ -251,13 +257,19 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
+        createUIComponents();
         rootPanel = new JPanel();
-        rootPanel.setLayout(new BorderLayout());
-
-
+        rootPanel.setLayout(new BorderLayout(0, 0));
         consoleViewPanel = new JPanel();
         consoleViewPanel.setLayout(new BorderLayout(0, 0));
-        tabs.add("console", consoleViewPanel);
+        rootPanel.add(consoleViewPanel, BorderLayout.CENTER);
+        tree = new Tree();
+        consoleViewPanel.add(tree, BorderLayout.WEST);
+        tabs.setTabPlacement(1);
+        consoleViewPanel.add(tabs, BorderLayout.CENTER);
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new BorderLayout(0, 0));
+        tabs.addTab("Untitled", panel1);
     }
 
     /**
@@ -293,12 +305,14 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
                 GridBagConstraints cc = new GridBagConstraints();
                 cc.gridy = index;
 
-                JLabel testResKey = new JLabel(key);
-                JLabel testResValue = new JLabel(value);
+                JLabel testResKey = new JLabel(key, SwingConstants.LEFT);
+                JLabel testResValue = new JLabel(value, SwingConstants.RIGHT);
                 JPanel testResultPanel = currentTestPanel[0];
                 cc.gridx = 0;
+                cc.anchor = GridBagConstraints.WEST;
                 testResultPanel.add(testResKey, cc);
                 cc.gridx = 1;
+                cc.anchor = GridBagConstraints.EAST;
                 testResultPanel.add(testResValue, cc);
 
             }
@@ -314,6 +328,11 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
             e.printStackTrace();
         }
 
+
+    }
+
+    private void createUIComponents() {
+        tabs = new JBTabbedPane();
 
     }
 

@@ -12,11 +12,11 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="b58ee" class="javax.swing.JTree" binding="tree" default-binding="true">
+          <component id="b58ee" class="com.intellij.ui.treeStructure.Tree" binding="tree" default-binding="true">
             <constraints border-constraint="West"/>
             <properties/>
           </component>
-          <tabbedpane id="59db1" binding="tabs">
+          <tabbedpane id="59db1" binding="tabs" custom-create="true">
             <constraints border-constraint="Center"/>
             <properties>
               <tabPlacement value="1"/>
