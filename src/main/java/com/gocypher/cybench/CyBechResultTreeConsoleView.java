@@ -16,8 +16,6 @@
 
 package com.gocypher.cybench;
 
-import com.github.CyBenchMessageHandler;
-import com.github.ResultFileParser;
 import com.intellij.execution.filters.Filter;
 import com.intellij.execution.filters.HyperlinkInfo;
 import com.intellij.execution.impl.ConsoleViewImpl;

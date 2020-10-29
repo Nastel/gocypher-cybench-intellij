@@ -4,7 +4,6 @@ package com.gocypher.cybench;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.PathMacros;
 import com.intellij.openapi.fileChooser.*;
-import com.intellij.openapi.fileChooser.impl.FileChooserFactoryImpl;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -148,7 +147,7 @@ public class CyBenchConfigurableTest {
                 return Collections.emptySet();
             }
         });
-        CyBenchConfigurable c = new CyBenchConfigurable();
+        CyBenchConfigurable c = new CyBenchConfigurable(getProject(), this);
         createAndShowGUI(c.getComponent());
         while
         (true);

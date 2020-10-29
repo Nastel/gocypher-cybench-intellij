@@ -1,4 +1,4 @@
-package com.github;
+package com.gocypher.cybench;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;

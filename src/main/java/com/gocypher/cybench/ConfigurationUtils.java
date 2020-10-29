@@ -1,4 +1,5 @@
-package com.github;
+
+package com.gocypher.cybench;
 
 import com.intellij.execution.Location;
 import com.intellij.execution.actions.ConfigurationContext;
@@ -9,18 +10,13 @@ import com.intellij.psi.PsiMethod;
 
 import java.util.Iterator;
 
-/**
- * User: nikart
- * Date: 16/07/14
- * Time: 00:09
- */
 public class ConfigurationUtils {
 
     public static final String SETUP_ANNOTATION = "org.openjdk.jmh.annotations.Setup";
     public static final String TEAR_DOWN_ANNOTATION = "org.openjdk.jmh.annotations.TearDown";
 
     public static boolean hasBenchmarkAnnotation(PsiMethod method) {
-        return method.getModifierList().findAnnotation(JmhConfiguration.JMH_ANNOTATION_NAME) != null;
+        return method.getModifierList().findAnnotation(CyBenchConfiguration.JMH_ANNOTATION_NAME) != null;
     }
 
     public static boolean hasSetupOrTearDownAnnotation(PsiMethod method) {

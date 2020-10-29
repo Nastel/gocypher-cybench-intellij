@@ -1,6 +1,5 @@
-package com.github;
+package com.gocypher.cybench;
 
-import com.gocypher.cybench.CyBenchConfigurable;
 import com.intellij.diagnostic.logging.LogConfigurationPanel;
 import com.intellij.execution.*;
 import com.intellij.execution.configuration.CompatibilityAwareRunProfile;
@@ -21,16 +20,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JmhConfiguration extends ModuleBasedConfiguration<JavaRunConfigurationModule, Element>
+public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfigurationModule, Element>
         implements CommonJavaRunConfigurationParameters, CompatibilityAwareRunProfile {
 
     public static final String ATTR_VM_PARAMETERS = "vm-parameters";
     public static final String ATTR_PROGRAM_PARAMETERS = "program-parameters";
     public static final String ATTR_WORKING_DIR = "working-dir";
-    public static final String ATTR_BENCHMARK_CLASS = "benchmark-class";
     public static final String JMH_START_CLASS = "com.gocypher.cybench.launcher.BenchmarkRunner";
     public static final String JMH_ANNOTATION_NAME = "org.openjdk.jmh.annotations.Benchmark";
-    public static final String BENCHMARK_CLASSES_KEY = "-DbenchmarkClasses=";
     private String vmParameters;
     private boolean isAlternativeJrePathEnabled = false;
     private String alternativeJrePath;
@@ -38,13 +35,16 @@ public class JmhConfiguration extends ModuleBasedConfiguration<JavaRunConfigurat
     private String workingDirectory;
     private Map<String, String> envs = new HashMap<String, String>();
     private boolean passParentEnvs;
-    private String benchmarkClass;
 
-    public JmhConfiguration(final String name, final Project project, ConfigurationFactory configurationFactory) {
+
+
+    private Map<CyBenchConfigurableParameters, Object> valueStore = new HashMap<>();
+
+    public CyBenchConfiguration(final String name, final Project project, ConfigurationFactory configurationFactory) {
         this(name, new JavaRunConfigurationModule(project, false), configurationFactory);
     }
 
-    public JmhConfiguration(String name, JavaRunConfigurationModule configurationModule, ConfigurationFactory factory) {
+    public CyBenchConfiguration(String name, JavaRunConfigurationModule configurationModule, ConfigurationFactory factory) {
         super(name, configurationModule, factory);
     }
 
@@ -141,10 +141,10 @@ public class JmhConfiguration extends ModuleBasedConfiguration<JavaRunConfigurat
     @NotNull
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-        SettingsEditorGroup<JmhConfiguration> group = new SettingsEditorGroup<JmhConfiguration>();
-        group.addEditor(ExecutionBundle.message("run.configuration.configuration.tab.title"), new CyBenchConfigurable());
+        SettingsEditorGroup<CyBenchConfiguration> group = new SettingsEditorGroup<CyBenchConfiguration>();
+        group.addEditor(ExecutionBundle.message("run.configuration.configuration.tab.title"), new CyBenchConfigurable(getProject(), this));
         JavaRunConfigurationExtensionManager.getInstance().appendEditors(this, group);
-        group.addEditor(ExecutionBundle.message("logs.tab.title"), new LogConfigurationPanel<JmhConfiguration>());
+        group.addEditor(ExecutionBundle.message("logs.tab.title"), new LogConfigurationPanel<CyBenchConfiguration>());
         return group;
     }
 
@@ -167,8 +167,10 @@ public class JmhConfiguration extends ModuleBasedConfiguration<JavaRunConfigurat
             element.setAttribute(ATTR_WORKING_DIR, workingDirectory);
         }
 
-        if (benchmarkClass != null) {
-            element.setAttribute(ATTR_BENCHMARK_CLASS, benchmarkClass);
+        for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
+            if (valueStore.containsKey(parameter) && valueStore.get(parameter) != null) {
+                element.setAttribute(ATTR_WORKING_DIR, String.valueOf(valueStore.get(parameter)));
+            }
         }
         writeModule(element);
     }
@@ -176,12 +178,14 @@ public class JmhConfiguration extends ModuleBasedConfiguration<JavaRunConfigurat
     @Override
     public void readExternal(Element element) throws InvalidDataException {
         super.readExternal(element);
-        if (element.getAttributeValue(ATTR_VM_PARAMETERS) == null || !element.getAttributeValue(ATTR_VM_PARAMETERS).contains(BENCHMARK_CLASSES_KEY)) {
-            setVMParameters(element.getAttributeValue(ATTR_VM_PARAMETERS) + BENCHMARK_CLASSES_KEY + getBenchmarkClass());
-        }
+        setVMParameters(element.getAttributeValue(ATTR_VM_PARAMETERS));
+
         setProgramParameters(element.getAttributeValue(ATTR_PROGRAM_PARAMETERS));
         setWorkingDirectory(element.getAttributeValue(ATTR_WORKING_DIR));
-        setBenchmarkClass(element.getAttributeValue(ATTR_BENCHMARK_CLASS));
+
+        for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
+            valueStore.put(parameter, element.getAttributeValue(parameter.key));
+        }
 
         readModule(element);
     }
@@ -190,12 +194,8 @@ public class JmhConfiguration extends ModuleBasedConfiguration<JavaRunConfigurat
     public boolean mustBeStoppedToRun(@NotNull RunConfiguration runConfiguration) {
         return true;
     }
-
-    public void setBenchmarkClass(String benchmarkClass) {
-        this.benchmarkClass = benchmarkClass;
+    public Map<CyBenchConfigurableParameters, Object> getValueStore() {
+        return valueStore;
     }
 
-    public String getBenchmarkClass() {
-        return benchmarkClass;
-    }
 }

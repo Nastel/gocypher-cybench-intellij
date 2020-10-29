@@ -1,7 +1,6 @@
 package com.gocypher.cybench;
 
 
-import com.github.ConfigurationUtils;
 import com.intellij.execution.lineMarker.ExecutorAction;
 import com.intellij.execution.lineMarker.RunLineMarkerContributor;
 import com.intellij.icons.AllIcons;

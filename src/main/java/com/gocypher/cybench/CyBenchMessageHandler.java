@@ -1,4 +1,4 @@
-package com.github;
+package com.gocypher.cybench;
 
 import com.gocypher.cybench.CyBechResultTreeConsoleView;
 import com.intellij.execution.process.ProcessEvent;

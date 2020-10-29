@@ -1,4 +1,4 @@
-package com.github;
+package com.gocypher.cybench;
 
 import com.intellij.execution.JavaExecutionUtil;
 import com.intellij.execution.Location;
@@ -12,27 +12,26 @@ import com.intellij.util.PathUtil;
 
 import java.util.Iterator;
 
-/**
- * User: nikart
- * Date: 15/07/14
- * Time: 23:30
- */
-public class JmhClassConfigurationProducer extends JmhConfigurationProducer {
+public class ClassConfigurationProducer extends ConfigurationProducer {
 
     @Override
-    protected boolean setupConfigurationFromContext(JmhConfiguration configuration, ConfigurationContext context,
+    protected boolean setupConfigurationFromContext(CyBenchConfiguration configuration, ConfigurationContext context,
                                                     Ref<PsiElement> sourceElement) {
         PsiClass benchmarkClass = getBenchmarkClass(context);
         if (benchmarkClass == null) {
             return false;
         }
-        configuration.setBenchmarkClass(benchmarkClass.getQualifiedName());
+        configuration.getValueStore().put(CyBenchConfigurableParameters.BENCHMARK_CLASS, benchmarkClass.getQualifiedName());
+
+        for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
+            if (parameter.equals(CyBenchConfigurableParameters.BENCHMARK_CLASS)) continue;
+            configuration.getValueStore().put(parameter, parameter.defaultValue);
+        }
 
         sourceElement.set(benchmarkClass);
         setupConfigurationModule(context, configuration);
         final Module originalModule = configuration.getConfigurationModule().getModule();
         configuration.restoreOriginalModule(originalModule);
-        configuration.setVMParameters("-DbenchmarkClasses="+benchmarkClass.getQualifiedName());
 
         configuration.setWorkingDirectory(PathUtil.getLocalPath(context.getProject().getBaseDir()));
         configuration.setName(benchmarkClass.getName());
@@ -41,14 +40,14 @@ public class JmhClassConfigurationProducer extends JmhConfigurationProducer {
     }
 
     @Override
-    public boolean isConfigurationFromContext(JmhConfiguration configuration, ConfigurationContext context) {
+    public boolean isConfigurationFromContext(CyBenchConfiguration configuration, ConfigurationContext context) {
         if (ConfigurationUtils.getAnnotatedMethod(context) != null) {
             return false;
         }
 
         PsiClass benchmarkClass = getBenchmarkClass(context);
         if (benchmarkClass == null || benchmarkClass.getQualifiedName() == null ||
-                !benchmarkClass.getQualifiedName().equals(configuration.getBenchmarkClass())) {
+                !benchmarkClass.getQualifiedName().equals(configuration.getValueStore().get(CyBenchConfigurableParameters.BENCHMARK_CLASS))) {
             return false;
         }
         String nameFromContext = benchmarkClass.getName();

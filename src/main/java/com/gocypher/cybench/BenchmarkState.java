@@ -1,6 +1,5 @@
-package com.github;
+package com.gocypher.cybench;
 
-import com.gocypher.cybench.CyBechResultTreeConsoleView;
 import com.intellij.compiler.CompilerConfiguration;
 import com.intellij.compiler.CompilerConfigurationImpl;
 import com.intellij.execution.ExecutionException;
@@ -36,12 +35,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-/**
- * User: nikart
- * Date: 14/07/14
- * Time: 21:36
- */
+
 public class BenchmarkState extends CommandLineState {
 
     public static final FileFilter PLUGINS_JAR_FILTER = new WildcardFileFilter("*.jar", IOCase.INSENSITIVE) {
@@ -52,10 +48,10 @@ public class BenchmarkState extends CommandLineState {
         }
     };
     private final Project project;
-    private final JmhConfiguration configuration;
+    private final CyBenchConfiguration configuration;
     private CyBechResultTreeConsoleView cyBechResultTreeConsoleView;
 
-    public BenchmarkState(Project project, JmhConfiguration configuration, ExecutionEnvironment environment) {
+    public BenchmarkState(Project project, CyBenchConfiguration configuration, ExecutionEnvironment environment) {
         super(environment);
         this.project = project;
         this.configuration = configuration;
@@ -76,7 +72,7 @@ public class BenchmarkState extends CommandLineState {
         JavaParameters parameters = new JavaParameters();
         JavaParametersUtil.configureConfiguration(parameters, configuration);
 
-        parameters.setMainClass(JmhConfiguration.JMH_START_CLASS);
+        parameters.setMainClass(CyBenchConfiguration.JMH_START_CLASS);
 
         JavaParametersUtil.configureModule(configuration.getConfigurationModule(), parameters, JavaParameters.JDK_AND_CLASSES_AND_TESTS, null);
 
@@ -125,6 +121,11 @@ public class BenchmarkState extends CommandLineState {
         return super.getConsoleBuilder();
     }
 
+    @Override
+    public void setConsoleBuilder(TextConsoleBuilder consoleBuilder) {
+        super.setConsoleBuilder(consoleBuilder);
+    }
+
     @NotNull
     @Override
     public ExecutionResult execute(@NotNull Executor executor, @NotNull ProgramRunner runner) throws ExecutionException {
@@ -137,11 +138,6 @@ public class BenchmarkState extends CommandLineState {
 
         ConsoleView console = cyBechResultTreeConsoleView;
         return console;
-    }
-
-    @Override
-    public void setConsoleBuilder(TextConsoleBuilder consoleBuilder) {
-        super.setConsoleBuilder(consoleBuilder);
     }
 
     @NotNull
@@ -157,7 +153,14 @@ public class BenchmarkState extends CommandLineState {
 
         javaParameters.setUseDynamicClasspath(CommonDataKeys.PROJECT
                 .getData(DataManager.getInstance().getDataContext()));
+        for (Map.Entry<CyBenchConfigurableParameters, Object> confEntry : this.configuration.getValueStore().entrySet()) {
+            javaParameters.getVMParametersList().add("-D" + confEntry.getKey().key + "=" + String.valueOf(confEntry.getValue()));
+
+        }
         GeneralCommandLine fromJavaParameters = javaParameters.toCommandLine();
+
+
+
 
         final NotificationGroup NOTIFICATION_GROUP =
                 new NotificationGroup("Groovy DSL errors", NotificationDisplayType.BALLOON, true);
