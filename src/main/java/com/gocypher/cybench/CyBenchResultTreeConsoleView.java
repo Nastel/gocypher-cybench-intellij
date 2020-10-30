@@ -36,6 +36,7 @@ import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.treeStructure.Tree;
+import com.intellij.util.ui.UIUtil;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -100,7 +101,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         tabs.remove(0);
         tabs.add("console", consoleView.getComponent());
         tree.setModel(new DefaultTreeModel(new CyBenchMessageHandler.BenchmarkRootNode("CyBenchBenchmark")));
-        tree.putClientProperty(AnimatedIcon.ANIMATION_IN_RENDERER_ALLOWED, true);
+        UIUtil.putClientProperty(tree, AnimatedIcon.ANIMATION_IN_RENDERER_ALLOWED, true);
         tree.setCellRenderer(new ColoredTreeCellRenderer() {
             @Override
             public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i, boolean b3) {
