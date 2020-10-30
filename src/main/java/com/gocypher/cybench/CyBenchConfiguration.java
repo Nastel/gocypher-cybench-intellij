@@ -142,7 +142,7 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
         SettingsEditorGroup<CyBenchConfiguration> group = new SettingsEditorGroup<CyBenchConfiguration>();
-        group.addEditor(ExecutionBundle.message("run.configuration.configuration.tab.title"), new CyBenchConfigurable(getProject(), this));
+        group.addEditor(ExecutionBundle.message("run.configuration.configuration.tab.title"), new CyBenchConfigurableEditorView(getProject(), this));
         JavaRunConfigurationExtensionManager.getInstance().appendEditors(this, group);
         group.addEditor(ExecutionBundle.message("logs.tab.title"), new LogConfigurationPanel<CyBenchConfiguration>());
         return group;
@@ -169,7 +169,7 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
 
         for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
             if (valueStore.containsKey(parameter) && valueStore.get(parameter) != null) {
-                element.setAttribute(ATTR_WORKING_DIR, String.valueOf(valueStore.get(parameter)));
+                element.setAttribute(parameter.key, String.valueOf(valueStore.get(parameter)));
             }
         }
         writeModule(element);

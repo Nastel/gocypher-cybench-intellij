@@ -49,7 +49,7 @@ public class BenchmarkState extends CommandLineState {
     };
     private final Project project;
     private final CyBenchConfiguration configuration;
-    private CyBechResultTreeConsoleView cyBechResultTreeConsoleView;
+    private CyBenchResultTreeConsoleView cyBenchResultTreeConsoleView;
 
     public BenchmarkState(Project project, CyBenchConfiguration configuration, ExecutionEnvironment environment) {
         super(environment);
@@ -63,7 +63,7 @@ public class BenchmarkState extends CommandLineState {
             processorConfigProfile.setEnabled(true);
             compilerConfiguration.getState();
         }
-        cyBechResultTreeConsoleView = new CyBechResultTreeConsoleView(project);
+        cyBenchResultTreeConsoleView = new CyBenchResultTreeConsoleView(project);
 
     }
 
@@ -136,7 +136,7 @@ public class BenchmarkState extends CommandLineState {
     @Override
     protected ConsoleView createConsole(@NotNull Executor executor) throws ExecutionException {
 
-        ConsoleView console = cyBechResultTreeConsoleView;
+        ConsoleView console = cyBenchResultTreeConsoleView;
         return console;
     }
 
@@ -144,7 +144,7 @@ public class BenchmarkState extends CommandLineState {
     @Override
     protected ProcessHandler startProcess() throws ExecutionException {
         OSProcessHandler osProcessHandler = JavaCommandLineStateUtil.startProcess(createCommandLine(), false);
-        osProcessHandler.addProcessListener(new CyBenchMessageHandler(cyBechResultTreeConsoleView));
+        osProcessHandler.addProcessListener(new CyBenchMessageHandler(cyBenchResultTreeConsoleView));
         return osProcessHandler;
     }
 

@@ -13,18 +13,19 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
 
-public class CyBenchConfigurable extends SettingsEditor<CyBenchConfiguration> {
+public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfiguration> {
 
     private final CommonJavaParametersPanel commonProgramParameters;
     private JPanel editor = new JPanel();
     private Map<CyBenchConfigurableParameters, JTextField> configurableStore = new HashMap<>();
 
-    public CyBenchConfigurable(Project project, CyBenchConfiguration cyBenchConfiguration) {
+    public CyBenchConfigurableEditorView(Project project, CyBenchConfiguration cyBenchConfiguration) {
         editor.setLayout(new BoxLayout(editor, BoxLayout.X_AXIS));
         commonProgramParameters = new CommonJavaParametersPanel();
 
@@ -35,6 +36,12 @@ public class CyBenchConfigurable extends SettingsEditor<CyBenchConfiguration> {
             configurableStore.put(parameter, jTextField);
             commonProgramParameters.add(LabeledComponent.create(jTextField, parameter.readableName, "West"));
             installValidator(project, jTextField, parameter.validator, parameter.error);
+            jTextField.getDocument().addDocumentListener(new DocumentAdapter() {
+                @Override
+                protected void textChanged(@NotNull DocumentEvent e) {
+                    cyBenchConfiguration.getValueStore().put(parameter,jTextField.getText());
+                }
+            });
         }
 
         editor.add(commonProgramParameters);

@@ -16,17 +16,22 @@
 
 package com.gocypher.cybench;
 
+import com.intellij.execution.configurations.RunProfile;
 import com.intellij.execution.filters.Filter;
 import com.intellij.execution.filters.HyperlinkInfo;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.process.ProcessHandler;
+import com.intellij.execution.testframework.TestConsoleProperties;
+import com.intellij.execution.testframework.sm.runner.ui.TestTreeRenderer;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.ui.ConsoleViewContentType;
+import com.intellij.ide.ui.laf.darcula.ui.DarculaTabbedPaneUI;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.AnimatedIcon;
+import com.intellij.ui.ColoredTreeCellRenderer;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTabbedPane;
@@ -60,7 +65,7 @@ import java.util.regex.Pattern;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
-public class CyBechResultTreeConsoleView implements ConsoleView {
+public class CyBenchResultTreeConsoleView implements ConsoleView {
     private final Project project;
     private final List<ConsoleViewEntry> consoleViewEntries = new LinkedList<ConsoleViewEntry>();
     JPanel consoleViewPanel;
@@ -71,7 +76,7 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
     private JTabbedPane tabs;
     private boolean testsFinished;
 
-    public CyBechResultTreeConsoleView(@NotNull Project project) {
+    public CyBenchResultTreeConsoleView(@NotNull Project project) {
         this.project = project;
         $$$setupUI$$$();
         initialize();
@@ -82,6 +87,9 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
                 if (lastPathComponent instanceof CyBenchMessageHandler.BenchmarkTestNode && testsFinished) {
                     tabs.setSelectedComponent(testResultTabs.get(((CyBenchMessageHandler.BenchmarkTestNode) lastPathComponent).getUserObject()));
                 }
+                if (lastPathComponent instanceof CyBenchMessageHandler.BenchmarkRootNode) {
+                    tabs.setSelectedIndex(0);
+                }
             }
         });
     }
@@ -91,8 +99,17 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
         consoleView = new ConsoleViewImpl(project, /*viewer=*/true);
         tabs.remove(0);
         tabs.add("console", consoleView.getComponent());
-        tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("CyBenchBenchmark")));
+        tree.setModel(new DefaultTreeModel(new CyBenchMessageHandler.BenchmarkRootNode("CyBenchBenchmark")));
         tree.putClientProperty(AnimatedIcon.ANIMATION_IN_RENDERER_ALLOWED, true);
+        tree.setCellRenderer(new ColoredTreeCellRenderer() {
+            @Override
+            public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i, boolean b3) {
+                setIcon(new AnimatedIcon.Default());
+                if (o instanceof DefaultMutableTreeNode) {
+                    append(String.valueOf(((DefaultMutableTreeNode) o).getUserObject()));
+                }
+            }
+        });
         Disposer.register(project, consoleView);
     }
 
@@ -331,6 +348,14 @@ public class CyBechResultTreeConsoleView implements ConsoleView {
 
     private void createUIComponents() {
         tabs = new JBTabbedPane();
+
+        //do not show tab header; navigation enabled with tree
+        tabs.setUI(new DarculaTabbedPaneUI() {
+            @Override
+            protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight) {
+                return 0;
+            }
+        });
 
     }
 

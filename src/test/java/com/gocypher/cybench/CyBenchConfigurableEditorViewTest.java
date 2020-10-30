@@ -22,12 +22,13 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.gocypher.cybench.CyBechResultTreeConsoleViewTest.createAndShowGUI;
+import static org.mockito.Mockito.mock;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({PathMacros.class, FileChooserFactory.class})
 
 @PowerMockIgnore({"sun.*", "javax.*"})
-public class CyBenchConfigurableTest {
+public class CyBenchConfigurableEditorViewTest {
 
     @Test
     public  void main() {
@@ -147,7 +148,7 @@ public class CyBenchConfigurableTest {
                 return Collections.emptySet();
             }
         });
-        CyBenchConfigurable c = new CyBenchConfigurable(getProject(), this);
+        CyBenchConfigurableEditorView c = new CyBenchConfigurableEditorView(mock(Project.class), mock(CyBenchConfiguration.class));
         createAndShowGUI(c.getComponent());
         while
         (true);

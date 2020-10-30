@@ -3,16 +3,29 @@ package com.gocypher.cybench;
 import com.intellij.execution.JavaExecutionUtil;
 import com.intellij.execution.Location;
 import com.intellij.execution.actions.ConfigurationContext;
+import com.intellij.execution.junit.JavaRunConfigurationProducerBase;
+import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.PathUtil;
+import com.intellij.util.containers.ContainerUtil;
 
 import java.util.Iterator;
 
-public class ClassConfigurationProducer extends ConfigurationProducer {
+public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase<CyBenchConfiguration> implements Cloneable {
+
+
+    public ClassConfigurationProducer(com.intellij.execution.configurations.ConfigurationType configurationType) {
+        super(configurationType);
+    }
+
+    public ClassConfigurationProducer() {
+        super(ContainerUtil.findInstance(
+                Extensions.getExtensions(com.intellij.execution.configurations.ConfigurationType.CONFIGURATION_TYPE_EP), ConfigurationType.class));
+    }
 
     @Override
     protected boolean setupConfigurationFromContext(CyBenchConfiguration configuration, ConfigurationContext context,

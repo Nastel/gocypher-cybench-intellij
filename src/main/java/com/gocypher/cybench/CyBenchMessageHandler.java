@@ -1,6 +1,5 @@
 package com.gocypher.cybench;
 
-import com.gocypher.cybench.CyBechResultTreeConsoleView;
 import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessListener;
 import com.intellij.openapi.util.Key;
@@ -13,10 +12,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CyBenchMessageHandler implements ProcessListener {
-    CyBechResultTreeConsoleView tree;
+    CyBenchResultTreeConsoleView tree;
     private DefaultMutableTreeNode currentClass;
 
-    public CyBenchMessageHandler(CyBechResultTreeConsoleView tree) {
+    public CyBenchMessageHandler(CyBenchResultTreeConsoleView tree) {
         this.tree = tree;
     }
 
@@ -115,4 +114,11 @@ public class CyBenchMessageHandler implements ProcessListener {
             super(userObject);
         }
     }
+
+    public static class BenchmarkRootNode extends DefaultMutableTreeNode {
+        public BenchmarkRootNode(Object userObject) {
+            super(userObject);
+        }
+    }
+
 }

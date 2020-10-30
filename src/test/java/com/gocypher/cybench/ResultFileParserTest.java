@@ -1,4 +1,4 @@
-package com.github;
+package com.gocypher.cybench;;
 
 
 import org.codehaus.jettison.json.JSONException;

@@ -1,9 +1,9 @@
-package com.github;
+package com.gocypher.cybench;
 
-import com.gocypher.cybench.CyBechResultTreeConsoleView;
+import com.gocypher.cybench.CyBenchMessageHandler;
+import com.gocypher.cybench.CyBenchResultTreeConsoleView;
 import com.intellij.execution.process.ProcessEvent;
 import com.intellij.openapi.util.Key;
-import groovy.util.GroovyTestCase;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -17,7 +17,7 @@ public class CyBenchMessageHandlerTest  {
     public void testWithSingleTestClass() throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("singleBenchmarkOutput")));
-        CyBenchMessageHandler handler = new CyBenchMessageHandler(mock(CyBechResultTreeConsoleView.class)) {
+        CyBenchMessageHandler handler = new CyBenchMessageHandler(mock(CyBenchResultTreeConsoleView.class)) {
             @Override
             void testClassStarted(String name) {
                 System.out.println("Class " + name);
