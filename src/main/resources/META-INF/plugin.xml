@@ -15,4 +15,11 @@
         <runLineMarkerContributor language="JAVA" implementationClass="com.gocypher.cybench.JmhRunLineMarkerContributor"/>
     </extensions>
 
+
+    <actions>
+        <action id="com.gocypher.cybench.RunAllCyBenchAnAction" class="com.gocypher.cybench.RunAllCyBenchAnAction" text="Run all Benchmarks"
+                description="Run all benchmarks with CyBench runner">
+            <add-to-group group-id="ProjectViewPopupMenuRunGroup" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>

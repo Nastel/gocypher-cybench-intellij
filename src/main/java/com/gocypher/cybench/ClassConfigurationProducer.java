@@ -36,10 +36,7 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
         }
         configuration.getValueStore().put(CyBenchConfigurableParameters.BENCHMARK_CLASS, benchmarkClass.getQualifiedName());
 
-        for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
-            if (parameter.equals(CyBenchConfigurableParameters.BENCHMARK_CLASS)) continue;
-            configuration.getValueStore().put(parameter, parameter.defaultValue);
-        }
+        setupDefaultValues(configuration);
 
         sourceElement.set(benchmarkClass);
         setupConfigurationModule(context, configuration);
@@ -50,6 +47,13 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
         configuration.setName(benchmarkClass.getName());
 
         return true;
+    }
+
+    public static void setupDefaultValues(CyBenchConfiguration configuration) {
+        for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
+            if (parameter.equals(CyBenchConfigurableParameters.BENCHMARK_CLASS)) continue;
+            configuration.getValueStore().put(parameter, parameter.defaultValue);
+        }
     }
 
     @Override

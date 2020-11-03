@@ -10,9 +10,15 @@ public class ConfigurationType extends ConfigurationTypeBase {
 
     public static final String TYPE_ID = "cybench-id";
 
+    public ConfigurationFactory getFactory() {
+        return myFactory;
+    }
+
+    private final ConfigurationFactory myFactory;
+
     public ConfigurationType() {
         super(TYPE_ID, "CyBench benchmark", "", CyBenchIcons.cyBenchSmall);
-        ConfigurationFactory myFactory = new ConfigurationFactory(this) {
+        myFactory = new ConfigurationFactory(this) {
             public RunConfiguration createTemplateConfiguration(Project project) {
 
                 CyBenchConfiguration configuration = new CyBenchConfiguration("cybench-configuration", project, this);
