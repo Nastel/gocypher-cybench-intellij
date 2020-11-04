@@ -6,8 +6,11 @@ import com.intellij.execution.RunnerAndConfigurationSettings;
 import com.intellij.execution.configurations.JavaRunConfigurationModule;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.executors.DefaultRunExecutor;
+import com.intellij.execution.impl.RunDialog;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.project.Project;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
@@ -32,11 +35,16 @@ public class RunAllCyBenchAnAction extends AnAction {
             configuration11.getValueStore().put(CyBenchConfigurableParameters.BENCHMARK_CLASS, "");
             ClassConfigurationProducer.setupDefaultValues(configuration11);
             configuration11.setWorkingDirectory(project.getBasePath());
-            JavaRunConfigurationModule configurationModule = ((CyBenchConfiguration) RunManager.getInstance(project).getConfigurationTemplate(all_project_benchmarks.getFactory()).getConfiguration()).getConfigurationModule();
-            configuration11.setModule((com.intellij.openapi.module.Module) configurationModule);
+            Module[] modules = ModuleManager.getInstance(anActionEvent.getProject()).getModules();
+            configuration11.setModule(modules[0]);
+            boolean edit_configuration = RunDialog.editConfiguration(project, all_project_benchmarks, "Edit configuration");
+            if (edit_configuration) {
+                ProgramRunnerUtil.executeConfiguration(all_project_benchmarks,DefaultRunExecutor.getRunExecutorInstance());
+
+            }
+
         }
 
-        ProgramRunnerUtil.executeConfiguration(all_project_benchmarks,DefaultRunExecutor.getRunExecutorInstance());
 
 
     }
