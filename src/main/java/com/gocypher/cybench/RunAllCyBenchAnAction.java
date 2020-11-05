@@ -35,7 +35,7 @@ public class RunAllCyBenchAnAction extends AnAction {
             configuration11.getValueStore().put(CyBenchConfigurableParameters.BENCHMARK_CLASS, "");
             ClassConfigurationProducer.setupDefaultValues(configuration11);
             configuration11.setWorkingDirectory(project.getBasePath());
-            Module[] modules = ModuleManager.getInstance(anActionEvent.getProject()).getModules();
+            Module[] modules = ModuleManager.getInstance(anActionEvent.getProject()).getModules(); //TODO select module from context
             configuration11.setModule(modules[0]);
             boolean edit_configuration = RunDialog.editConfiguration(project, all_project_benchmarks, "Edit configuration");
             if (edit_configuration) {

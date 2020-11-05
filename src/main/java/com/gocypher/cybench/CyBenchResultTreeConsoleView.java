@@ -297,7 +297,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
 
     public void generateResultTabs() {
         this.testsFinished = true;
-        final JPanel[] currentTestPanel = {null};
+        final ResultJPanel[] currentTestPanel = {null};
 
         ResultFileParser resultFileParser = new ResultFileParser() {
             @Override
@@ -310,20 +310,33 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
 
             @Override
             public void onTest(String name) {
-                JPanel testResultPanel = new JPanel();
-
-                testResultPanel.setLayout(new GridBagLayout());
+                ResultJPanel testResultPanel = new ResultJPanel();
                 currentTestPanel[0] = testResultPanel;
             }
 
             @Override
             public void ontTestResultEntry(String key, String value, int index) {
+                switch (key) {
+                    case "name":
+                        currentTestPanel[0].setName(value);
+                        break;
+                    case "score":
+                        currentTestPanel[0].setScore(value);
+                        break;
+                    case "minScore":
+                        currentTestPanel[0].setMin(value);
+                        break;
+                    case "maxScore":
+                        currentTestPanel[0].setMax(value);
+                        break;
+
+                }
                 GridBagConstraints cc = new GridBagConstraints();
                 cc.gridy = index;
 
-                JLabel testResKey = new JLabel(key, SwingConstants.LEFT);
-                JLabel testResValue = new JLabel(value, SwingConstants.RIGHT);
-                JPanel testResultPanel = currentTestPanel[0];
+                JLabel testResKey = new JLabel(Utils.getKeyName(key), SwingConstants.LEFT);
+                JLabel testResValue = new JLabel(Utils.convertNumToStringByLength(value), SwingConstants.RIGHT);
+                JPanel testResultPanel = currentTestPanel[0].other;
                 cc.gridx = 0;
                 cc.anchor = GridBagConstraints.WEST;
                 testResultPanel.add(testResKey, cc);
@@ -336,8 +349,6 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
 
         try {
             resultFileParser.parse(new File(project.getBasePath() + File.separator + "reports" + File.separator + "report.json"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

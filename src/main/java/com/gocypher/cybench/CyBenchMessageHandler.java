@@ -8,12 +8,12 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CyBenchMessageHandler implements ProcessListener {
     CyBenchResultTreeConsoleView tree;
-    private DefaultMutableTreeNode currentClass;
 
     public CyBenchMessageHandler(CyBenchResultTreeConsoleView tree) {
         this.tree = tree;
@@ -37,11 +37,11 @@ public class CyBenchMessageHandler implements ProcessListener {
     @Override
     public void onTextAvailable(@NotNull ProcessEvent processEvent, @NotNull Key key) {
         String message = processEvent.getText();
-        Pattern filterPattern = Pattern.compile("(?i)" + "benchmarkClass name " + "(.*)");
-        Matcher filterMatcher = filterPattern.matcher(message);
+        Pattern filterPattern = Pattern.compile("Computed hash (.*) for class (.*), classloader (.*)");
+        Matcher filterMatcher = filterPattern.matcher(message.replace('/', '.').replace(".class", ""));
         boolean startTest = filterMatcher.find();
         if (startTest) {
-            testClassStarted(filterMatcher.group(1));
+            testClassFound(filterMatcher.group(2));
         }
 
         Pattern filterPattern1 = Pattern.compile("^# Benchmark: " + "(.*)");
@@ -55,31 +55,50 @@ public class CyBenchMessageHandler implements ProcessListener {
         Matcher filterMatcher2 = filterPattern2.matcher(message);
         boolean startTest2 = filterMatcher2.find();
         if (startTest2) {
-            testClassFinished();
+            testsFinished();
         }
     }
 
-    void testClassStarted(String name) {
+    void testClassFound(String name) {
         Object root = tree.getTree().getModel().getRoot();
         DefaultMutableTreeNode newChild = new BenchmarkClassNode(name);
         ((DefaultMutableTreeNode) root).add(newChild);
-        currentClass = newChild;
         tree.getTree().expandPath(tree.getTree().getPathForRow(0));
 
 
     }
 
     void testClassFinished() {
-        tree.generateResultTabs();
     }
 
     void testStarted(String name) {
+        TreeModel model = tree.getTree().getModel();
+        DefaultMutableTreeNode currentClass = findNode(name, model);
         currentClass.add(new BenchmarkTestNode(name));
-        ((DefaultTreeModel) tree.getTree().getModel()).reload();
+        ((DefaultTreeModel) model).reload();
 
     }
 
-    void testFinished() {
+    private DefaultMutableTreeNode findNode(String name, TreeModel tree) {
+        Object root = tree.getRoot();
+        for (int i = 0; i < tree.getChildCount(root); i++) {
+            Object child = tree.getChild(root, i);
+            if (child instanceof DefaultMutableTreeNode) {
+                try {
+                    if (name.startsWith(((DefaultMutableTreeNode) child).getUserObject().toString())) {
+                        return (DefaultMutableTreeNode) child;
+                    }
+                } catch (NullPointerException r) {
+                }
+
+            }
+        }
+        return (DefaultMutableTreeNode) root;
+    }
+
+    void testsFinished() {
+        tree.generateResultTabs();
+
     }
 
 
