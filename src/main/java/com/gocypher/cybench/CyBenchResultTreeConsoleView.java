@@ -16,13 +16,11 @@
 
 package com.gocypher.cybench;
 
-import com.intellij.execution.configurations.RunProfile;
+import com.gocypher.cybench.utils.Nodes;
 import com.intellij.execution.filters.Filter;
 import com.intellij.execution.filters.HyperlinkInfo;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.process.ProcessHandler;
-import com.intellij.execution.testframework.TestConsoleProperties;
-import com.intellij.execution.testframework.sm.runner.ui.TestTreeRenderer;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.ide.ui.laf.darcula.ui.DarculaTabbedPaneUI;
@@ -32,39 +30,24 @@ import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.ColoredTreeCellRenderer;
-import com.intellij.ui.DocumentAdapter;
-import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.treeStructure.Tree;
 import com.intellij.util.ui.UIUtil;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import org.codehaus.jettison.json.JSONException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
-import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
 public class CyBenchResultTreeConsoleView implements ConsoleView {
     private final Project project;
@@ -73,8 +56,9 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
     ConsoleViewImpl consoleView;
     private JPanel rootPanel;
     private HashMap<String, JScrollPane> testResultTabs = new HashMap<>();
-    private Tree tree;
+
     private JTabbedPane tabs;
+    private Tree tree;
     private boolean testsFinished;
 
     public CyBenchResultTreeConsoleView(@NotNull Project project) {
@@ -85,10 +69,10 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
                 Object lastPathComponent = e.getPath().getLastPathComponent();
-                if (lastPathComponent instanceof CyBenchMessageHandler.BenchmarkTestNode && testsFinished) {
-                    tabs.setSelectedComponent(testResultTabs.get(((CyBenchMessageHandler.BenchmarkTestNode) lastPathComponent).getUserObject()));
+                if (lastPathComponent instanceof Nodes.BenchmarkTestNode && testsFinished) {
+                    tabs.setSelectedComponent(testResultTabs.get(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject()));
                 }
-                if (lastPathComponent instanceof CyBenchMessageHandler.BenchmarkRootNode) {
+                if (lastPathComponent instanceof Nodes.BenchmarkRootNode) {
                     tabs.setSelectedIndex(0);
                 }
             }
@@ -100,7 +84,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         consoleView = new ConsoleViewImpl(project, /*viewer=*/true);
         tabs.remove(0);
         tabs.add("console", consoleView.getComponent());
-        tree.setModel(new DefaultTreeModel(new CyBenchMessageHandler.BenchmarkRootNode("CyBenchBenchmark")));
+        tree.setModel(new DefaultTreeModel(new Nodes.BenchmarkRootNode("CyBenchBenchmark")));
         UIUtil.putClientProperty(tree, AnimatedIcon.ANIMATION_IN_RENDERER_ALLOWED, true);
         tree.setCellRenderer(new ColoredTreeCellRenderer() {
             @Override
@@ -297,55 +281,13 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
 
     public void generateResultTabs() {
         this.testsFinished = true;
-        final ResultJPanel[] currentTestPanel = {null};
 
-        ResultFileParser resultFileParser = new ResultFileParser() {
-            @Override
-            public void onTestEnd(String name) {
-                JBScrollPane jbScrollPane = new JBScrollPane(currentTestPanel[0], VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_ALWAYS);
-                testResultTabs.put(name, jbScrollPane);
+        //getTree().getModel().
 
-                tabs.add(name, jbScrollPane);
-            }
 
-            @Override
-            public void onTest(String name) {
-                ResultJPanel testResultPanel = new ResultJPanel();
-                currentTestPanel[0] = testResultPanel;
-            }
 
-            @Override
-            public void ontTestResultEntry(String key, String value, int index) {
-                switch (key) {
-                    case "name":
-                        currentTestPanel[0].setName(value);
-                        break;
-                    case "score":
-                        currentTestPanel[0].setScore(value);
-                        break;
-                    case "minScore":
-                        currentTestPanel[0].setMin(value);
-                        break;
-                    case "maxScore":
-                        currentTestPanel[0].setMax(value);
-                        break;
 
-                }
-                GridBagConstraints cc = new GridBagConstraints();
-                cc.gridy = index;
-
-                JLabel testResKey = new JLabel(Utils.getKeyName(key), SwingConstants.LEFT);
-                JLabel testResValue = new JLabel(Utils.convertNumToStringByLength(value), SwingConstants.RIGHT);
-                JPanel testResultPanel = currentTestPanel[0].other;
-                cc.gridx = 0;
-                cc.anchor = GridBagConstraints.WEST;
-                testResultPanel.add(testResKey, cc);
-                cc.gridx = 1;
-                cc.anchor = GridBagConstraints.EAST;
-                testResultPanel.add(testResValue, cc);
-
-            }
-        };
+        ResultFileParser resultFileParser = new NodeAndTabFiller(testResultTabs, tabs);
 
         try {
             resultFileParser.parse(new File(project.getBasePath() + File.separator + "reports" + File.separator + "report.json"));
@@ -411,4 +353,5 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
             return allowFiltering;
         }
     }
+
 }

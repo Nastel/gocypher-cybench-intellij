@@ -1,5 +1,6 @@
 package com.gocypher.cybench;
 
+import com.gocypher.cybench.utils.toolWindow.Nodes;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.AnimatedIcon;
@@ -46,10 +47,10 @@ public class CyBechResultTreeConsoleViewTest  {
         };
 
         Object root = console.getTree().getModel().getRoot();
-        DefaultMutableTreeNode newChild = new CyBenchMessageHandler.BenchmarkClassNode("Test");
-        newChild.add(new CyBenchMessageHandler.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringBufferReplaceAll"));
-        newChild.add(new CyBenchMessageHandler.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringConcatMultiChars"));
-        newChild.add(new CyBenchMessageHandler.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringReplaceAll"));
+        DefaultMutableTreeNode newChild = new Nodes.BenchmarkClassNode("Test");
+        newChild.add(new Nodes.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringBufferReplaceAll"));
+        newChild.add(new Nodes.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringConcatMultiChars"));
+        newChild.add(new Nodes.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringReplaceAll"));
         ((DefaultMutableTreeNode) root).add(newChild);
 
         console.generateResultTabs();

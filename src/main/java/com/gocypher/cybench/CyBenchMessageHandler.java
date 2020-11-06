@@ -1,5 +1,6 @@
 package com.gocypher.cybench;
 
+import com.gocypher.cybench.utils.Nodes;
 import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessListener;
 import com.intellij.openapi.util.Key;
@@ -61,7 +62,7 @@ public class CyBenchMessageHandler implements ProcessListener {
 
     void testClassFound(String name) {
         Object root = tree.getTree().getModel().getRoot();
-        DefaultMutableTreeNode newChild = new BenchmarkClassNode(name);
+        DefaultMutableTreeNode newChild = new Nodes.BenchmarkClassNode(name);
         ((DefaultMutableTreeNode) root).add(newChild);
         tree.getTree().expandPath(tree.getTree().getPathForRow(0));
 
@@ -74,7 +75,7 @@ public class CyBenchMessageHandler implements ProcessListener {
     void testStarted(String name) {
         TreeModel model = tree.getTree().getModel();
         DefaultMutableTreeNode currentClass = findNode(name, model);
-        currentClass.add(new BenchmarkTestNode(name));
+        currentClass.add(new Nodes.BenchmarkTestNode(name));
         ((DefaultTreeModel) model).reload();
 
     }
@@ -119,24 +120,6 @@ public class CyBenchMessageHandler implements ProcessListener {
             tree.expandRow(i);
             i += 1;
             j = tree.getRowCount();
-        }
-    }
-
-    public static class BenchmarkClassNode extends DefaultMutableTreeNode {
-        public BenchmarkClassNode(Object userObject) {
-            super(userObject);
-        }
-    }
-
-    public static class BenchmarkTestNode extends DefaultMutableTreeNode {
-        public BenchmarkTestNode(Object userObject) {
-            super(userObject);
-        }
-    }
-
-    public static class BenchmarkRootNode extends DefaultMutableTreeNode {
-        public BenchmarkRootNode(Object userObject) {
-            super(userObject);
         }
     }
 
