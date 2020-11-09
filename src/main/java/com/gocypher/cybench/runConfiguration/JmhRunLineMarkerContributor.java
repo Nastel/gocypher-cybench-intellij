@@ -1,9 +1,9 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.runConfiguration;
 
 
+import com.gocypher.cybench.utils.CyBenchIcons;
 import com.intellij.execution.lineMarker.ExecutorAction;
 import com.intellij.execution.lineMarker.RunLineMarkerContributor;
-import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiElement;

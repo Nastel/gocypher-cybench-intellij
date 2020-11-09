@@ -11,23 +11,8 @@
         <constraints border-constraint="Center"/>
         <properties/>
         <border type="none"/>
-        <children>
-          <component id="febbd" class="javax.swing.JTree" binding="reportList">
-            <constraints>
-              <splitpane position="left"/>
-            </constraints>
-            <properties>
-              <rootVisible value="false"/>
-            </properties>
-          </component>
-        </children>
+        <children/>
       </splitpane>
-      <component id="1390a" class="javax.swing.JButton" binding="refresh">
-        <constraints border-constraint="South"/>
-        <properties>
-          <text value="Button"/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>

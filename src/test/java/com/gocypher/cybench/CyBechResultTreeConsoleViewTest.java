@@ -1,5 +1,6 @@
 package com.gocypher.cybench;
 
+import com.gocypher.cybench.runConfiguration.CyBenchResultTreeConsoleView;
 import com.gocypher.cybench.utils.toolWindow.Nodes;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.openapi.project.Project;

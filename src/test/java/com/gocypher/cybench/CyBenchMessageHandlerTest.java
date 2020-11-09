@@ -1,7 +1,7 @@
 package com.gocypher.cybench;
 
-import com.gocypher.cybench.CyBenchMessageHandler;
-import com.gocypher.cybench.CyBenchResultTreeConsoleView;
+import com.gocypher.cybench.runConfiguration.CyBenchMessageHandler;
+import com.gocypher.cybench.runConfiguration.CyBenchResultTreeConsoleView;
 import com.intellij.execution.process.ProcessEvent;
 import com.intellij.openapi.util.Key;
 import org.junit.Before;

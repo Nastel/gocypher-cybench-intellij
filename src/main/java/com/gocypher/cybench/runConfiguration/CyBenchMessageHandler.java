@@ -1,17 +1,16 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.runConfiguration;
 
-import com.gocypher.cybench.utils.Nodes;
+import com.gocypher.cybench.runConfiguration.CyBenchResultTreeConsoleView;
 import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessListener;
 import com.intellij.openapi.util.Key;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.gocypher.cybench.utils.Nodes.*;
 
 public class CyBenchMessageHandler implements ProcessListener {
     CyBenchResultTreeConsoleView tree;
@@ -61,41 +60,19 @@ public class CyBenchMessageHandler implements ProcessListener {
     }
 
     void testClassFound(String name) {
-        Object root = tree.getTree().getModel().getRoot();
-        DefaultMutableTreeNode newChild = new Nodes.BenchmarkClassNode(name);
-        ((DefaultMutableTreeNode) root).add(newChild);
-        tree.getTree().expandPath(tree.getTree().getPathForRow(0));
-
-
+        addClass(name, tree.getTree());
     }
+
+
 
     void testClassFinished() {
     }
 
     void testStarted(String name) {
-        TreeModel model = tree.getTree().getModel();
-        DefaultMutableTreeNode currentClass = findNode(name, model);
-        currentClass.add(new Nodes.BenchmarkTestNode(name));
-        ((DefaultTreeModel) model).reload();
-
+        addTest(name, tree.getTree());
     }
 
-    private DefaultMutableTreeNode findNode(String name, TreeModel tree) {
-        Object root = tree.getRoot();
-        for (int i = 0; i < tree.getChildCount(root); i++) {
-            Object child = tree.getChild(root, i);
-            if (child instanceof DefaultMutableTreeNode) {
-                try {
-                    if (name.startsWith(((DefaultMutableTreeNode) child).getUserObject().toString())) {
-                        return (DefaultMutableTreeNode) child;
-                    }
-                } catch (NullPointerException r) {
-                }
 
-            }
-        }
-        return (DefaultMutableTreeNode) root;
-    }
 
     void testsFinished() {
         tree.generateResultTabs();

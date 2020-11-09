@@ -1,6 +1,8 @@
 package com.gocypher.cybench;
 
 
+import com.gocypher.cybench.runConfiguration.CyBenchConfigurableEditorView;
+import com.gocypher.cybench.runConfiguration.CyBenchConfiguration;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.PathMacros;
 import com.intellij.openapi.fileChooser.*;

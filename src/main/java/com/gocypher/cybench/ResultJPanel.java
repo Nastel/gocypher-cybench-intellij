@@ -1,5 +1,6 @@
 package com.gocypher.cybench;
 
+import com.gocypher.cybench.utils.CyBenchIcons;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -11,7 +12,7 @@ public class ResultJPanel extends JPanel {
     JPanel benchmarkInfo;
     JPanel scores;
     JPanel gcInfo;
-    JPanel other;
+    public JPanel other;
 
     JLabel name;
     JLabel score;

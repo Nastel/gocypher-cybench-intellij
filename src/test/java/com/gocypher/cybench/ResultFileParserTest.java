@@ -1,6 +1,8 @@
 package com.gocypher.cybench;;
 
 
+import com.gocypher.cybench.launcher.model.BenchmarkReport;
+import com.gocypher.cybench.utils.ResultFileParser;
 import org.codehaus.jettison.json.JSONException;
 import org.junit.Test;
 
@@ -13,13 +15,13 @@ public class ResultFileParserTest {
     public void testReadFromResultFile() throws IOException, JSONException {
         ResultFileParser resultFileParser = new ResultFileParser() {
             @Override
-            public void onTestEnd(String name) {
+            public void onTestEnd(BenchmarkReport report) {
                 System.out.println("Test end");
             }
 
             @Override
-            public void onTest(String name) {
-                System.out.println("Test: " + name);
+            public void onTest(BenchmarkReport report) {
+                System.out.println("Test: " + report);
             }
 
             @Override

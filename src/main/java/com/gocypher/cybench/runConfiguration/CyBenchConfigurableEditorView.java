@@ -1,4 +1,4 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.runConfiguration;
 
 import com.intellij.execution.ui.CommonJavaParametersPanel;
 import com.intellij.openapi.options.ConfigurationException;
@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;

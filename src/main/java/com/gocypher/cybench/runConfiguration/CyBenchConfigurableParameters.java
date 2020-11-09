@@ -1,4 +1,4 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.runConfiguration;
 
 import com.gocypher.cybench.launcher.utils.Constants;
 

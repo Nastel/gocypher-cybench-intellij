@@ -1,5 +1,5 @@
 
-package com.gocypher.cybench;
+package com.gocypher.cybench.runConfiguration;
 
 import com.intellij.execution.Location;
 import com.intellij.execution.actions.ConfigurationContext;

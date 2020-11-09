@@ -1,5 +1,7 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.runConfiguration;
 
+import com.gocypher.cybench.runConfiguration.CyBenchConfiguration;
+import com.gocypher.cybench.utils.CyBenchIcons;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationTypeBase;
 import com.intellij.execution.configurations.RunConfiguration;

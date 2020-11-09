@@ -1,4 +1,4 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.runConfiguration;
 
 import com.intellij.execution.JavaExecutionUtil;
 import com.intellij.execution.Location;

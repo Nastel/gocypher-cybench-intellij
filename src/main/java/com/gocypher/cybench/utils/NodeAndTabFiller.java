@@ -1,5 +1,9 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.utils;
 
+import com.gocypher.cybench.ResultJPanel;
+import com.gocypher.cybench.launcher.model.BenchmarkReport;
+import com.gocypher.cybench.utils.ResultFileParser;
+import com.gocypher.cybench.utils.Utils;
 import com.intellij.ui.components.JBScrollPane;
 
 import javax.swing.*;
@@ -21,17 +25,18 @@ public class NodeAndTabFiller extends ResultFileParser {
     }
 
     @Override
-    public void onTestEnd(String name) {
+    public void onTestEnd(BenchmarkReport report) {
         JBScrollPane jbScrollPane = new JBScrollPane(currentTestPanel, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_ALWAYS);
-        testResultTabs.put(name, jbScrollPane);
+        testResultTabs.put(report.getName(), jbScrollPane);
 
-        tabs.add(name, jbScrollPane);
+        tabs.add(report.getName(), jbScrollPane);
     }
 
     @Override
-    public void onTest(String name) {
+    public void onTest(BenchmarkReport report) {
         ResultJPanel testResultPanel = new ResultJPanel();
         currentTestPanel = testResultPanel;
+
     }
 
     @Override

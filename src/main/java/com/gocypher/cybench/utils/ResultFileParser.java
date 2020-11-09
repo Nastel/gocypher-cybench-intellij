@@ -1,4 +1,4 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gocypher.cybench.launcher.model.BenchmarkOverviewReport;
@@ -34,8 +34,8 @@ public abstract class ResultFileParser {
         Object collect = Stream.of(benchmarks.values().toArray(new List[benchmarks.size()])).flatMap(t -> t.stream()).collect(Collectors.toList());
 
 
-        ((List<BenchmarkReport>)collect).stream().map(o -> (BenchmarkReport) o).forEach(report -> {
-            onTest(report.getName());
+        ((List<BenchmarkReport>)collect).stream().forEach(report -> {
+            onTest(report);
             try {
                 PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(BenchmarkReport.class).getPropertyDescriptors();
                 for (int i = 0; i < propertyDescriptors.length; i++) {
@@ -46,7 +46,7 @@ public abstract class ResultFileParser {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            onTestEnd(report.getName());
+            onTestEnd(report);
         });
 
 
@@ -54,9 +54,9 @@ public abstract class ResultFileParser {
 
 
 
-    public abstract void onTestEnd(String name);
+    public abstract void onTestEnd(BenchmarkReport report);
 
-    public abstract void onTest(String name);
+    public abstract void onTest(BenchmarkReport report);
 
     public abstract void ontTestResultEntry(String key, String value, int index);
 

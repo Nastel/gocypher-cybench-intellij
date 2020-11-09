@@ -6,16 +6,12 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
-public class ToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFactory {
+public class BrowseReportsToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFactory {
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        CyBenchToolWindow myToolWindow = new CyBenchToolWindow(toolWindow, null);
-        addReportView(toolWindow, myToolWindow);
-    }
-
-    public static void addReportView(@NotNull ToolWindow toolWindow, CyBenchToolWindow myToolWindow) {
+        CyBenchExplorerToolWindow myToolWindow = new CyBenchExplorerToolWindow(toolWindow);
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        Content content = contentFactory.createContent(myToolWindow.getContent(), myToolWindow.getFile().getName(), false);
+        Content content = contentFactory.createContent(myToolWindow.getContent(), "", false);
         toolWindow.getContentManager().addContent(content);
     }
 

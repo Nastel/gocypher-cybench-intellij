@@ -1,10 +1,9 @@
 package com.gocypher.cybench;
 
-import groovy.util.GroovyTestCase;
 import org.junit.Test;
 
-import static com.gocypher.cybench.Utils.convertNumToStringByLength;
-import static com.gocypher.cybench.Utils.getKeyName;
+import static com.gocypher.cybench.utils.Utils.convertNumToStringByLength;
+import static com.gocypher.cybench.utils.Utils.getKeyName;
 
 public class UtilsTest {
     @Test
