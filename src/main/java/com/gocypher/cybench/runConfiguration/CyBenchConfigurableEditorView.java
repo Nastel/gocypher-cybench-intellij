@@ -22,7 +22,7 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
 
     private final CommonJavaParametersPanel commonProgramParameters;
     private JPanel editor = new JPanel();
-    private Map<CyBenchConfigurableParameters, JTextField> configurableStore = new HashMap<>();
+    private Map<CyBenchConfigurableParameters, JComponent> configurableStore = new HashMap<>();
 
     public CyBenchConfigurableEditorView(Project project, CyBenchConfiguration cyBenchConfiguration) {
         editor.setLayout(new BoxLayout(editor, BoxLayout.X_AXIS));
@@ -30,17 +30,30 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
 
         // Setup for CyBench configurable fields defined in CyBenchConfigurableParameters
         for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
-            JTextField jTextField = new JTextField();
-            jTextField.setText(String.valueOf(cyBenchConfiguration.getValueStore().containsKey(parameter) ?   cyBenchConfiguration.getValueStore().get(parameter) :parameter.defaultValue));
-            configurableStore.put(parameter, jTextField);
-            commonProgramParameters.add(LabeledComponent.create(jTextField, parameter.readableName, "West"));
-            installValidator(project, jTextField, parameter.validator, parameter.error);
-            jTextField.getDocument().addDocumentListener(new DocumentAdapter() {
-                @Override
-                protected void textChanged(@NotNull DocumentEvent e) {
-                    cyBenchConfiguration.getValueStore().put(parameter,jTextField.getText());
-                }
-            });
+            JComponent comp;
+            if (parameter.type == CyBenchConfigurableParameters.TYPE.BOOLEAN) {
+                comp = new JCheckBox();
+                JCheckBox jCheckBox = (JCheckBox) comp;
+                jCheckBox.setSelected(Boolean.parseBoolean(String.valueOf(cyBenchConfiguration.getValueStore().containsKey(parameter) ? cyBenchConfiguration.getValueStore().get(parameter) : parameter.defaultValue)));
+                jCheckBox.addChangeListener(e -> {
+                    cyBenchConfiguration.getValueStore().put(parameter,jCheckBox.isSelected());
+                });
+            } else {
+                comp = new JTextField();
+                JTextField jTextField = (JTextField) comp;
+                jTextField.setText(String.valueOf(cyBenchConfiguration.getValueStore().containsKey(parameter) ? cyBenchConfiguration.getValueStore().get(parameter) : parameter.defaultValue));
+                installValidator(project, jTextField, parameter.validator, parameter.error);
+                jTextField.getDocument().addDocumentListener(new DocumentAdapter() {
+                    @Override
+                    protected void textChanged(@NotNull DocumentEvent e) {
+                        cyBenchConfiguration.getValueStore().put(parameter,jTextField.getText());
+                    }
+                });
+
+            }
+            configurableStore.put(parameter, comp);
+            commonProgramParameters.add(LabeledComponent.create(comp, parameter.readableName, "West"));
+
         }
 
         editor.add(commonProgramParameters);

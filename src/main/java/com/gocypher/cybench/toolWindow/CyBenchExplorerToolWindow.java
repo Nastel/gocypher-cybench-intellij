@@ -1,10 +1,13 @@
 package com.gocypher.cybench.toolWindow;
 
+import com.gocypher.cybench.toolWindow.factories.ToolWindowFactory;
+import com.gocypher.cybench.utils.CyBenchTreeCellRenderer;
 import com.gocypher.cybench.utils.Nodes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
+import com.intellij.ui.content.Content;
 import com.intellij.ui.treeStructure.Tree;
 
 import javax.swing.*;
@@ -33,14 +36,23 @@ public class CyBenchExplorerToolWindow {
         toolWindowContent = new JPanel(new BorderLayout(0, 0));
         reportList = new Tree();
         reportList.setRootVisible(false);
+        reportList.setCellRenderer(new CyBenchTreeCellRenderer());
         reportList.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
                 ToolWindow cyBench_report = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench report");
                 cyBench_report.activate(null);
 
-                CyBenchToolWindow myToolWindow = new CyBenchToolWindow(cyBench_report, new File(getReportDir().getAbsolutePath() + File.separator + e.getPath().getLastPathComponent()));
-                ToolWindowFactory.addReportView(cyBench_report, myToolWindow);
+
+                File file = new File(getReportDir().getAbsolutePath() + File.separator + e.getPath().getLastPathComponent());
+
+                if (!ToolWindowFactory.loaded.containsKey(file)) {
+                    CyBenchToolWindow myToolWindow = new CyBenchToolWindow(cyBench_report, file);
+
+                    ToolWindowFactory.addReportView(cyBench_report, myToolWindow);
+                } else {
+                    cyBench_report.getContentManager().setSelectedContent(ToolWindowFactory.loaded.get(file));
+                }
             }
         });
 

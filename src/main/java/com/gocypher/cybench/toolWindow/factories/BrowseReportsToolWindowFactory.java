@@ -1,5 +1,6 @@
-package com.gocypher.cybench.toolWindow;
+package com.gocypher.cybench.toolWindow.factories;
 
+import com.gocypher.cybench.toolWindow.CyBenchExplorerToolWindow;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.content.Content;

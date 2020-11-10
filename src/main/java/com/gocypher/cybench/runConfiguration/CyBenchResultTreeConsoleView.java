@@ -72,7 +72,10 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
             public void valueChanged(TreeSelectionEvent e) {
                 Object lastPathComponent = e.getPath().getLastPathComponent();
                 if (lastPathComponent instanceof Nodes.BenchmarkTestNode && testsFinished) {
-                    tabs.setSelectedComponent(testResultTabs.get(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject()));
+                    tabs.remove(2);
+                    Object userObject = ((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject();
+                    tabs.addTab(String.valueOf(userObject), testResultTabs.get(userObject));
+                    tabs.setSelectedIndex(2);
                 }
                 if (lastPathComponent instanceof Nodes.BenchmarkRootNode) {
                     tabs.setSelectedIndex(0);

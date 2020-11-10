@@ -31,10 +31,14 @@ public abstract class ResultFileParser {
 
         Map<String, List<BenchmarkReport>> benchmarks = benchmarkOverviewReport.getBenchmarks();
 
+        onJVMEnties((Map) benchmarkOverviewReport.getEnvironmentSettings().get("jvmEnvironment"));
+        onEnviromentEntries((Map) benchmarkOverviewReport.getEnvironmentSettings().get("environment"));
+
+
         Object collect = Stream.of(benchmarks.values().toArray(new List[benchmarks.size()])).flatMap(t -> t.stream()).collect(Collectors.toList());
 
 
-        ((List<BenchmarkReport>)collect).stream().forEach(report -> {
+        ((List<BenchmarkReport>) collect).stream().forEach(report -> {
             onTest(report);
             try {
                 PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(BenchmarkReport.class).getPropertyDescriptors();
@@ -48,10 +52,15 @@ public abstract class ResultFileParser {
             }
             onTestEnd(report);
         });
-
+        onFinished();
 
     }
 
+    protected abstract void onFinished();
+
+    protected abstract void onEnviromentEntries(Map<String, Object> environment);
+
+    protected abstract void onJVMEnties(Map<String, Object> environmentSettings);
 
 
     public abstract void onTestEnd(BenchmarkReport report);

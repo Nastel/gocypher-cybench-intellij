@@ -13,8 +13,8 @@
         <runConfigurationProducer implementation="com.gocypher.cybench.runConfiguration.ClassConfigurationProducer"/>
 
         <runLineMarkerContributor language="JAVA" implementationClass="com.gocypher.cybench.runConfiguration.JmhRunLineMarkerContributor"/>
-        <toolWindow factoryClass="com.gocypher.cybench.toolWindow.ToolWindowFactory" icon="/icons/cyBench16.svg" id="CyBench report" anchor="bottom"/>
-        <toolWindow factoryClass="com.gocypher.cybench.toolWindow.BrowseReportsToolWindowFactory" icon="/icons/cyBench16.svg" id="CyBench explorer" anchor="bottom"/>
+        <toolWindow factoryClass="com.gocypher.cybench.toolWindow.factories.ToolWindowFactory" icon="/icons/cyBench16.svg" id="CyBench report" anchor="bottom"/>
+        <toolWindow factoryClass="com.gocypher.cybench.toolWindow.factories.BrowseReportsToolWindowFactory" icon="/icons/cyBench16.svg" id="CyBench explorer" anchor="bottom"/>
     </extensions>
 
 

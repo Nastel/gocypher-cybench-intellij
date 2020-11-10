@@ -1,11 +1,13 @@
-package com.gocypher.cybench;
+package com.gocypher.cybench.viewPanels;
 
 import com.gocypher.cybench.utils.CyBenchIcons;
+import com.intellij.ui.table.JBTable;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class ResultJPanel extends JPanel {
@@ -24,8 +26,8 @@ public class ResultJPanel extends JPanel {
     JLabel min;
     JLabel mean;
     JLabel max;
-    private JTable gcTable;
-    private JTable allResults;
+    public JTable gcTable;
+    public JTable allResults;
 
     Object[][] data = {
             {"Kathy", "Smith",
@@ -78,17 +80,20 @@ public class ResultJPanel extends JPanel {
         max = new JLabel();
         max.setText("10000");
         scores.add(max, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JPanel gcInfo = new JPanel();
-        gcInfo.setLayout(new BorderLayout(0, 0));
-        this.add(gcInfo, new GridConstraints(2, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        gcTable = new JTable(data, columnNames);
-        //gcInfo.add(gcTable, BorderLayout.CENTER);
-        allResults = new JTable();
-        other = new JPanel();
-        other.setLayout(new GridBagLayout());
-        //other.add(allResults);
-        this.add(other, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
 
+        gcTable = new CBTable();
+        JPanel gcInfo = new JPanel();
+        gcInfo.setLayout(new BorderLayout());
+        gcInfo.add(gcTable, BorderLayout.CENTER);
+
+        this.add(gcInfo, new GridConstraints(2, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(150, 50), null, null, 0, false));
+
+
+        allResults = new CBTable();
+        other = new JPanel();
+        other.setLayout(new BorderLayout());
+        other.add(allResults, BorderLayout.CENTER);
+        this.add(other, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
 
     }
 

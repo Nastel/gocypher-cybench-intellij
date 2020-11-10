@@ -10,6 +10,10 @@ public enum CyBenchConfigurableParameters {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
+    THREADS(Constants.RUN_THREAD_COUNT, 1, "Number of threads", "", TYPE.NUMBER, s -> {
+        int value = Integer.parseInt(s);
+        return value >= 0 && value <= 10;
+    }, "Value should be a number between 0 and 10"),
     MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 5, "Number of iterations", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
@@ -22,10 +26,8 @@ public enum CyBenchConfigurableParameters {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    THREADS(Constants.BENCHMARK_RUN_THREAD_COUNT, 1, "Number of threads", "", TYPE.NUMBER, s -> {
-        int value = Integer.parseInt(s);
-        return value >= 0 && value <= 10;
-    }, "Value should be a number between 0 and 10"),
+    SHOULD_SEND_REPORT(Constants.SEND_REPORT, 1, "Should send report to CyBench", "", TYPE.BOOLEAN, s->
+            true, ""),
     BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Benchmark class", "", TYPE.CLASS, s -> true, "Value should be a class");
 
 
@@ -50,6 +52,7 @@ public enum CyBenchConfigurableParameters {
 
     public enum TYPE {
         NUMBER,
+        BOOLEAN,
         CLASS;
     }
 }

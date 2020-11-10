@@ -1,19 +1,14 @@
 package com.gocypher.cybench.toolWindow;
 
-import com.gocypher.cybench.utils.CyBenchIcons;
-import com.gocypher.cybench.utils.NodeAndTabFiller;
-import com.gocypher.cybench.utils.ResultFileParser;
+import com.gocypher.cybench.utils.*;
 import com.gocypher.cybench.launcher.model.BenchmarkReport;
-import com.gocypher.cybench.utils.Nodes;
 import com.intellij.ide.ui.laf.darcula.ui.DarculaTabbedPaneUI;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.ui.ColoredTreeCellRenderer;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.treeStructure.Tree;
 import org.codehaus.jettison.json.JSONException;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -35,6 +30,7 @@ public class CyBenchToolWindow {
     private Tree reportList;
     private JSplitPane splitPane;
     private JTabbedPane tabs;
+    private JTabbedPane hv_jvm_result;
     private HashMap<String, JScrollPane> testResultTabs = new HashMap<>();
 
 
@@ -46,18 +42,28 @@ public class CyBenchToolWindow {
             this.file = new File(ProjectUtil.guessCurrentProject(getContent()).getBasePath() + "/reports/report.json");
         }
 
-        reportList.setModel(new DefaultTreeModel(new DefaultMutableTreeNode()));
+        reportList.setModel(new DefaultTreeModel(new Nodes.BenchmarkRootNode("CyBench report")));
         reportList.setCellRenderer(new CyBenchTreeCellRenderer());
         reportList.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
                 Object selected = e.getPath().getLastPathComponent();
 
+                if (selected instanceof Nodes.BenchmarkRootNode) {
+                    if (tabs.getSelectedIndex() ==0) {
+                        tabs.setSelectedIndex(1);
+                    } else {
+                        tabs.setSelectedIndex(0);
+                    }
+                }
                 if (selected instanceof Nodes.BenchmarkClassNode) {
 
                 }
                 if (selected instanceof Nodes.BenchmarkTestNode) {
-                    tabs.setSelectedComponent(testResultTabs.get(((Nodes.BenchmarkTestNode) selected).getUserObject()));
+                    tabs.remove(2);
+                    Object userObject = ((Nodes.BenchmarkTestNode) selected).getUserObject();
+                    tabs.addTab("Benchmark Details", testResultTabs.get(userObject));
+                    tabs.setSelectedIndex(2);
 
                 }
             }
@@ -130,7 +136,7 @@ public class CyBenchToolWindow {
 
     private void createUIComponents() {
         reportList = new Tree();
-        reportList.setRootVisible(false);
+        //reportList.setRootVisible(false);
 
 
 
@@ -139,15 +145,10 @@ public class CyBenchToolWindow {
         splitPane.setLeftComponent(scroll);
 
 
-        tabs = new JBTabbedPane();
+
+        tabs = new JBTabbedPane(JBTabbedPane.BOTTOM);
 
         //do not show tab header; navigation enabled with tree
-        tabs.setUI(new DarculaTabbedPaneUI() {
-            @Override
-            protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight) {
-                return 0;
-            }
-        });
         // TODO: place custom component creation code here
         splitPane.setRightComponent(tabs);
     }
@@ -157,20 +158,4 @@ public class CyBenchToolWindow {
     }
 
 
-    private static class CyBenchTreeCellRenderer extends ColoredTreeCellRenderer {
-        @Override
-        public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i, boolean b3) {
-            if (o instanceof Nodes.BenchmarkClassNode) {
-                setIcon(CyBenchIcons.classNodeIcon);
-
-            }
-            if (o instanceof Nodes.BenchmarkTestNode) {
-                setIcon(CyBenchIcons.testNodeIcon);
-
-            }
-            if (o instanceof DefaultMutableTreeNode) {
-                append(String.valueOf(((DefaultMutableTreeNode) o).getUserObject()));
-            }
-        }
-    }
 }
