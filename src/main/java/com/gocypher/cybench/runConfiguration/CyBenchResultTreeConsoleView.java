@@ -16,6 +16,8 @@
 
 package com.gocypher.cybench.runConfiguration;
 
+import com.gocypher.cybench.toolWindow.CyBenchExplorerToolWindow;
+import com.gocypher.cybench.toolWindow.CyBenchToolWindow;
 import com.gocypher.cybench.utils.NodeAndTabFiller;
 import com.gocypher.cybench.utils.Nodes;
 import com.gocypher.cybench.utils.ResultFileParser;
@@ -25,11 +27,14 @@ import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.ui.ConsoleViewContentType;
+import com.intellij.icons.AllIcons;
 import com.intellij.ide.ui.laf.darcula.ui.DarculaTabbedPaneUI;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.ColoredTreeCellRenderer;
 import com.intellij.ui.components.JBTabbedPane;
@@ -54,14 +59,14 @@ import java.util.List;
 public class CyBenchResultTreeConsoleView implements ConsoleView {
     private final Project project;
     private final List<ConsoleViewEntry> consoleViewEntries = new LinkedList<ConsoleViewEntry>();
+    protected ConsoleViewImpl consoleView;
     JPanel consoleViewPanel;
-    ConsoleViewImpl consoleView;
     private JPanel rootPanel;
-    private HashMap<String, JScrollPane> testResultTabs = new HashMap<>();
 
-    private JTabbedPane tabs;
     private Tree tree;
+    private JPanel tabs;
     private boolean testsFinished;
+    private File reportFile;
 
     public CyBenchResultTreeConsoleView(@NotNull Project project) {
         this.project = project;
@@ -72,14 +77,12 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
             public void valueChanged(TreeSelectionEvent e) {
                 Object lastPathComponent = e.getPath().getLastPathComponent();
                 if (lastPathComponent instanceof Nodes.BenchmarkTestNode && testsFinished) {
-                    tabs.remove(2);
-                    Object userObject = ((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject();
-                    tabs.addTab(String.valueOf(userObject), testResultTabs.get(userObject));
-                    tabs.setSelectedIndex(2);
+
+                    CyBenchToolWindow.activateReportView(reportFile, null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject()));
+
+
                 }
-                if (lastPathComponent instanceof Nodes.BenchmarkRootNode) {
-                    tabs.setSelectedIndex(0);
-                }
+
             }
         });
     }
@@ -87,10 +90,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
     public void initialize() {
 
         consoleView = new ConsoleViewImpl(project, /*viewer=*/true);
-        tabs.remove(0);
-        tabs.add("console", consoleView.getComponent());
         tree.setModel(new DefaultTreeModel(new Nodes.BenchmarkRootNode("CyBenchBenchmark")));
-        UIUtil.putClientProperty(tree, AnimatedIcon.ANIMATION_IN_RENDERER_ALLOWED, true);
         tree.setCellRenderer(new ColoredTreeCellRenderer() {
             @Override
             public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i, boolean b3) {
@@ -100,7 +100,9 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
                 }
             }
         });
+        tabs.add(consoleView.getComponent());
         Disposer.register(project, consoleView);
+
     }
 
     @NotNull
@@ -262,7 +264,6 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        createUIComponents();
         rootPanel = new JPanel();
         rootPanel.setLayout(new BorderLayout(0, 0));
         consoleViewPanel = new JPanel();
@@ -270,11 +271,9 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         rootPanel.add(consoleViewPanel, BorderLayout.CENTER);
         tree = new Tree();
         consoleViewPanel.add(tree, BorderLayout.WEST);
-        tabs.setTabPlacement(1);
+        tabs = new JPanel();
+        tabs.setLayout(new BorderLayout(0, 0));
         consoleViewPanel.add(tabs, BorderLayout.CENTER);
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new BorderLayout(0, 0));
-        tabs.addTab("Untitled", panel1);
     }
 
     /**
@@ -284,38 +283,20 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         return rootPanel;
     }
 
-    public void generateResultTabs() {
+    public void onBenchmarkFinished() {
         this.testsFinished = true;
-
-        //getTree().getModel().
-
-
-
-
-        ResultFileParser resultFileParser = new NodeAndTabFiller(testResultTabs, tabs);
-
-        try {
-            resultFileParser.parse(new File(project.getBasePath() + File.separator + "reports" + File.separator + "report.json"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        ((ColoredTreeCellRenderer) tree.getCellRenderer()).setIcon(AllIcons.RunConfigurations.TestPassed);
+        tree.updateUI();
+        CyBenchToolWindow.activateReportView(reportFile, this.consoleView, null);
 
     }
 
     private void createUIComponents() {
-        tabs = new JBTabbedPane();
 
-        //do not show tab header; navigation enabled with tree
-        tabs.setUI(new DarculaTabbedPaneUI() {
-            @Override
-            protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight) {
-                return 0;
-            }
-        });
+    }
 
+    public void setReportFile(String reportFileName) {
+        this.reportFile = new File(ProjectUtil.guessCurrentProject(null).getBasePath() + File.separator + "reports" + File.separator + reportFileName);
     }
 
     private static class ConsoleViewEntry {

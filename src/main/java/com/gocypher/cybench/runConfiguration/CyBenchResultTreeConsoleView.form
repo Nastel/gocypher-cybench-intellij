@@ -16,23 +16,12 @@
             <constraints border-constraint="West"/>
             <properties/>
           </component>
-          <tabbedpane id="59db1" binding="tabs" custom-create="true">
+          <grid id="503fc" binding="tabs" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints border-constraint="Center"/>
-            <properties>
-              <tabPlacement value="1"/>
-            </properties>
+            <properties/>
             <border type="none"/>
-            <children>
-              <grid id="f7053" layout-manager="BorderLayout" hgap="0" vgap="0">
-                <constraints>
-                  <tabbedpane title="Untitled"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children/>
-              </grid>
-            </children>
-          </tabbedpane>
+            <children/>
+          </grid>
         </children>
       </grid>
     </children>

@@ -30,7 +30,7 @@ public class NodeAndTabFiller extends ResultFileParser {
     @Override
     protected void onFinished() {
         Map.Entry<String, JScrollPane> next = testResultTabs.entrySet().iterator().next();
-        tabs.addTab(next.getKey(), next.getValue());
+        tabs.addTab("Benchmark Details", next.getValue());
     }
 
     @Override

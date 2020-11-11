@@ -1,7 +1,7 @@
 package com.gocypher.cybench;
 
 import com.gocypher.cybench.runConfiguration.CyBenchResultTreeConsoleView;
-import com.gocypher.cybench.utils.toolWindow.Nodes;
+import com.gocypher.cybench.utils.Nodes;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.AnimatedIcon;
@@ -34,7 +34,6 @@ public class CyBechResultTreeConsoleViewTest  {
 
                 //consoleViewPanel.add(jPanel, BorderLayout.CENTER);
                 getTree().setModel(new DefaultTreeModel(new DefaultMutableTreeNode("CyBenchBenchmark")));
-                getTree().putClientProperty(AnimatedIcon.ANIMATION_IN_RENDERER_ALLOWED, true);
                 getTree().setCellRenderer(new ColoredTreeCellRenderer() {
                     @Override
                     public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i, boolean b3) {
@@ -54,7 +53,7 @@ public class CyBechResultTreeConsoleViewTest  {
         newChild.add(new Nodes.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringReplaceAll"));
         ((DefaultMutableTreeNode) root).add(newChild);
 
-        console.generateResultTabs();
+        console.onBenchmarkFinished();
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

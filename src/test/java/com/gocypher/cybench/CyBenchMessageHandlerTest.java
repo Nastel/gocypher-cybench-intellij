@@ -24,25 +24,26 @@ public class CyBenchMessageHandlerTest  {
     @Before
     public void setup() {
         this.handler = new CyBenchMessageHandler(mock(CyBenchResultTreeConsoleView.class)) {
+
             @Override
-            void testClassFound(String name) {
+            protected void testClassFound(String name) {
                 System.out.println("Class " + name);
                 foundClasses++;
             }
 
             @Override
-            void testClassFinished() {
+            public void testClassFinished() {
                 System.out.println("Class end");
             }
 
             @Override
-            void testStarted(String name) {
+            public void testStarted(String name) {
                 System.out.println("\t Benchmanrk method " + name);
                 foundMethods++;
             }
 
             @Override
-            void testsFinished() {
+            public void testsFinished() {
                 System.out.println("Benchmanrk method end");
             }
         };

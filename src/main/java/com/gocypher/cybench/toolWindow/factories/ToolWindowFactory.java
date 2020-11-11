@@ -15,6 +15,7 @@ import java.util.List;
 
 public class ToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFactory {
     public static HashMap<File, Content> loaded= new HashMap<>();
+    public static HashMap<File, CyBenchToolWindow> loadedWindows= new HashMap<>();
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
@@ -28,6 +29,7 @@ public class ToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFact
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(myToolWindow.getContent(), myToolWindow.getFile().getName(), false);
         loaded.put(myToolWindow.getFile(),content );
+        loadedWindows.put(myToolWindow.getFile(), myToolWindow);
 
         contentManager.addContent(content);
         contentManager.setSelectedContent(content);

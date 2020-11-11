@@ -157,7 +157,9 @@ public class BenchmarkState extends CommandLineState {
             javaParameters.getVMParametersList().add("-D" + confEntry.getKey().key + "=" + String.valueOf(confEntry.getValue()));
 
         }
-        javaParameters.getVMParametersList().add("-D" + "report.json" + "=" + "report_" + System.currentTimeMillis() + ".json");
+        String reportFileName = "report_" + System.currentTimeMillis() + ".json";
+        javaParameters.getVMParametersList().add("-D" + "report.json" + "=" + reportFileName);
+        cyBenchResultTreeConsoleView.setReportFile(reportFileName);
         GeneralCommandLine fromJavaParameters = javaParameters.toCommandLine();
 
 

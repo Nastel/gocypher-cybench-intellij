@@ -1,6 +1,5 @@
 package com.gocypher.cybench.runConfiguration;
 
-import com.gocypher.cybench.runConfiguration.CyBenchResultTreeConsoleView;
 import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessListener;
 import com.intellij.openapi.util.Key;
@@ -59,23 +58,23 @@ public class CyBenchMessageHandler implements ProcessListener {
         }
     }
 
-    void testClassFound(String name) {
+    protected void testClassFound(String name) {
         addClass(name, tree.getTree());
     }
 
 
 
-    void testClassFinished() {
+    protected void testClassFinished() {
     }
 
-    void testStarted(String name) {
+    protected void testStarted(String name) {
         addTest(name, tree.getTree());
     }
 
 
 
-    void testsFinished() {
-        tree.generateResultTabs();
+    protected void testsFinished() {
+        tree.onBenchmarkFinished();
 
     }
 

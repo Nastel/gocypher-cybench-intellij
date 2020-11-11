@@ -1,5 +1,7 @@
 package com.gocypher.cybench.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -14,8 +16,25 @@ public class Nodes {
     }
 
     public static class BenchmarkTestNode extends DefaultMutableTreeNode {
+        private String fullyQualifiedName;
         public BenchmarkTestNode(Object userObject) {
-            super(userObject);
+
+            super(getTestName(userObject));
+            this.fullyQualifiedName = String.valueOf(userObject);
+        }
+
+        public String getFullyQualifiedName() {
+            return fullyQualifiedName;
+        }
+    }
+
+    @NotNull
+    private static String getTestName(Object userObject) {
+        String value = String.valueOf(userObject);
+        try {
+            return value.substring(value.lastIndexOf('.') + 1);
+        } catch (Exception e) {
+            return value;
         }
     }
 

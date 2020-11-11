@@ -28,6 +28,7 @@ public enum CyBenchConfigurableParameters {
     }, "Value should be a number between 0 and 10"),
     SHOULD_SEND_REPORT(Constants.SEND_REPORT, 1, "Should send report to CyBench", "", TYPE.BOOLEAN, s->
             true, ""),
+
     BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Benchmark class", "", TYPE.CLASS, s -> true, "Value should be a class");
 
 

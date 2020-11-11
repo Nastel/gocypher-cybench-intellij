@@ -1,13 +1,18 @@
 package com.gocypher.cybench.toolWindow;
 
+import com.gocypher.cybench.toolWindow.factories.ToolWindowFactory;
 import com.gocypher.cybench.utils.*;
 import com.gocypher.cybench.launcher.model.BenchmarkReport;
-import com.intellij.ide.ui.laf.darcula.ui.DarculaTabbedPaneUI;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.treeStructure.Tree;
+import com.intellij.ui.treeStructure.treetable.ListTreeTableModelOnColumns;
+import com.intellij.ui.treeStructure.treetable.TreeTable;
+import com.intellij.util.ui.ColumnInfo;
+import com.intellij.util.xml.ui.BooleanColumnInfo;
 import org.codehaus.jettison.json.JSONException;
 
 import javax.swing.*;
@@ -28,6 +33,7 @@ public class CyBenchToolWindow {
     private File file;
     private JPanel toolWindowContent;
     private Tree reportList;
+    private TreeTable treeTable;
     private JSplitPane splitPane;
     private JTabbedPane tabs;
     private JTabbedPane hv_jvm_result;
@@ -44,26 +50,21 @@ public class CyBenchToolWindow {
 
         reportList.setModel(new DefaultTreeModel(new Nodes.BenchmarkRootNode("CyBench report")));
         reportList.setCellRenderer(new CyBenchTreeCellRenderer());
+        reportList.setRootVisible(false);
         reportList.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
                 Object selected = e.getPath().getLastPathComponent();
 
-                if (selected instanceof Nodes.BenchmarkRootNode) {
-                    if (tabs.getSelectedIndex() ==0) {
+                if (selected instanceof Nodes.BenchmarkClassNode) {
+                    if (tabs.getSelectedIndex() == 0) {
                         tabs.setSelectedIndex(1);
                     } else {
                         tabs.setSelectedIndex(0);
                     }
                 }
-                if (selected instanceof Nodes.BenchmarkClassNode) {
-
-                }
                 if (selected instanceof Nodes.BenchmarkTestNode) {
-                    tabs.remove(2);
-                    Object userObject = ((Nodes.BenchmarkTestNode) selected).getUserObject();
-                    tabs.addTab("Benchmark Details", testResultTabs.get(userObject));
-                    tabs.setSelectedIndex(2);
+                    selectActualReport(((Nodes.BenchmarkTestNode) selected).getFullyQualifiedName());
 
                 }
             }
@@ -71,6 +72,12 @@ public class CyBenchToolWindow {
 
         populateNodeFromFile();
 
+    }
+
+    public void selectActualReport(String component) {
+        tabs.remove(2);
+        tabs.addTab("Benchmark Details", CyBenchToolWindow.this.testResultTabs.get(component));
+        tabs.setSelectedIndex(2);
     }
 
     public static void main(String[] args) {
@@ -82,6 +89,32 @@ public class CyBenchToolWindow {
         d.pack();
         d.setVisible(true);
         System.exit(0);
+    }
+
+    public static void activateReportView(File file, JPanel toolWindowContent, String selectReport) {
+        ToolWindow cyBench_report = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench report");
+        cyBench_report.activate(() -> noop() );
+
+
+        if (!ToolWindowFactory.loaded.containsKey(file)) {
+            CyBenchToolWindow myToolWindow = new CyBenchToolWindow(cyBench_report, file);
+
+            ToolWindowFactory.addReportView(cyBench_report, myToolWindow);
+            if (selectReport != null) {
+                myToolWindow.selectActualReport(selectReport);
+            }
+        } else {
+            cyBench_report.getContentManager().setSelectedContent(ToolWindowFactory.loaded.get(file));
+            if (selectReport != null) {
+                ToolWindowFactory.loadedWindows.get(file).selectActualReport(selectReport);
+            }
+        }
+
+
+    }
+
+    private static void noop() {
+
     }
 
     private void populateNodeFromFile() {
@@ -123,8 +156,6 @@ public class CyBenchToolWindow {
         toolWindowContent.setLayout(new BorderLayout(0, 0));
         splitPane = new JSplitPane();
         toolWindowContent.add(splitPane, BorderLayout.CENTER);
-
-
     }
 
     /**
@@ -138,12 +169,9 @@ public class CyBenchToolWindow {
         reportList = new Tree();
         //reportList.setRootVisible(false);
 
-
-
         JBScrollPane scroll = new JBScrollPane(reportList, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_ALWAYS);
 
         splitPane.setLeftComponent(scroll);
-
 
 
         tabs = new JBTabbedPane(JBTabbedPane.BOTTOM);

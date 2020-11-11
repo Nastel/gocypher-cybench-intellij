@@ -35,9 +35,11 @@ intellij {
     plugins = ['java']
 }
 patchPluginXml {
+    sinceBuild '180.*'
+    untilBuild '201.*'
     changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+      First release.
+      """
 }
 
 

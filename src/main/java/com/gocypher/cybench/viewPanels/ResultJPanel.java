@@ -29,11 +29,6 @@ public class ResultJPanel extends JPanel {
     public JTable gcTable;
     public JTable allResults;
 
-    Object[][] data = {
-            {"Kathy", "Smith",
-                    "Snowboarding", new Integer(5)}
-
-    };
 
     String[] columnNames = {"GC Calls",
             "GC Alloc Rate",
