@@ -21,12 +21,17 @@ public class ResultFileParserTest {
             }
 
             @Override
-            protected void onEnviromentEntries(Map<String, Object> environment) {
+            protected void onEnvironmentEntries(Map<String, Object> environment) {
 
             }
 
             @Override
-            protected void onJVMEnties(Map<String, Object> environmentSettings) {
+            protected void onJVMEntries(Map<String, Object> environmentSettings) {
+
+            }
+
+            @Override
+            protected void onSummaryEntries(Map<String, Object> environmentSettings) {
 
             }
 

@@ -75,9 +75,9 @@ public class CyBenchToolWindow {
     }
 
     public void selectActualReport(String component) {
-        tabs.remove(2);
+        tabs.remove(3);
         tabs.addTab("Benchmark Details", CyBenchToolWindow.this.testResultTabs.get(component));
-        tabs.setSelectedIndex(2);
+        tabs.setSelectedIndex(3);
     }
 
     public static void main(String[] args) {
@@ -93,7 +93,7 @@ public class CyBenchToolWindow {
 
     public static void activateReportView(File file, JPanel toolWindowContent, String selectReport) {
         ToolWindow cyBench_report = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench report");
-        cyBench_report.activate(() -> noop() );
+        cyBench_report.activate(() -> noop());
 
 
         if (!ToolWindowFactory.loaded.containsKey(file)) {
@@ -113,7 +113,7 @@ public class CyBenchToolWindow {
 
     }
 
-    private static void noop() {
+    public static void noop() {
 
     }
 

@@ -3,17 +3,13 @@ package com.gocypher.cybench.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gocypher.cybench.launcher.model.BenchmarkOverviewReport;
 import com.gocypher.cybench.launcher.model.BenchmarkReport;
-import com.jayway.jsonpath.JsonPath;
-import net.minidev.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 
 
-import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,8 +27,23 @@ public abstract class ResultFileParser {
 
         Map<String, List<BenchmarkReport>> benchmarks = benchmarkOverviewReport.getBenchmarks();
 
-        onJVMEnties((Map) benchmarkOverviewReport.getEnvironmentSettings().get("jvmEnvironment"));
-        onEnviromentEntries((Map) benchmarkOverviewReport.getEnvironmentSettings().get("environment"));
+        onJVMEntries((Map) benchmarkOverviewReport.getEnvironmentSettings().get("jvmEnvironment"));
+        onEnvironmentEntries((Map) benchmarkOverviewReport.getEnvironmentSettings().get("environment"));
+
+
+        Map<String, Object> entries = new HashMap<>();
+        try {
+            PropertyDescriptor[] propertyDescriptors1 = Introspector.getBeanInfo(BenchmarkOverviewReport.class).getPropertyDescriptors();
+            for (int i = 0; i < propertyDescriptors1.length; i++) {
+                PropertyDescriptor propertyDescriptor = propertyDescriptors1[i];
+                if (!propertyDescriptor.getReadMethod().getReturnType().equals(Map.class)) {
+                    entries.put(propertyDescriptor.getName(), propertyDescriptor.getReadMethod().invoke(benchmarkOverviewReport));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        onSummaryEntries(entries);
 
 
         Object collect = Stream.of(benchmarks.values().toArray(new List[benchmarks.size()])).flatMap(t -> t.stream()).collect(Collectors.toList());
@@ -58,9 +69,11 @@ public abstract class ResultFileParser {
 
     protected abstract void onFinished();
 
-    protected abstract void onEnviromentEntries(Map<String, Object> environment);
+    protected abstract void onEnvironmentEntries(Map<String, Object> environment);
 
-    protected abstract void onJVMEnties(Map<String, Object> environmentSettings);
+    protected abstract void onJVMEntries(Map<String, Object> environmentSettings);
+
+    protected abstract void onSummaryEntries(Map<String, Object> environmentSettings);
 
 
     public abstract void onTestEnd(BenchmarkReport report);
