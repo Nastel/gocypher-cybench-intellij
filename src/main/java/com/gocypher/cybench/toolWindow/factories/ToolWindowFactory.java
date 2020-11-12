@@ -2,6 +2,7 @@ package com.gocypher.cybench.toolWindow.factories;
 
 import com.gocypher.cybench.toolWindow.CyBenchToolWindow;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class ToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFactory {
     public static HashMap<File, Content> loaded= new HashMap<>();
+    public static HashMap<Content, File> loadedContents= new HashMap<>();
     public static HashMap<File, CyBenchToolWindow> loadedWindows= new HashMap<>();
 
     @Override
@@ -30,6 +32,12 @@ public class ToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFact
         Content content = contentFactory.createContent(myToolWindow.getContent(), myToolWindow.getFile().getName(), false);
         loaded.put(myToolWindow.getFile(),content );
         loadedWindows.put(myToolWindow.getFile(), myToolWindow);
+        loadedContents.put(content, myToolWindow.getFile());
+        content.setDisposer(() -> {
+            File remove = loadedContents.remove(content);
+            loaded.remove(remove);
+            loadedWindows.remove(remove);
+        });
 
         contentManager.addContent(content);
         contentManager.setSelectedContent(content);
