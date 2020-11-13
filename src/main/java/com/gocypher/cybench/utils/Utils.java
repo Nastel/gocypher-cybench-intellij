@@ -43,9 +43,17 @@ public class Utils {
                 return convertNumToStringFrac(v, 6, 8);
             }
         } catch (NumberFormatException e) {
-            return value;
+            return findURI(value);
         }
 
+
+        return findURI(value);
+    }
+
+    private static String findURI(String value) {
+        if (value.startsWith("http://") || value.startsWith("https://")) {
+            return "<HTML><a href=\"" + value + "\">Open " + value + "</a></HTML>";
+        }
 
         return value;
     }
