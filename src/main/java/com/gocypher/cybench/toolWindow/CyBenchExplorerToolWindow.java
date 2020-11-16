@@ -2,6 +2,7 @@ package com.gocypher.cybench.toolWindow;
 
 import com.gocypher.cybench.utils.CyBenchTreeCellRenderer;
 import com.gocypher.cybench.utils.Nodes;
+import com.gocypher.cybench.viewPanels.CBTable;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.fileChooser.FileChooser;
@@ -11,9 +12,9 @@ import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.dualView.TreeTableView;
+import com.intellij.ui.table.JBTable;
 import com.intellij.ui.treeStructure.Tree;
 import com.intellij.ui.treeStructure.treetable.ListTreeTableModelOnColumns;
-import com.intellij.ui.treeStructure.treetable.TreeTable;
 import com.intellij.util.ui.ColumnInfo;
 import com.intellij.util.xml.ui.BooleanColumnInfo;
 import org.jetbrains.annotations.NotNull;
@@ -22,19 +23,22 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CyBenchExplorerToolWindow {
 
     private JPanel toolWindowContent;
 
-    private Tree reportList;
     private File reportsFolder;
-    private TreeTableView treeTable;
+    private JBTable reportList;
 
 
     public CyBenchExplorerToolWindow(ToolWindow toolWindow) {
@@ -45,27 +49,18 @@ public class CyBenchExplorerToolWindow {
 
     private void initComponents() {
         toolWindowContent = new JPanel(new BorderLayout(0, 0));
-        reportList = new Tree();
 
-        DefaultMutableTreeNode root = (DefaultMutableTreeNode) reportList.getModel().getRoot();
-        treeTable =
-                new TreeTableView(new ListTreeTableModelOnColumns(root, new ColumnInfo[]{new BooleanColumnInfo("A"), new BooleanColumnInfo("A")}));
-        root.add(new Nodes.BenchmarkTestNode("a"));
+        reportList = new JBTable(new DefaultTableModel());
+        ((DefaultTableModel) reportList.getModel()).setColumnIdentifiers(new String[]{"Benchmark Name", "Score", "Timestamp", "Actual_File_Hidden"});
+        reportList.removeColumn(reportList.getColumnModel().getColumn(3));
 
-
-        reportList.setRootVisible(false);
-        reportList.setCellRenderer(new CyBenchTreeCellRenderer());
-        reportList.addTreeSelectionListener(new TreeSelectionListener() {
-            @Override
-            public void valueChanged(TreeSelectionEvent e) {
-                CyBenchToolWindow.activateReportView(new File(getReportDir().getAbsolutePath() + File.separator + e.getPath().getLastPathComponent()), CyBenchExplorerToolWindow.this.toolWindowContent, null);
-
-            }
+        reportList.getSelectionModel().addListSelectionListener(x -> {
+            int selectionIndex =x.getFirstIndex();
+            File valueAt = (File) reportList.getModel().getValueAt(selectionIndex-1, 3);
+            CyBenchToolWindow.activateReportView(valueAt, CyBenchExplorerToolWindow.this.toolWindowContent, null);
         });
 
-
-        toolWindowContent.add(reportList, BorderLayout.CENTER);
-        toolWindowContent.add(treeTable, BorderLayout.SOUTH);
+        toolWindowContent.add(new JScrollPane(reportList), BorderLayout.CENTER);
 
         ActionToolbar cb_explorer_toolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.TOOLWINDOW_CONTENT, new ActionGroup() {
             @NotNull
@@ -87,17 +82,39 @@ public class CyBenchExplorerToolWindow {
 
 
     private void refreshReports() {
-        reportList.setModel(new DefaultTreeModel(new DefaultMutableTreeNode()));
         Project project = ProjectUtil.guessCurrentProject(toolWindowContent);
         if (reportsFolder == null) {
             reportsFolder = new File(project.getBasePath() + File.separator + "reports");
         }
         if (reportsFolder.exists()) {
-            File[] files = reportsFolder.listFiles(f -> f.getName().endsWith(".json"));
-            Arrays.asList(files).stream().forEach(f -> ((DefaultMutableTreeNode) (reportList.getModel()).getRoot()).add(new Nodes.BenchmarkReportFileNode(f.getName(), f)));
-            //Arrays.asList(files).stream().forEach(f -> ((DefaultMutableTreeNode) treeTable.getTree().getModel().getRoot()).add(new Nodes.BenchmarkReportFileNode(f.getName(), f)));
-            ((DefaultTreeModel) reportList.getModel()).reload();
+            File[] files = reportsFolder.listFiles(f -> f.getName().endsWith(".cybench"));
+            Arrays.asList(files).stream().forEach(f -> {
+                ((DefaultTableModel) reportList.getModel()).addRow(getRow(f));
+            });
         }
+    }
+
+    private Object[] getRow(File f) {
+        Object[] row;
+        String name = f.getName();
+        Pattern pattern = Pattern.compile("(?<rName>.*)-(?<timestamp>[0-9]*)-(?<score>[0-9.,]*).cybench");
+        Matcher matcher = pattern.matcher(name);
+        if (matcher.matches()) {
+            String timestamp;
+            try {
+                timestamp = new SimpleDateFormat("yyy-MM-dd HH:mm:ss").format(Long.parseLong(matcher.group("timestamp")));
+            } catch (Exception e) {
+                timestamp = "";
+            }
+
+            row = new Object[]{matcher.group("rName"), timestamp, matcher.group("score"), f};
+        } else {
+            row = new Object[]{name, "", "", f};
+        }
+
+
+        return row;
+
     }
 
 

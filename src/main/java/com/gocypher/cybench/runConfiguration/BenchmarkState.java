@@ -1,5 +1,6 @@
 package com.gocypher.cybench.runConfiguration;
 
+import com.gocypher.cybench.launcher.utils.Constants;
 import com.intellij.compiler.CompilerConfiguration;
 import com.intellij.compiler.CompilerConfigurationImpl;
 import com.intellij.execution.ExecutionException;
@@ -157,8 +158,10 @@ public class BenchmarkState extends CommandLineState {
             javaParameters.getVMParametersList().add("-D" + confEntry.getKey().key + "=" + String.valueOf(confEntry.getValue()));
 
         }
-        String reportFileName = "report_" + System.currentTimeMillis() + ".json";
-        javaParameters.getVMParametersList().add("-D" + "report.json" + "=" + reportFileName);
+        String reportFileName = getReportFileName(String.valueOf(configuration.getValueStore().get(CyBenchConfigurableParameters.REPORT_NAME)));
+        javaParameters.getVMParametersList().add(reportFileName);
+        javaParameters.getVMParametersList().add("-D" + Constants.APPEND_SCORE_TO_FNAME + "=" + Boolean.TRUE);
+
         cyBenchResultTreeConsoleView.setReportFile(reportFileName);
         GeneralCommandLine fromJavaParameters = javaParameters.toCommandLine();
 
@@ -171,6 +174,14 @@ public class BenchmarkState extends CommandLineState {
         notification.notify(project);
 
         return fromJavaParameters;
+    }
+
+    @NotNull
+    private String getReportFileName(String benchmarkName) {
+        benchmarkName = benchmarkName.replaceAll(" ", "_");
+        String key = "report.json";
+        String reportFileName = benchmarkName + "-" + System.currentTimeMillis() + ".cybench";
+        return "-D" + key + "=" + reportFileName;
     }
 
 }
