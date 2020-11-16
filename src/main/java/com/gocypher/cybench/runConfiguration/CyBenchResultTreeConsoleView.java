@@ -288,6 +288,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         ((ColoredTreeCellRenderer) tree.getCellRenderer()).setIcon(AllIcons.RunConfigurations.TestPassed);
         tree.updateUI();
         CyBenchToolWindow.activateReportView(reportFile, this.consoleView, null);
+        CyBenchExplorerToolWindow.refreshToolWindow();
 
     }
 

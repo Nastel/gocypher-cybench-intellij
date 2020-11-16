@@ -166,13 +166,6 @@ public class BenchmarkState extends CommandLineState {
         GeneralCommandLine fromJavaParameters = javaParameters.toCommandLine();
 
 
-
-
-        final NotificationGroup NOTIFICATION_GROUP =
-                new NotificationGroup("Groovy DSL errors", NotificationDisplayType.BALLOON, true);
-        Notification notification = NOTIFICATION_GROUP.createNotification(fromJavaParameters.getCommandLineString(), NotificationType.ERROR);
-        notification.notify(project);
-
         return fromJavaParameters;
     }
 

@@ -8,9 +8,12 @@ import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
 public class BrowseReportsToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFactory {
+
+    public static CyBenchExplorerToolWindow myToolWindow;
+
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        CyBenchExplorerToolWindow myToolWindow = new CyBenchExplorerToolWindow(toolWindow);
+        myToolWindow = new CyBenchExplorerToolWindow(toolWindow);
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(myToolWindow.getContent(), "", false);
         toolWindow.getContentManager().addContent(content);

@@ -1,5 +1,6 @@
 package com.gocypher.cybench.toolWindow;
 
+import com.gocypher.cybench.toolWindow.factories.BrowseReportsToolWindowFactory;
 import com.gocypher.cybench.utils.CyBenchTreeCellRenderer;
 import com.gocypher.cybench.utils.Nodes;
 import com.gocypher.cybench.viewPanels.CBTable;
@@ -11,6 +12,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.dualView.TreeTableView;
 import com.intellij.ui.table.JBTable;
 import com.intellij.ui.treeStructure.Tree;
@@ -32,10 +34,11 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 public class CyBenchExplorerToolWindow {
 
-    private JPanel toolWindowContent;
+    private static JPanel toolWindowContent;
 
     private File reportsFolder;
     private JBTable reportList;
@@ -82,6 +85,9 @@ public class CyBenchExplorerToolWindow {
 
 
     private void refreshReports() {
+        for(int i = reportList.getModel().getRowCount()-1; i>0; i--) {
+            ((DefaultTableModel) reportList.getModel()).removeRow(i);
+        }
         Project project = ProjectUtil.guessCurrentProject(toolWindowContent);
         if (reportsFolder == null) {
             reportsFolder = new File(project.getBasePath() + File.separator + "reports");
@@ -92,6 +98,13 @@ public class CyBenchExplorerToolWindow {
                 ((DefaultTableModel) reportList.getModel()).addRow(getRow(f));
             });
         }
+    }
+
+    public static void refreshToolWindow() {
+        ToolWindow cyBench_explorer = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench explorer");
+        cyBench_explorer.activate(() -> CyBenchToolWindow.noop());
+        BrowseReportsToolWindowFactory.myToolWindow.refreshReports();
+
     }
 
     private Object[] getRow(File f) {
@@ -107,7 +120,7 @@ public class CyBenchExplorerToolWindow {
                 timestamp = "";
             }
 
-            row = new Object[]{matcher.group("rName"), timestamp, matcher.group("score"), f};
+            row = new Object[]{matcher.group("rName"), matcher.group("score"), timestamp, f};
         } else {
             row = new Object[]{name, "", "", f};
         }
