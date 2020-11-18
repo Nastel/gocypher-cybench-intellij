@@ -1,0 +1,11 @@
+import org.openjdk.jmh.annotations.*;
+import java.util.concurrent.TimeUnit;
+@BenchmarkMode(${benchmarkMode})
+@Warmup(iterations = ${warmupIterations})
+@Measurement(iterations = ${measureIterations}, time = ${measureTimes}, timeUnit = TimeUnit.SECONDS)
+@Threads(${threadNum})
+@Fork(${forkNum})
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
+class ${NAME} {
+    ${BODY}
+}

@@ -23,5 +23,9 @@
                 description="Run all benchmarks with CyBench runner" icon="/actions/execute.svg">
             <add-to-group group-id="ProjectViewPopupMenuRunGroup" anchor="first"/>
         </action>
+        <action id="com.gocypher.cybench.generate.CBGenerateAnAction" class="com.gocypher.cybench.generate.CBGenerateAnAction"
+                text="CyBench benchmark">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
     </actions>
 </idea-plugin>
