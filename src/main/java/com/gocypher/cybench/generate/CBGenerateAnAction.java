@@ -1,5 +1,6 @@
 package com.gocypher.cybench.generate;
 
+import com.gocypher.cybench.utils.Utils;
 import com.intellij.CommonBundle;
 import com.intellij.codeInsight.AnnotationUtil;
 import com.intellij.codeInsight.CodeInsightUtil;
@@ -44,12 +45,14 @@ import org.jetbrains.concurrency.Promise;
 import org.jetbrains.concurrency.Promises;
 import org.jetbrains.jps.model.java.JavaSourceRootType;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 
 public class CBGenerateAnAction extends AnAction {
@@ -57,6 +60,11 @@ public class CBGenerateAnAction extends AnAction {
     static Project project = null;
     static PsiFile file = null;
     static Editor editor = null;
+
+    @Override
+    public boolean isDumbAware() {
+        return true;
+    }
 
     private static PsiClass generateClassAndMethods(PsiClass psiClass, PsiDirectory parent) throws Exception {
 
@@ -101,13 +109,18 @@ public class CBGenerateAnAction extends AnAction {
 
     public static PsiDirectory getTestRoot(Module module) {
         List<SourceFolder> sourceFolders = ModuleRootManager.getInstance(module).getContentEntries()[0].getSourceFolders(JavaSourceRootType.TEST_SOURCE);
+        if (sourceFolders.size() == 0) {
+            sourceFolders = ModuleRootManager.getInstance(module).getContentEntries()[0].getSourceFolders(JavaSourceRootType.SOURCE);
+        }
         try {
-            VirtualFile directories = VfsUtil.createDirectories(VfsUtilCore.urlToPath(sourceFolders.get(0).getUrl()));
+            SourceFolder sourceFolder = sourceFolders.get(0);
+            VirtualFile directories = VfsUtil.createDirectories(VfsUtilCore.urlToPath(sourceFolder.getUrl()));
             PsiDirectory directory = PsiManager.getInstance(project).findDirectory(directories);
             return directory;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return null;
 
     }
@@ -160,12 +173,28 @@ public class CBGenerateAnAction extends AnAction {
     }
 
     public void setupLibrary(Module module) {
-        ExternalLibraryDescriptor core = new ExternalLibraryDescriptor("org.openjdk.jmh",
-                "jmh-core", "1.21", "1.21");
-        ExternalLibraryDescriptor aProcessor = new ExternalLibraryDescriptor("org.openjdk.jmh",
-                "jmh-generator-annprocess", "1.21", "1.21");
 
-        JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core, DependencyScope.TEST);
-        JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, aProcessor, DependencyScope.TEST);
+        if (isMavenizedModule(module)) {
+            ExternalLibraryDescriptor core = new ExternalLibraryDescriptor("org.openjdk.jmh",
+                    "jmh-core", "1.26", "1.26");
+            ExternalLibraryDescriptor aProcessor = new ExternalLibraryDescriptor("org.openjdk.jmh",
+                    "jmh-generator-annprocess", "1.26", "1.26");
+
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core, DependencyScope.TEST);
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, aProcessor, DependencyScope.TEST);
+        } else {
+
+            OrderEntryFix.addJarsToRoots(Arrays.asList(Utils.getJMHLibFiles()).stream().map(f -> f.getAbsolutePath()).collect(Collectors.toList()), null, module, null);
+        }
+
+    }
+
+    private boolean isMavenizedModule(Module module) {
+        try {
+            Class.forName("org.jetbrains.idea.maven.project.MavenProjectsManager");
+            return org.jetbrains.idea.maven.project.MavenProjectsManager.getInstance(project).isMavenizedModule(module);
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }

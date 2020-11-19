@@ -59,7 +59,7 @@ public class CyBenchExplorerToolWindow {
 
         reportList.getSelectionModel().addListSelectionListener(x -> {
             int selectionIndex =x.getFirstIndex();
-            File valueAt = (File) reportList.getModel().getValueAt(selectionIndex-1, 3);
+            File valueAt = (File) reportList.getModel().getValueAt(selectionIndex, 3);
             CyBenchToolWindow.activateReportView(valueAt, CyBenchExplorerToolWindow.this.toolWindowContent, null);
         });
 
@@ -102,7 +102,7 @@ public class CyBenchExplorerToolWindow {
 
     public static void refreshToolWindow() {
         ToolWindow cyBench_explorer = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench explorer");
-        cyBench_explorer.activate(() -> CyBenchToolWindow.noop());
+        cyBench_explorer.activate(null);
         BrowseReportsToolWindowFactory.myToolWindow.refreshReports();
 
     }

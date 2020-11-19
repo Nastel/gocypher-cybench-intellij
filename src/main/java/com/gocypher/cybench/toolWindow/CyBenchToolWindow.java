@@ -14,6 +14,7 @@ import com.intellij.ui.treeStructure.treetable.TreeTable;
 import com.intellij.util.ui.ColumnInfo;
 import com.intellij.util.xml.ui.BooleanColumnInfo;
 import org.codehaus.jettison.json.JSONException;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -22,7 +23,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
@@ -45,7 +48,7 @@ public class CyBenchToolWindow {
         createUIComponents();
         this.file = file;
         if (file == null) {
-            this.file = new File(ProjectUtil.guessCurrentProject(getContent()).getBasePath() + "/reports/report.json");
+            this.file = getDefaultReport();
         }
 
         reportList.setModel(new DefaultTreeModel(new Nodes.BenchmarkRootNode("CyBench report")));
@@ -74,12 +77,6 @@ public class CyBenchToolWindow {
 
     }
 
-    public void selectActualReport(String component) {
-        tabs.remove(3);
-        tabs.addTab("Benchmark Details", CyBenchToolWindow.this.testResultTabs.get(component));
-        tabs.setSelectedIndex(3);
-    }
-
     public static void main(String[] args) {
         JDialog d = new JDialog();
         d.setModal(true);
@@ -93,7 +90,7 @@ public class CyBenchToolWindow {
 
     public static void activateReportView(File file, JPanel toolWindowContent, String selectReport) {
         ToolWindow cyBench_report = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench report");
-        cyBench_report.activate(() -> noop());
+        cyBench_report.activate(null);
 
 
         if (!ToolWindowFactory.loaded.containsKey(file)) {
@@ -115,6 +112,27 @@ public class CyBenchToolWindow {
 
     public static void noop() {
 
+    }
+
+    @NotNull
+    private File getDefaultReport() {
+        File reportsDir = new File(ProjectUtil.guessCurrentProject(getContent()).getBasePath() + "/reports/");
+        File[] list = reportsDir.listFiles((dir, name) -> name.endsWith(".cybench"));
+
+        if (reportsDir.exists() && list.length >=1) {
+            return list[0];
+        }
+        try {
+            return new File(getClass().getClassLoader().getResource("sample_report.cybench").toURI());
+        } catch (URISyntaxException e) {
+            return null;
+        }
+    }
+
+    public void selectActualReport(String component) {
+        tabs.remove(3);
+        tabs.addTab("Benchmark Details", CyBenchToolWindow.this.testResultTabs.get(component));
+        tabs.setSelectedIndex(3);
     }
 
     private void populateNodeFromFile() {

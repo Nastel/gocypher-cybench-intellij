@@ -1,6 +1,7 @@
 package com.gocypher.cybench.runConfiguration;
 
 import com.gocypher.cybench.launcher.utils.Constants;
+import com.gocypher.cybench.utils.Utils;
 import com.intellij.compiler.CompilerConfiguration;
 import com.intellij.compiler.CompilerConfigurationImpl;
 import com.intellij.execution.ExecutionException;
@@ -15,13 +16,7 @@ import com.intellij.execution.runners.ProgramRunner;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.util.JavaParametersUtil;
 import com.intellij.ide.DataManager;
-import com.intellij.ide.plugins.cl.PluginClassLoader;
-import com.intellij.notification.Notification;
-import com.intellij.notification.NotificationDisplayType;
-import com.intellij.notification.NotificationGroup;
-import com.intellij.notification.NotificationType;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.application.PluginPathManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import org.apache.commons.io.IOCase;
@@ -32,10 +27,6 @@ import org.jetbrains.jps.model.java.compiler.ProcessorConfigProfile;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 
@@ -77,44 +68,16 @@ public class BenchmarkState extends CommandLineState {
 
         JavaParametersUtil.configureModule(configuration.getConfigurationModule(), parameters, JavaParameters.JDK_AND_CLASSES_AND_TESTS, null);
 
-        File pluginHome = PluginPathManager.getPluginHome("Cybench-Intellij");
-        File lib = new File(pluginHome, "lib");
+
 
         File[] pluginJars = null;
-        if (lib.exists()) {
-            pluginJars = lib.listFiles(PLUGINS_JAR_FILTER);
-        } else {
-            pluginJars = getPluginClasspathHackyWay();
-        }
+        pluginJars = Utils.getJMHLibFiles();
 
 
         parameters.getClassPath().addAllFiles(pluginJars);
 
 
         return parameters;
-    }
-
-    private File[] getPluginClasspathHackyWay() {
-        try {
-
-            PluginClassLoader pluginClassLoader = (PluginClassLoader) this.getClass().getClassLoader();
-            Field myLibDirectories = PluginClassLoader.class.getDeclaredField("myLibDirectories");
-            myLibDirectories.setAccessible(true);
-            List<String> libDirs = (List<String>) myLibDirectories.get(pluginClassLoader);
-            List<File> result = new ArrayList<>();
-            for (String libDir : libDirs) {
-                File file = new File(libDir);
-                if (file.exists()) {
-                    File[] files = file.listFiles(PLUGINS_JAR_FILTER);
-                    List<File> c = Arrays.asList(files);
-                    result.addAll(c);
-                }
-            }
-            return result.toArray(new File[result.size()]);
-
-        } catch (Exception e) {
-            return null;
-        }
     }
 
     @Override
