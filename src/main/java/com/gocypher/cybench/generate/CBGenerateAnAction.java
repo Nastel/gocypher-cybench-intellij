@@ -2,28 +2,20 @@ package com.gocypher.cybench.generate;
 
 import com.gocypher.cybench.utils.Utils;
 import com.intellij.CommonBundle;
-import com.intellij.codeInsight.AnnotationUtil;
 import com.intellij.codeInsight.CodeInsightUtil;
-import com.intellij.codeInsight.daemon.impl.quickfix.CreateFromUsageUtils;
 import com.intellij.codeInsight.daemon.impl.quickfix.OrderEntryFix;
-import com.intellij.codeInsight.generation.GenerateMembersUtil;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.ide.fileTemplates.FileTemplateUtil;
-import com.intellij.ide.util.PackageUtil;
-import com.intellij.lang.Language;
-import com.intellij.lang.LanguageParserDefinitions;
 import com.intellij.lang.jvm.JvmModifier;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.ex.IdeDocumentHistory;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.*;
@@ -34,22 +26,16 @@ import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.JavaCodeStyleManager;
-import com.intellij.psi.impl.file.PsiDirectoryFactory;
 import com.intellij.psi.impl.source.PostprocessReformattingAspect;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.psi.util.PsiUtil;
 import com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesUtil;
-import com.intellij.testIntegration.TestIntegrationUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.concurrency.Promise;
-import org.jetbrains.concurrency.Promises;
 import org.jetbrains.jps.model.java.JavaSourceRootType;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -61,18 +47,23 @@ public class CBGenerateAnAction extends AnAction {
     static PsiFile file = null;
     static Editor editor = null;
 
-    @Override
-    public boolean isDumbAware() {
-        return true;
-    }
-
     private static PsiClass generateClassAndMethods(PsiClass psiClass, PsiDirectory parent) throws Exception {
 
 
-        FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Class.java");
+        String benchmarkFileName = psiClass.getName() + "Benchmark";
 
+        VirtualFile file = parent.getVirtualFile().findChild(benchmarkFileName + ".java");
 
-        PsiClass created = (PsiClass) FileTemplateUtil.createFromTemplate(codeTemplate, psiClass.getName() + "Benchmark", new Properties(), parent);
+        PsiClass created;
+        if (file == null) {
+            FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Class.java");
+            created = (PsiClass) FileTemplateUtil.createFromTemplate(codeTemplate, benchmarkFileName, new Properties(), parent);
+            PsiUtil.setModifierProperty(created, PsiModifier.PUBLIC, true);
+            created.getModifierList().addAnnotation("org.openjdk.jmh.annotations.State(org.openjdk.jmh.annotations.Scope.Benchmark)");
+        } else {
+            PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
+            created = PsiTreeUtil.getChildrenOfType(psiFile, PsiClass.class)[0];
+        }
 
 
         PsiJavaFile createdFile = PsiTreeUtil.getParentOfType(created, PsiJavaFile.class);
@@ -80,6 +71,10 @@ public class CBGenerateAnAction extends AnAction {
         Editor editor = CodeInsightUtil.positionCursorAtLBrace(project, createdFile, created);
 
         JVMElementFactory factory = JVMElementFactories.getFactory(psiClass.getLanguage(), project);
+
+
+        generateSetUpWithAnnotations(created, factory);
+        generateTearDownWithAnnotations(created, factory);
 
 
         Arrays.asList(psiClass.getMethods()).stream()
@@ -98,10 +93,30 @@ public class CBGenerateAnAction extends AnAction {
 
     @NotNull
     private static PsiMethod generateMethodWithAnnotations(String name, PsiClass created, JVMElementFactory factory) {
-        PsiMethod benchmarkMethod = factory.createMethodFromText("public void " + name + "(){}", created);
+        PsiMethod benchmarkMethod = factory.createMethodFromText("public void " + name + "(org.openjdk.jmh.infra.Blackhole bh){}", created);
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Benchmark");
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.BenchmarkMode(org.openjdk.jmh.annotations.Mode.Throughput)");
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.OutputTimeUnit(java.util.concurrent.TimeUnit.SECONDS)");
+        PsiElement add = created.add(benchmarkMethod);
+
+        return benchmarkMethod;
+    }
+
+    @NotNull
+    private static PsiMethod generateSetUpWithAnnotations(PsiClass created, JVMElementFactory factory) {
+        PsiMethod benchmarkMethod = factory.createMethodFromText("public void setup(){}", created);
+
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Setup");
+
+        PsiElement add = created.add(benchmarkMethod);
+
+        return benchmarkMethod;
+    }
+
+    @NotNull
+    private static PsiMethod generateTearDownWithAnnotations(PsiClass created, JVMElementFactory factory) {
+        PsiMethod benchmarkMethod = factory.createMethodFromText("public void teardown(){}", created);
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.TearDown");
         PsiElement add = created.add(benchmarkMethod);
 
         return benchmarkMethod;
@@ -123,6 +138,22 @@ public class CBGenerateAnAction extends AnAction {
 
         return null;
 
+    }
+
+    @Override
+    public void update(@NotNull AnActionEvent e) {
+        PsiElement data = e.getDataContext().getData(CommonDataKeys.PSI_FILE);
+        if (data instanceof PsiJavaFile) {
+            e.getPresentation().setEnabled(true);
+        } else {
+            e.getPresentation().setEnabled(false);
+        }
+
+    }
+
+    @Override
+    public boolean isDumbAware() {
+        return true;
     }
 
     @Override
@@ -165,7 +196,7 @@ public class CBGenerateAnAction extends AnAction {
 
         if (c == null) {
             int libraries_not_found = Messages
-                    .showOkCancelDialog(module.getProject(), "Libraries not found", CommonBundle.getErrorTitle(), Messages.getErrorIcon());
+                    .showOkCancelDialog(module.getProject(), "Libraries not found. Add?", CommonBundle.getErrorTitle(), Messages.getErrorIcon());
             if (libraries_not_found == Messages.OK) {
                 setupLibrary(module);
             }

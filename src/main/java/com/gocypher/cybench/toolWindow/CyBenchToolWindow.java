@@ -36,10 +36,8 @@ public class CyBenchToolWindow {
     private File file;
     private JPanel toolWindowContent;
     private Tree reportList;
-    private TreeTable treeTable;
     private JSplitPane splitPane;
     private JTabbedPane tabs;
-    private JTabbedPane hv_jvm_result;
     private HashMap<String, JScrollPane> testResultTabs = new HashMap<>();
 
 
@@ -122,11 +120,11 @@ public class CyBenchToolWindow {
         if (reportsDir.exists() && list.length >=1) {
             return list[0];
         }
-        try {
-            return new File(getClass().getClassLoader().getResource("sample_report.cybench").toURI());
-        } catch (URISyntaxException e) {
+//        try {
+//            return new File(getClass().getClassLoader().getResource("sample_report.cybench").toURI());
+//        } catch (URISyntaxException e) {
             return null;
-        }
+//        } //TODO load sample
     }
 
     public void selectActualReport(String component) {

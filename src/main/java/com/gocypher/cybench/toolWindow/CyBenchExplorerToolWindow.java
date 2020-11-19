@@ -1,9 +1,6 @@
 package com.gocypher.cybench.toolWindow;
 
 import com.gocypher.cybench.toolWindow.factories.BrowseReportsToolWindowFactory;
-import com.gocypher.cybench.utils.CyBenchTreeCellRenderer;
-import com.gocypher.cybench.utils.Nodes;
-import com.gocypher.cybench.viewPanels.CBTable;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.fileChooser.FileChooser;
@@ -13,28 +10,18 @@ import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
-import com.intellij.ui.dualView.TreeTableView;
 import com.intellij.ui.table.JBTable;
-import com.intellij.ui.treeStructure.Tree;
-import com.intellij.ui.treeStructure.treetable.ListTreeTableModelOnColumns;
-import com.intellij.util.ui.ColumnInfo;
-import com.intellij.util.xml.ui.BooleanColumnInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class CyBenchExplorerToolWindow {
 
@@ -50,6 +37,13 @@ public class CyBenchExplorerToolWindow {
 
     }
 
+    public static void refreshToolWindow() {
+        ToolWindow cyBench_explorer = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench explorer");
+        cyBench_explorer.activate(null);
+        BrowseReportsToolWindowFactory.myToolWindow.refreshReports();
+
+    }
+
     private void initComponents() {
         toolWindowContent = new JPanel(new BorderLayout(0, 0));
 
@@ -58,9 +52,10 @@ public class CyBenchExplorerToolWindow {
         reportList.removeColumn(reportList.getColumnModel().getColumn(3));
 
         reportList.getSelectionModel().addListSelectionListener(x -> {
-            int selectionIndex =x.getFirstIndex();
+            int selectionIndex = x.getFirstIndex();
             File valueAt = (File) reportList.getModel().getValueAt(selectionIndex, 3);
-            CyBenchToolWindow.activateReportView(valueAt, CyBenchExplorerToolWindow.this.toolWindowContent, null);
+            CyBenchToolWindow.activateReportView(valueAt, toolWindowContent, null);
+            reportList.getSelectionModel().removeIndexInterval(x.getFirstIndex(), x.getLastIndex());
         });
 
         toolWindowContent.add(new JScrollPane(reportList), BorderLayout.CENTER);
@@ -83,9 +78,8 @@ public class CyBenchExplorerToolWindow {
         return new File(ProjectUtil.guessCurrentProject(toolWindowContent).getBasePath() + "/reports");
     }
 
-
     private void refreshReports() {
-        for(int i = reportList.getModel().getRowCount()-1; i>0; i--) {
+        for (int i = reportList.getModel().getRowCount() - 1; i > -1; i--) {
             ((DefaultTableModel) reportList.getModel()).removeRow(i);
         }
         Project project = ProjectUtil.guessCurrentProject(toolWindowContent);
@@ -98,13 +92,6 @@ public class CyBenchExplorerToolWindow {
                 ((DefaultTableModel) reportList.getModel()).addRow(getRow(f));
             });
         }
-    }
-
-    public static void refreshToolWindow() {
-        ToolWindow cyBench_explorer = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench explorer");
-        cyBench_explorer.activate(null);
-        BrowseReportsToolWindowFactory.myToolWindow.refreshReports();
-
     }
 
     private Object[] getRow(File f) {
