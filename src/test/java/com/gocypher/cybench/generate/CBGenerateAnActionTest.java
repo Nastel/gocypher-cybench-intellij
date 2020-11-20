@@ -1,46 +1,47 @@
 package com.gocypher.cybench.generate;
 
-import com.intellij.lang.java.JavaParserDefinition;
-import com.intellij.testFramework.ParsingTestCase;
+import com.intellij.codeInsight.completion.CompletionType;
+import com.intellij.lang.Language;
+import com.intellij.lang.LanguageParserDefinitions;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.*;
+import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.psi.util.PsiUtil;
+import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
 
-public class CBGenerateAnActionTest extends ParsingTestCase {
+import java.util.Arrays;
+import java.util.List;
 
-    //    public static final Language JAVA = Language.findLanguageByID("java");
-//
-//    @Test
-//    public void testParseJavaFile() {
-//        VirtualFile fileByPath = LocalFileSystem.getInstance().findFileByPath("CBGenerateAnActionTest.java");
-//        FileViewProvider fileViewProvider = (new ClassFileViewProviderFactory()).createFileViewProvider(fileByPath, JAVA, PsiManager.getInstance(getProject()), false);
-//        PsiFile file = LanguageParserDefinitions.INSTANCE.forLanguage(JAVA).createFile(fileViewProvider);
-//        System.out.println(file);
-//
-//    }
-    public CBGenerateAnActionTest() {
-        super("", "simple", new JavaParserDefinition());
-    }
+public class CBGenerateAnActionTest extends LightJavaCodeInsightFixtureTestCase {
 
-    public void testParsingTestData() {
-        doTest(true);
-    }
+        public static final Language JAVA = Language.findLanguageByID("java");
 
-    /**
-     * @return path to test data file directory relative to root of this module.
-     */
-    @Override
+
+
     protected String getTestDataPath() {
         return "src/test/testData";
     }
 
-    @Override
-    protected boolean skipSpaces() {
-        return false;
+    public void testCompletion() {
+        myFixture.configureByFiles("CompleteTestData.java", "DefaultTestData.simple");
+        myFixture.complete(CompletionType.BASIC, 1);
+        List<String> strings = myFixture.getLookupElementStrings();
+        assertTrue(strings.containsAll(Arrays.asList("key with spaces", "language", "message", "tab", "website")));
+        assertEquals(5, strings.size());
     }
 
-    @Override
-    protected boolean includeRanges() {
-        return true;
+    public void testParseJavaFile() throws Exception {
+        myFixture.configureByFiles("CompleteTestData.java", "DefaultTestData.simple");
+        PsiFile file = getFile();
+        PsiClass[] childrenOfType = PsiTreeUtil.getChildrenOfType(file, PsiClass.class);
+CBGenerateAnAction.project=getProject();
+
+        PsiClass psiClass = CBGenerateAnAction.generateClassAndMethods(childrenOfType[0],  file.getParent());
+        System.out.println(psiClass);
+
     }
-
-
 }
+
+
 

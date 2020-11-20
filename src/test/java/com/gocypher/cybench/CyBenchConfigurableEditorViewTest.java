@@ -9,6 +9,7 @@ import com.intellij.openapi.fileChooser.*;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -32,6 +33,7 @@ import static org.mockito.Mockito.mock;
 @PowerMockIgnore({"sun.*", "javax.*"})
 public class CyBenchConfigurableEditorViewTest {
 
+    @Ignore
     @Test
     public  void main() {
         PowerMockito.mockStatic(PathMacros.class);

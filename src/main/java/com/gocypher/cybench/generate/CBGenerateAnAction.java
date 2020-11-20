@@ -47,7 +47,7 @@ public class CBGenerateAnAction extends AnAction {
     static PsiFile file = null;
     static Editor editor = null;
 
-    private static PsiClass generateClassAndMethods(PsiClass psiClass, PsiDirectory parent) throws Exception {
+    protected static PsiClass generateClassAndMethods(PsiClass psiClass, PsiDirectory parent) throws Exception {
 
 
         String benchmarkFileName = psiClass.getName() + "Benchmark";
