@@ -117,13 +117,13 @@ public class CyBenchToolWindow {
         File reportsDir = new File(ProjectUtil.guessCurrentProject(getContent()).getBasePath() + "/reports/");
         File[] list = reportsDir.listFiles((dir, name) -> name.endsWith(".cybench"));
 
-        if (reportsDir.exists() && list.length >=1) {
+        if (reportsDir.exists() && list.length >= 1) {
             return list[0];
         }
 //        try {
 //            return new File(getClass().getClassLoader().getResource("sample_report.cybench").toURI());
 //        } catch (URISyntaxException e) {
-            return null;
+        return null;
 //        } //TODO load sample
     }
 
