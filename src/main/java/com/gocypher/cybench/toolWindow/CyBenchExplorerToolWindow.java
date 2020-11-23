@@ -3,6 +3,7 @@ package com.gocypher.cybench.toolWindow;
 import com.gocypher.cybench.toolWindow.factories.BrowseReportsToolWindowFactory;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.fileChooser.FileChooser;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.project.Project;
@@ -29,6 +30,7 @@ public class CyBenchExplorerToolWindow {
 
     private File reportsFolder;
     private JBTable reportList;
+    private boolean reloading;
 
 
     public CyBenchExplorerToolWindow(ToolWindow toolWindow) {
@@ -39,7 +41,7 @@ public class CyBenchExplorerToolWindow {
 
     public static void refreshToolWindow() {
         ToolWindow cyBench_explorer = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench explorer");
-        cyBench_explorer.activate(null);
+        ApplicationManager.getApplication().invokeLater(() -> cyBench_explorer.activate(null));
         BrowseReportsToolWindowFactory.myToolWindow.refreshReports();
 
     }
@@ -52,7 +54,9 @@ public class CyBenchExplorerToolWindow {
         reportList.removeColumn(reportList.getColumnModel().getColumn(3));
 
         reportList.getSelectionModel().addListSelectionListener(x -> {
-            int selectionIndex = x.getFirstIndex();
+
+            if (x.getValueIsAdjusting() || reloading) return;
+            int selectionIndex = x.getLastIndex();
             File valueAt = (File) reportList.getModel().getValueAt(selectionIndex, 3);
             CyBenchToolWindow.activateReportView(valueAt, toolWindowContent, null);
             reportList.getSelectionModel().removeIndexInterval(x.getFirstIndex(), x.getLastIndex());
@@ -79,6 +83,7 @@ public class CyBenchExplorerToolWindow {
     }
 
     private void refreshReports() {
+        reloading = true;
         for (int i = reportList.getModel().getRowCount() - 1; i > -1; i--) {
             ((DefaultTableModel) reportList.getModel()).removeRow(i);
         }
@@ -92,6 +97,7 @@ public class CyBenchExplorerToolWindow {
                 ((DefaultTableModel) reportList.getModel()).addRow(getRow(f));
             });
         }
+        reloading = false;
     }
 
     private Object[] getRow(File f) {

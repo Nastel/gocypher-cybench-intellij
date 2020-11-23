@@ -8,6 +8,23 @@
     <depends>com.intellij.modules.platform</depends>,
     <depends>com.intellij.modules.java</depends>
 
+    <description>
+        <![CDATA[
+        CyBench is an integrated code benchmark platform for running, storing, analyzing & comparing performance benchmarks with one mission: help you build fast code.
+
+        Benchmark your code, algorithms, platforms, modules, libraries, API calls, JVMs, Java garbage collection (GC) settings. Test with varying runtime configurations, versions and more. Avoid making costly mistakes, which can wreck your reputation and user experience.
+
+        Create & share performance scorecards with your team & community. Compare and choose best performing runtime configurations, libraries, code dependencies for your project.
+
+        Leverage Java Microbenchmark Harness -JMH benchmarks and integrate into your development, build and CI/CD workflow. Build better, faster software with CyBench. Click here to see how CyBench works.
+
+        Intellij CyBench plugin simplifies your work creating and running benchmarks. The plugin creates two tool windows to work with the reports:
+
+        * explorer view - shows you your reports already generated in project and enables you to open the selected plugin
+        * reports view - show the opened reports by explorer view
+        ]]>
+    </description>
+
     <extensions defaultExtensionNs="com.intellij">
         <configurationType implementation="com.gocypher.cybench.runConfiguration.ConfigurationType"/>
         <runConfigurationProducer implementation="com.gocypher.cybench.runConfiguration.ClassConfigurationProducer"/>

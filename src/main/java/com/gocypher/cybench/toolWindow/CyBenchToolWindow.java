@@ -1,31 +1,28 @@
 package com.gocypher.cybench.toolWindow;
 
-import com.gocypher.cybench.toolWindow.factories.ToolWindowFactory;
-import com.gocypher.cybench.utils.*;
 import com.gocypher.cybench.launcher.model.BenchmarkReport;
+import com.gocypher.cybench.toolWindow.factories.ToolWindowFactory;
+import com.gocypher.cybench.utils.CyBenchTreeCellRenderer;
+import com.gocypher.cybench.utils.NodeAndTabFiller;
+import com.gocypher.cybench.utils.Nodes;
+import com.gocypher.cybench.utils.ResultFileParser;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.treeStructure.Tree;
-import com.intellij.ui.treeStructure.treetable.ListTreeTableModelOnColumns;
-import com.intellij.ui.treeStructure.treetable.TreeTable;
-import com.intellij.util.ui.ColumnInfo;
-import com.intellij.util.xml.ui.BooleanColumnInfo;
 import org.codehaus.jettison.json.JSONException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
@@ -47,6 +44,11 @@ public class CyBenchToolWindow {
         this.file = file;
         if (file == null) {
             this.file = getDefaultReport();
+        }
+        if (!this.file.exists()) {
+            // score is not known before it finishes
+            File[] list = file.getParentFile().listFiles((dir, name) -> name.startsWith(file.getName().substring(0, file.getName().lastIndexOf('.'))));
+            if (list.length > 0) this.file = list[0];
         }
 
         reportList.setModel(new DefaultTreeModel(new Nodes.BenchmarkRootNode("CyBench report")));
@@ -88,7 +90,7 @@ public class CyBenchToolWindow {
 
     public static void activateReportView(File file, JPanel toolWindowContent, String selectReport) {
         ToolWindow cyBench_report = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench report");
-        cyBench_report.activate(null);
+        ApplicationManager.getApplication().invokeLater(() -> cyBench_report.activate(null));
 
 
         if (!ToolWindowFactory.loaded.containsKey(file)) {

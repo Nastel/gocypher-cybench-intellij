@@ -7,7 +7,10 @@ import com.intellij.compiler.CompilerConfigurationImpl;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.*;
+import com.intellij.execution.configurations.CommandLineState;
+import com.intellij.execution.configurations.GeneralCommandLine;
+import com.intellij.execution.configurations.JavaCommandLineStateUtil;
+import com.intellij.execution.configurations.JavaParameters;
 import com.intellij.execution.filters.TextConsoleBuilder;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.process.ProcessHandler;
@@ -69,7 +72,6 @@ public class BenchmarkState extends CommandLineState {
         JavaParametersUtil.configureModule(configuration.getConfigurationModule(), parameters, JavaParameters.JDK_AND_CLASSES_AND_TESTS, null);
 
 
-
         File[] pluginJars = null;
         pluginJars = Utils.getJMHLibFiles();
 
@@ -122,7 +124,7 @@ public class BenchmarkState extends CommandLineState {
 
         }
         String reportFileName = getReportFileName(String.valueOf(configuration.getValueStore().get(CyBenchConfigurableParameters.REPORT_NAME)));
-        javaParameters.getVMParametersList().add(reportFileName);
+        javaParameters.getVMParametersList().add(getReportFNameParameter(reportFileName));
         javaParameters.getVMParametersList().add("-D" + Constants.APPEND_SCORE_TO_FNAME + "=" + Boolean.TRUE);
 
         cyBenchResultTreeConsoleView.setReportFile(reportFileName);
@@ -135,9 +137,14 @@ public class BenchmarkState extends CommandLineState {
     @NotNull
     private String getReportFileName(String benchmarkName) {
         benchmarkName = benchmarkName.replaceAll(" ", "_");
-        String key = "report.json";
         String reportFileName = benchmarkName + "-" + System.currentTimeMillis() + ".cybench";
+        return reportFileName;
+    }
+
+    private String getReportFNameParameter(String reportFileName) {
+        String key = "report.json";
         return "-D" + key + "=" + reportFileName;
+
     }
 
 }
