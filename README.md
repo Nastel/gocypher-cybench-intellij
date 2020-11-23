@@ -1,40 +1,36 @@
 # CyBench-Intellij
 
-![Build](https://github.com/K2NIO/CyBench-Intellij/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+CyBench is an integrated code benchmark platform for running, storing, analyzing & comparing performance benchmarks with one mission: help you build fast code.
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [X] Verify the [pluginGroup](/gradle.properties), [plugin ID](/src/main/resources/META-INF/plugin.xml) and [sources package](/src/main/kotlin).
-- [x] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
-- [ ] [Publish a plugin manually](https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/publishing_plugin.html) for the first time.
-- [ ] Set the Plugin ID in the above README badges.
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+Benchmark your code, algorithms, platforms, modules, libraries, API calls, JVMs, Java garbage collection (GC) settings. Test with varying runtime configurations, versions and more. Avoid making costly mistakes, which can wreck your reputation and user experience.
 
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+Create & share performance scorecards with your team & community. Compare and choose best performing runtime configurations, libraries, code dependencies for your project. 
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+Leverage Java Microbenchmark Harness -JMH benchmarks and integrate into your development, build and CI/CD workflow. Build better, faster software with CyBench. Click here to see how CyBench works.
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
-<!-- Plugin description end -->
+Intellij CyBench plugin simplifies your work creating and running benchmarks. The plugin creates two tool windows to work with the reports: 
+
+* explorer view - shows you your reports already generated in project and enables you to open the selected plugin
+* reports view - show the opened reports by explorer view
+
+## Getting started
+
+*Step 1:	Create or open project
+*Step 2:	Create a benchmark, open a class you want to benchmark methods to; click `code -> generate...` or `alt+ins` to open `generate` menu, and select `CyBenchBenchmark`
+*Step 3:	If it's needed plugin asks you to add the libraries to classpath and/or dependencies
+*Step 4:	Run generated benchmark
+*Step 5:	Open the CyBench explorer window (hit refresh if you don't see the report generated) 
+*Step 6:	Select the report to open it.
+
+
+
+
 
 ## Installation
 
-- Using IDE built-in plugin system:
-  
-  <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "CyBench-Intellij"</kbd> >
-  <kbd>Install Plugin</kbd>
-  
-- Manually:
-
-  Download the [latest release](https://github.com/K2NIO/CyBench-Intellij/releases/latest) and install it manually using
-  <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+Download the [latest release](https://github.com/K2NIO/gocypher-cybench-intellij/releases/latest) and install it manually using
+<kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
+You can also drag the downloaded plugin archive file and drop it into the IntelliJ IDEA Welcome screen.
 
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template

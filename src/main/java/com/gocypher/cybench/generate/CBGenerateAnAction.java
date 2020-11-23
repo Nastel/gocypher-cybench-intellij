@@ -51,27 +51,20 @@ public class CBGenerateAnAction extends AnAction {
 
 
         String benchmarkFileName = psiClass.getName() + "Benchmark";
+        JVMElementFactory factory = JVMElementFactories.getFactory(psiClass.getLanguage(), project);
 
         VirtualFile file = parent.getVirtualFile().findChild(benchmarkFileName + ".java");
 
         PsiClass created;
         if (file == null) {
-            FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Class.java");
-            created = (PsiClass) FileTemplateUtil.createFromTemplate(codeTemplate, benchmarkFileName, new Properties(), parent);
-            PsiUtil.setModifierProperty(created, PsiModifier.PUBLIC, true);
+            created = createPsiClass(parent, benchmarkFileName, factory);
             created.getModifierList().addAnnotation("org.openjdk.jmh.annotations.State(org.openjdk.jmh.annotations.Scope.Benchmark)");
         } else {
             PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
             created = PsiTreeUtil.getChildrenOfType(psiFile, PsiClass.class)[0];
         }
 
-
         PsiJavaFile createdFile = PsiTreeUtil.getParentOfType(created, PsiJavaFile.class);
-
-        Editor editor = CodeInsightUtil.positionCursorAtLBrace(project, createdFile, created);
-
-        JVMElementFactory factory = JVMElementFactories.getFactory(psiClass.getLanguage(), project);
-
 
         generateSetUpWithAnnotations(created, factory);
         generateTearDownWithAnnotations(created, factory);
@@ -88,6 +81,24 @@ public class CBGenerateAnAction extends AnAction {
         PsiDocumentManager manager = PsiDocumentManager.getInstance(project);
         Document document = manager.getDocument(createdFile);
         manager.doPostponedOperationsAndUnblockDocument(document);
+
+        Editor editor = CodeInsightUtil.positionCursorAtLBrace(project, createdFile, created);
+
+        return created;
+    }
+
+    @NotNull
+    private static PsiClass createPsiClass(PsiDirectory parent, String benchmarkFileName, JVMElementFactory factory) throws Exception {
+        PsiClass created;
+     //   FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Class.java");
+      //  created = (PsiClass) FileTemplateUtil.createFromTemplate(codeTemplate, benchmarkFileName, new Properties(), parent);
+        created =JavaDirectoryService.getInstance().createClass(parent, benchmarkFileName);
+      //  created = factory.createClass(benchmarkFileName);
+        parent.getVirtualFile().refresh(false, false);
+
+        PsiUtil.setModifierProperty(created, PsiModifier.PUBLIC, true);
+
+
         return created;
     }
 

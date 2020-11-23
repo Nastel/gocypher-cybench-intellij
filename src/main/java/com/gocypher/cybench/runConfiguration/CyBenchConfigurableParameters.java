@@ -29,7 +29,9 @@ public enum CyBenchConfigurableParameters {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    SHOULD_SEND_REPORT(Constants.SEND_REPORT, 1, "Should send report to CyBench", "", TYPE.BOOLEAN, s ->
+    SHOULD_SEND_REPORT(Constants.SEND_REPORT, true, "Should send report to CyBench", "", TYPE.BOOLEAN, s ->
+            true, ""),
+    COLLECT_HW(Constants.COLLECT_HW, true, "Collect HW properties", "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online", TYPE.BOOLEAN, s ->
             true, ""),
 
     BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Benchmark class", "", TYPE.CLASS, s -> true, "Value should be a class");

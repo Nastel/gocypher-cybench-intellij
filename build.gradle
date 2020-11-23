@@ -36,7 +36,7 @@ intellij {
 }
 patchPluginXml {
     sinceBuild '180.*'
-    untilBuild '201.*'
+    untilBuild '202.*'
     changeNotes """
       First release.
       """
