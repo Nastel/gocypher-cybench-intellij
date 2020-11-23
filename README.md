@@ -15,12 +15,12 @@ Intellij CyBench plugin simplifies your work creating and running benchmarks. Th
 
 ## Getting started
 
-*Step 1:	Create or open project
-*Step 2:	Create a benchmark, open a class you want to benchmark methods to; click `code -> generate...` or `alt+ins` to open `generate` menu, and select `CyBenchBenchmark`
-*Step 3:	If it's needed plugin asks you to add the libraries to classpath and/or dependencies
-*Step 4:	Run generated benchmark
-*Step 5:	Open the CyBench explorer window (hit refresh if you don't see the report generated) 
-*Step 6:	Select the report to open it.
+* Step 1:	Create or open project
+* Step 2:	Create a benchmark, open a class you want to benchmark methods to; click `code -> generate...` or `alt+ins` to open `generate` menu, and select `CyBenchBenchmark`
+* Step 3:	If it's needed plugin asks you to add the libraries to classpath and/or dependencies
+* Step 4:	Run generated benchmark
+* Step 5:	Open the CyBench explorer window (hit refresh if you don't see the report generated) 
+* Step 6:	Select the report to open it.
 
 
 
