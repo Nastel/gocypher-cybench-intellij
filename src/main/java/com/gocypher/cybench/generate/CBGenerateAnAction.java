@@ -1,12 +1,28 @@
+/*
+ * Copyright (C) 2020, K2N.IO.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301  USA
+ */
+
 package com.gocypher.cybench.generate;
 
 import com.gocypher.cybench.utils.Utils;
 import com.intellij.CommonBundle;
 import com.intellij.codeInsight.CodeInsightUtil;
 import com.intellij.codeInsight.daemon.impl.quickfix.OrderEntryFix;
-import com.intellij.ide.fileTemplates.FileTemplate;
-import com.intellij.ide.fileTemplates.FileTemplateManager;
-import com.intellij.ide.fileTemplates.FileTemplateUtil;
 import com.intellij.lang.jvm.JvmModifier;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -37,7 +53,6 @@ import org.jetbrains.jps.model.java.JavaSourceRootType;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 
@@ -90,10 +105,10 @@ public class CBGenerateAnAction extends AnAction {
     @NotNull
     private static PsiClass createPsiClass(PsiDirectory parent, String benchmarkFileName, JVMElementFactory factory) throws Exception {
         PsiClass created;
-     //   FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Class.java");
-      //  created = (PsiClass) FileTemplateUtil.createFromTemplate(codeTemplate, benchmarkFileName, new Properties(), parent);
-        created =JavaDirectoryService.getInstance().createClass(parent, benchmarkFileName);
-      //  created = factory.createClass(benchmarkFileName);
+        //   FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Class.java");
+        //  created = (PsiClass) FileTemplateUtil.createFromTemplate(codeTemplate, benchmarkFileName, new Properties(), parent);
+        created = JavaDirectoryService.getInstance().createClass(parent, benchmarkFileName);
+        //  created = factory.createClass(benchmarkFileName);
         parent.getVirtualFile().refresh(false, false);
 
         PsiUtil.setModifierProperty(created, PsiModifier.PUBLIC, true);
