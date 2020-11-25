@@ -76,17 +76,17 @@ Once you click on particular report the report ToolWindow will appear at IDE's b
 
 ![report]
  
+Every test on report is displayed as item on tree at left, you can select individual tests to see the results.
 
-
-
+![report2]
 
 [install]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/install.JPG "Install manually"
-[explorer]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/explorer.JPG "Install manually"
-[generation]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/generating.JPG "Install manually"
-[install2]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/install2.JPG "Install manually"
-[report]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/report.JPG "Install manually"
-[report2]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/report2.JPG "Install manually"
-[runConsole]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/runConsole.JPG "Install manually"
-[running1]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running1.JPG "Install manually"
-[running2]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running2.JPG "Install manually"
-[running3]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running3.JPG "Install manually"
+[explorer]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/explorer.JPG ""
+[generation]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/generating.JPG ""
+[install2]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/install2.JPG ""
+[report]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/report.JPG " "
+[report2]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/report2.JPG " "
+[runConsole]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/runConsole.JPG " "
+[running1]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running1.JPG " "
+[running2]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running2.JPG " "
+[running3]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running3.JPG " "
