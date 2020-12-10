@@ -23,7 +23,6 @@ import com.gocypher.cybench.utils.Utils;
 import com.intellij.CommonBundle;
 import com.intellij.codeInsight.CodeInsightUtil;
 import com.intellij.codeInsight.daemon.impl.quickfix.OrderEntryFix;
-import com.intellij.lang.jvm.JvmModifier;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -47,6 +46,7 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtil;
 import com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesUtil;
+import com.intellij.refactoring.util.classMembers.MemberInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.jps.model.java.JavaSourceRootType;
 
@@ -62,11 +62,11 @@ public class CBGenerateAnAction extends AnAction {
     static PsiFile file = null;
     static Editor editor = null;
 
-    protected static PsiClass generateClassAndMethods(PsiClass psiClass, PsiDirectory parent) throws Exception {
+    protected static PsiClass generateClassAndMethods(CBGenerateDialog options, PsiDirectory parent) throws Exception {
 
 
-        String benchmarkFileName = psiClass.getName() + "Benchmark";
-        JVMElementFactory factory = JVMElementFactories.getFactory(psiClass.getLanguage(), project);
+        String benchmarkFileName = options.getClassName();
+        JVMElementFactory factory = JVMElementFactories.getFactory(options.getTargetClass().getLanguage(), project);
 
         VirtualFile file = parent.getVirtualFile().findChild(benchmarkFileName + ".java");
 
@@ -81,14 +81,16 @@ public class CBGenerateAnAction extends AnAction {
 
         PsiJavaFile createdFile = PsiTreeUtil.getParentOfType(created, PsiJavaFile.class);
 
-        generateSetUpWithAnnotations(created, factory);
-        generateTearDownWithAnnotations(created, factory);
+        if (options.shouldGenerateSetup()) generateSetUpWithAnnotations(created, factory);
+        if (options.shouldGenerateTearDown()) generateTearDownWithAnnotations(created, factory);
 
 
-        Arrays.asList(psiClass.getMethods()).stream()
-                .filter(m -> m.hasModifier(JvmModifier.PUBLIC))
-                .forEach(m -> generateMethodWithAnnotations(m.getName() + "Benchmark", created, factory));
-
+        for (MemberInfo m : options.getSelectedMethods()) {
+            if (m.getMember() instanceof PsiMethod) {
+                PsiMethod psiMethod = (PsiMethod) m.getMember();
+                generateMethodWithAnnotations(psiMethod.getName() + "Benchmark", options.getMode(), created, factory);
+            }
+        }
 
         JavaCodeStyleManager.getInstance(project).shortenClassReferences(created);
 
@@ -118,10 +120,10 @@ public class CBGenerateAnAction extends AnAction {
     }
 
     @NotNull
-    private static PsiMethod generateMethodWithAnnotations(String name, PsiClass created, JVMElementFactory factory) {
+    private static PsiMethod generateMethodWithAnnotations(String name, String mode, PsiClass created, JVMElementFactory factory) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void " + name + "(org.openjdk.jmh.infra.Blackhole bh){}", created);
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Benchmark");
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.BenchmarkMode(org.openjdk.jmh.annotations.Mode.Throughput)");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.BenchmarkMode(org.openjdk.jmh.annotations." + mode + ")");
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.OutputTimeUnit(java.util.concurrent.TimeUnit.SECONDS)");
         PsiElement add = created.add(benchmarkMethod);
 
@@ -198,6 +200,11 @@ public class CBGenerateAnAction extends AnAction {
 
         // FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Method.java");
 
+        CBGenerateDialog cbGenerateDialog = new CBGenerateDialog(project, psiClass, srcPackage, module);
+        if (!cbGenerateDialog.showAndGet()) {
+            return;
+        }
+
         PsiJavaFile psiFile = PsiTreeUtil.getParentOfType(element, PsiJavaFile.class, false);
 
         PsiDirectory psiDirectory = MoveClassesOrPackagesUtil.chooseDestinationPackage(project, psiFile.getPackageName(), getTestRoot(module));
@@ -207,7 +214,7 @@ public class CBGenerateAnAction extends AnAction {
         PostprocessReformattingAspect.getInstance(project).postponeFormattingInside(
                 () -> WriteCommandAction.runWriteCommandAction(project, (Computable<PsiElement>) () -> {
                     try {
-                        return generateClassAndMethods(psiClass, psiDirectory);
+                        return generateClassAndMethods(cbGenerateDialog, psiDirectory);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
