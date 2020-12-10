@@ -57,6 +57,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CBGenerateDialog extends DialogWrapper {
     private static final String BENCHMARK_MODE_KEY = "benchmarkMode";
@@ -68,9 +69,9 @@ public class CBGenerateDialog extends DialogWrapper {
     private final ComboBox<String> benchmarkModeCombo = new ComboBox<>(new DefaultComboBoxModel<>());
 
     private final JCheckBox myGenerateBeforeBox = new JCheckBox(
-            CodeInsightBundle.message("intention.create.test.dialog.setUp"));
+            "@Setup");
     private final JCheckBox myGenerateAfterBox = new JCheckBox(
-            CodeInsightBundle.message("intention.create.test.dialog.tearDown"));
+            "@TearDown");
     private final MemberSelectionTable myMethodsTable = new MemberSelectionTable(
             Collections.emptyList(), null);
     protected PsiDirectory myTargetDirectory;
@@ -129,7 +130,7 @@ public class CBGenerateDialog extends DialogWrapper {
 
     @Override
     protected String getHelpId() {
-        return "reference.dialogs.createJmh";
+        return "CyBench";
     }
 
     @Override
@@ -168,7 +169,7 @@ public class CBGenerateDialog extends DialogWrapper {
         constr.gridx = 0;
         constr.weightx = 0;
         constr.gridwidth = 1;
-        panel.add(new JLabel("jmh.generate.class.name"), constr);
+        panel.add(new JLabel("Benchmark class name"), constr);
 
         myTargetClassNameField = new EditorTextField(suggestTestClassName(myTargetClass));
         myTargetClassNameField.getDocument().addDocumentListener(new DocumentListener() {
@@ -186,7 +187,7 @@ public class CBGenerateDialog extends DialogWrapper {
         constr.gridy = gridy++;
         constr.gridx = 0;
         constr.weightx = 0;
-        panel.add(new JLabel("jmh.destination.package.label"), constr);
+        panel.add(new JLabel("Package"), constr);
 
         constr.gridx = 1;
         constr.weightx = 1;
@@ -194,7 +195,7 @@ public class CBGenerateDialog extends DialogWrapper {
         String targetPackageName = myTargetPackage != null ? myTargetPackage.getQualifiedName() : "";
         myTargetPackageField = new PackageNameReferenceEditorCombo(targetPackageName,
                 myProject, RECENTS_KEY,
-                "jmh.create.class.package.chooser.title");
+                "Package");
 
         new AnAction() {
             @Override
@@ -222,7 +223,7 @@ public class CBGenerateDialog extends DialogWrapper {
         constr.gridy = gridy++;
         constr.gridx = 0;
         constr.weightx = 0;
-        panel.add(new JLabel(CodeInsightBundle.message("intention.create.test.dialog.generate")), constr);
+        panel.add(new JLabel("Generate"), constr);
 
         constr.gridx = 1;
         myGenerateBeforeBox.setSelected(true);
@@ -233,7 +234,7 @@ public class CBGenerateDialog extends DialogWrapper {
         myGenerateAfterBox.setSelected(true);
         panel.add(myGenerateAfterBox, constr);
 
-        final JLabel membersLabel = new JLabel(CodeInsightBundle.message("intention.create.test.dialog.select.methods"));
+        final JLabel membersLabel = new JLabel("Select methods");
         membersLabel.setLabelFor(myMethodsTable);
         panel.add(membersLabel, constr);
 
@@ -297,7 +298,7 @@ public class CBGenerateDialog extends DialogWrapper {
     }
 
     public Collection<MemberInfo> getSelectedMethods() {
-        return myMethodsTable.getSelectedMemberInfos();
+        return myMethodsTable.getSelectedMemberInfos().stream().collect(Collectors.toMap(memberInfo -> memberInfo.getMember().getName(), memberInfo -> memberInfo, (memberInfo, memberInfo2) -> memberInfo)).values();
     }
 
     public boolean shouldGenerateTearDown() {
@@ -369,18 +370,5 @@ public class CBGenerateDialog extends DialogWrapper {
         return name != null ? name.trim() : "";
     }
 
-    public Map<String, String> getExternalProperties() {
-        if (externalProperties == null) {
-            externalProperties = new HashMap<>();
-            //set default value
-            externalProperties.put(BENCHMARK_MODE_KEY, "Mode.Throughput");
-            externalProperties.put("warmupIterations", "3");
-            externalProperties.put("measureIterations", "10");
-            externalProperties.put("measureTimes", "5");
-            externalProperties.put("threadNum", "8");
-            externalProperties.put("forkNum", "2");
-        }
-        return externalProperties;
-    }
 
 }

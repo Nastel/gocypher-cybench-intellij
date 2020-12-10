@@ -63,7 +63,12 @@ public class Utils {
 
 
             PluginClassLoader pluginClassLoader = (PluginClassLoader) Class.forName("com.gocypher.cybench.runConfiguration.BenchmarkState").getClassLoader();
-            Field myLibDirectories = PluginClassLoader.class.getDeclaredField("myLibDirectories");
+            Field myLibDirectories;
+            try {
+                myLibDirectories = PluginClassLoader.class.getDeclaredField("myLibDirectories");
+            } catch (NoSuchFieldException e) {
+                myLibDirectories = PluginClassLoader.class.getDeclaredField("libDirectories");
+            }
             myLibDirectories.setAccessible(true);
             List<String> libDirs = (List<String>) myLibDirectories.get(pluginClassLoader);
             List<File> result = new ArrayList<>();
