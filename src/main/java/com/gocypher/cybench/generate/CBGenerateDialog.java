@@ -72,6 +72,8 @@ public class CBGenerateDialog extends DialogWrapper {
             "@Setup");
     private final JCheckBox myGenerateAfterBox = new JCheckBox(
             "@TearDown");
+    private final JCheckBox myGenerateBenchmarkTag = new JCheckBox(
+            "@BenchmarkTag");
     private final MemberSelectionTable myMethodsTable = new MemberSelectionTable(
             Collections.emptyList(), null);
     protected PsiDirectory myTargetDirectory;
@@ -234,6 +236,11 @@ public class CBGenerateDialog extends DialogWrapper {
         myGenerateAfterBox.setSelected(true);
         panel.add(myGenerateAfterBox, constr);
 
+        constr.insets = insets(1);
+        constr.gridy = gridy++;
+        myGenerateBenchmarkTag.setSelected(true);
+        panel.add(myGenerateBenchmarkTag, constr);
+
         final JLabel membersLabel = new JLabel("Select methods");
         membersLabel.setLabelFor(myMethodsTable);
         panel.add(membersLabel, constr);
@@ -306,6 +313,10 @@ public class CBGenerateDialog extends DialogWrapper {
     }
 
     public boolean shouldGenerateSetup() {
+        return myGenerateBeforeBox.isSelected();
+    }
+
+    public boolean shouldGenerateBechmarkTag() {
         return myGenerateBeforeBox.isSelected();
     }
 

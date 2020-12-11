@@ -25,6 +25,7 @@ import com.gocypher.cybench.utils.CyBenchTreeCellRenderer;
 import com.gocypher.cybench.utils.NodeAndTabFiller;
 import com.gocypher.cybench.utils.Nodes;
 import com.gocypher.cybench.utils.ResultFileParser;
+import com.gocypher.cybench.viewPanels.ResultJPanel;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.wm.ToolWindow;
@@ -120,7 +121,7 @@ public class CyBenchToolWindow {
                 myToolWindow.selectActualReport(selectReport);
             }
         } else {
-            cyBench_report.getContentManager().setSelectedContent(ToolWindowFactory.loaded.get(file));
+            ApplicationManager.getApplication().invokeLater(() -> cyBench_report.getContentManager().setSelectedContent(ToolWindowFactory.loaded.get(file)));
             if (selectReport != null) {
                 ToolWindowFactory.loadedWindows.get(file).selectActualReport(selectReport);
             }

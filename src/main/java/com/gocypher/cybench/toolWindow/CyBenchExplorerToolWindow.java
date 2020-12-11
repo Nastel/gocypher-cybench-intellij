@@ -68,17 +68,24 @@ public class CyBenchExplorerToolWindow {
     private void initComponents() {
         toolWindowContent = new JPanel(new BorderLayout(0, 0));
 
-        reportList = new JBTable(new DefaultTableModel());
+        reportList = new JBTable(new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
         ((DefaultTableModel) reportList.getModel()).setColumnIdentifiers(new String[]{"Benchmark Name", "Score", "Timestamp", "Actual_File_Hidden"});
         reportList.removeColumn(reportList.getColumnModel().getColumn(3));
 
         reportList.getSelectionModel().addListSelectionListener(x -> {
 
             if (x.getValueIsAdjusting() || reloading) return;
+
             int selectionIndex = x.getLastIndex();
             File valueAt = (File) reportList.getModel().getValueAt(selectionIndex, 3);
             CyBenchToolWindow.activateReportView(valueAt, toolWindowContent, null);
-            reportList.getSelectionModel().removeIndexInterval(x.getFirstIndex(), x.getLastIndex());
+
+            reportList.getSelectionModel().clearSelection();
         });
 
         toolWindowContent.add(new JScrollPane(reportList), BorderLayout.CENTER);

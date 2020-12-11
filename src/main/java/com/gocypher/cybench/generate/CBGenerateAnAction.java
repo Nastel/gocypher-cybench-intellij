@@ -53,6 +53,7 @@ import org.jetbrains.jps.model.java.JavaSourceRootType;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -88,7 +89,7 @@ public class CBGenerateAnAction extends AnAction {
         for (MemberInfo m : options.getSelectedMethods()) {
             if (m.getMember() instanceof PsiMethod) {
                 PsiMethod psiMethod = (PsiMethod) m.getMember();
-                generateMethodWithAnnotations(psiMethod.getName() + "Benchmark", options.getMode(), created, factory);
+                generateMethodWithAnnotations(psiMethod.getName() + "Benchmark", options.getMode(), created, factory, options.shouldGenerateBechmarkTag());
             }
         }
 
@@ -120,11 +121,14 @@ public class CBGenerateAnAction extends AnAction {
     }
 
     @NotNull
-    private static PsiMethod generateMethodWithAnnotations(String name, String mode, PsiClass created, JVMElementFactory factory) {
+    private static PsiMethod generateMethodWithAnnotations(String name, String mode, PsiClass created, JVMElementFactory factory, boolean addBenchmarkTag) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void " + name + "(org.openjdk.jmh.infra.Blackhole bh){}", created);
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Benchmark");
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.BenchmarkMode(org.openjdk.jmh.annotations." + mode + ")");
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.OutputTimeUnit(java.util.concurrent.TimeUnit.SECONDS)");
+        if (addBenchmarkTag) {
+            benchmarkMethod.getModifierList().addAnnotation("com.gocypher.cybench.core.annotation.BenchmarkTag(tag=\"" + UUID.randomUUID() + "\")");
+        }
         PsiElement add = created.add(benchmarkMethod);
 
         return benchmarkMethod;
@@ -243,9 +247,12 @@ public class CBGenerateAnAction extends AnAction {
                     "jmh-core", "1.26", "1.26");
             ExternalLibraryDescriptor aProcessor = new ExternalLibraryDescriptor("org.openjdk.jmh",
                     "jmh-generator-annprocess", "1.26", "1.26");
+            ExternalLibraryDescriptor benchmarkTag = new ExternalLibraryDescriptor("com.gocypher.cybench.client",
+                    "gocypher-cybench-annotations", "1.0.0", "1.0.0");
 
             JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core, DependencyScope.TEST);
             JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, aProcessor, DependencyScope.TEST);
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, benchmarkTag, DependencyScope.TEST);
         } else {
 
             OrderEntryFix.addJarsToRoots(Arrays.asList(Utils.getJMHLibFiles()).stream().map(f -> f.getAbsolutePath()).collect(Collectors.toList()), null, module, null);
