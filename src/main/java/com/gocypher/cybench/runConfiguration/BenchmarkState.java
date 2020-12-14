@@ -51,6 +51,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Map;
 
+import static com.gocypher.cybench.launcher.utils.Constants.CYB_REPORT_CYB_FILE;
+import static com.gocypher.cybench.launcher.utils.Constants.CYB_REPORT_JSON_FILE;
+
 
 public class BenchmarkState extends CommandLineState {
 
@@ -144,6 +147,7 @@ public class BenchmarkState extends CommandLineState {
         }
         String reportFileName = getReportFileName(String.valueOf(configuration.getValueStore().get(CyBenchConfigurableParameters.REPORT_NAME)));
         javaParameters.getVMParametersList().add(getReportFNameParameter(reportFileName));
+        javaParameters.getVMParametersList().add(getReportCybNameParameter(reportFileName.replace(".cybench", ".cyb")));
         javaParameters.getVMParametersList().add("-D" + Constants.APPEND_SCORE_TO_FNAME + "=" + Boolean.TRUE);
 
         cyBenchResultTreeConsoleView.setReportFile(reportFileName);
@@ -161,7 +165,13 @@ public class BenchmarkState extends CommandLineState {
     }
 
     private String getReportFNameParameter(String reportFileName) {
-        String key = "report.json";
+        String key = CYB_REPORT_JSON_FILE;
+        return "-D" + key + "=" + reportFileName;
+
+    }
+
+    private String getReportCybNameParameter(String reportFileName) {
+        String key = CYB_REPORT_CYB_FILE;
         return "-D" + key + "=" + reportFileName;
 
     }
