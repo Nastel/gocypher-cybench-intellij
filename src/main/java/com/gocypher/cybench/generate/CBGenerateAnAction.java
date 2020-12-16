@@ -20,7 +20,6 @@
 package com.gocypher.cybench.generate;
 
 import com.gocypher.cybench.utils.Utils;
-import com.intellij.CommonBundle;
 import com.intellij.codeInsight.CodeInsightUtil;
 import com.intellij.codeInsight.daemon.impl.quickfix.OrderEntryFix;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -233,7 +232,7 @@ public class CBGenerateAnAction extends AnAction {
 
         if (c == null) {
             int libraries_not_found = Messages
-                    .showOkCancelDialog(module.getProject(), "Libraries not found. Add?", CommonBundle.getErrorTitle(), Messages.getErrorIcon());
+                    .showOkCancelDialog(module.getProject(), "Libraries not found. Add?", "Add libraries", "Add", "Cancel", Messages.getErrorIcon());
             if (libraries_not_found == Messages.OK) {
                 setupLibrary(module);
             }
