@@ -83,7 +83,7 @@ public class CyBenchExplorerToolWindow {
 
             int selectionIndex = x.getLastIndex();
             File valueAt = (File) reportList.getModel().getValueAt(selectionIndex, 3);
-            CyBenchToolWindow.activateReportView(valueAt, toolWindowContent, null);
+            ApplicationManager.getApplication().invokeLater(() ->CyBenchToolWindow.activateReportView(valueAt, toolWindowContent, null));
 
             reportList.getSelectionModel().clearSelection();
         });

@@ -33,6 +33,7 @@ import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.ui.laf.darcula.ui.DarculaTabbedPaneUI;
 import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.util.Disposer;
@@ -81,7 +82,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
                 Object lastPathComponent = e.getPath().getLastPathComponent();
                 if (lastPathComponent instanceof Nodes.BenchmarkTestNode && testsFinished) {
 
-                    CyBenchToolWindow.activateReportView(reportFile, null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject()));
+                    ApplicationManager.getApplication().invokeLater(() ->CyBenchToolWindow.activateReportView(reportFile, null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject())));
 
 
                 }
@@ -290,8 +291,8 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         this.testsFinished = true;
         ((ColoredTreeCellRenderer) tree.getCellRenderer()).setIcon(AllIcons.RunConfigurations.TestPassed);
         tree.updateUI();
-        CyBenchToolWindow.activateReportView(reportFile, this.consoleView, null);
-        CyBenchExplorerToolWindow.refreshToolWindow();
+        ApplicationManager.getApplication().invokeLater(() ->CyBenchToolWindow.activateReportView(reportFile, this.consoleView, null));
+        ApplicationManager.getApplication().invokeLater(() -> CyBenchExplorerToolWindow.refreshToolWindow());
 
     }
 

@@ -147,10 +147,11 @@ public class BenchmarkState extends CommandLineState {
         }
         String reportFileName = getReportFileName(String.valueOf(configuration.getValueStore().get(CyBenchConfigurableParameters.REPORT_NAME)));
         javaParameters.getVMParametersList().add(getReportFNameParameter(reportFileName));
+        cyBenchResultTreeConsoleView.setReportFile(reportFileName);
         javaParameters.getVMParametersList().add(getReportCybNameParameter(reportFileName.replace(".cybench", ".cyb")));
         javaParameters.getVMParametersList().add("-D" + Constants.APPEND_SCORE_TO_FNAME + "=" + Boolean.TRUE);
 
-        cyBenchResultTreeConsoleView.setReportFile(reportFileName);
+
         GeneralCommandLine fromJavaParameters = javaParameters.toCommandLine();
 
 
