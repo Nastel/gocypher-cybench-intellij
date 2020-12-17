@@ -25,7 +25,6 @@ import com.gocypher.cybench.utils.CyBenchTreeCellRenderer;
 import com.gocypher.cybench.utils.NodeAndTabFiller;
 import com.gocypher.cybench.utils.Nodes;
 import com.gocypher.cybench.utils.ResultFileParser;
-import com.gocypher.cybench.viewPanels.ResultJPanel;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.wm.ToolWindow;
@@ -67,7 +66,12 @@ public class CyBenchToolWindow {
         }
         if (!this.file.exists()) {
             // score is not known before it finishes
-            File[] list = file.getParentFile().listFiles((dir, name) -> name.startsWith(file.getName().substring(0, file.getName().lastIndexOf('.'))));
+            File[] list = file.getParentFile().listFiles(
+                    (dir, name) ->
+                            name.startsWith(file.getName().substring(0, file.getName().lastIndexOf('.'))) &&
+                                    name.endsWith("cybench")
+
+            );
             if (list.length > 0) this.file = list[0];
         }
 
