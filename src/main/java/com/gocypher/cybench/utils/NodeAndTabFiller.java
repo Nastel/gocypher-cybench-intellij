@@ -125,16 +125,16 @@ public class NodeAndTabFiller extends ResultFileParser {
     public void ontTestResultEntry(String key, String value, int index) {
         switch (key) {
             case "name":
-                currentTestPanel.setName(value);
+                currentTestPanel.setName(Utils.convertNumToStringByLength(String.valueOf(value)));
                 break;
             case "score":
-                currentTestPanel.setScore(value);
+                currentTestPanel.setScore(Utils.convertNumToStringByLength(String.valueOf(value)));
                 break;
             case "minScore":
-                currentTestPanel.setMin(value);
+                currentTestPanel.setMin(Utils.convertNumToStringByLength(String.valueOf(value)));
                 break;
             case "maxScore":
-                currentTestPanel.setMax(value);
+                currentTestPanel.setMax(Utils.convertNumToStringByLength(String.valueOf(value)));
                 break;
 
         }
