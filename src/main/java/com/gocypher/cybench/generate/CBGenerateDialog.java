@@ -89,7 +89,7 @@ public class CBGenerateDialog extends DialogWrapper {
         this.myTargetClass = psiClass;
         this.myTargetPackage = srcPackage;
         this.myTargetModule = module;
-        setTitle("Generate CBench benchmark class");
+        setTitle("Generate CyBench benchmark class");
         init();
 
     }
