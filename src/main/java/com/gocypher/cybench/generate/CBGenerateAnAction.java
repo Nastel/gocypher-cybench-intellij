@@ -22,7 +22,6 @@ package com.gocypher.cybench.generate;
 import com.gocypher.cybench.utils.Utils;
 import com.intellij.codeInsight.CodeInsightUtil;
 import com.intellij.codeInsight.daemon.impl.quickfix.OrderEntryFix;
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
@@ -31,6 +30,8 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.ex.IdeDocumentHistory;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
+import com.intellij.openapi.project.DumbAwareAction;
+import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.*;
 import com.intellij.openapi.ui.Messages;
@@ -58,7 +59,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 
-public class CBGenerateAnAction extends AnAction {
+public class CBGenerateAnAction extends DumbAwareAction {
 
     static Project project = null;
     static PsiFile file = null;
@@ -84,7 +85,7 @@ public class CBGenerateAnAction extends AnAction {
         PsiJavaFile createdFile = PsiTreeUtil.getParentOfType(created, PsiJavaFile.class);
 
         if (options.shouldGenerateSetup()) generateSetUpWithAnnotations(created, factory);
-        if (options.shouldGenerateTearDown()) generateTearDownWithAnnotations(created, factory);
+        if (options.shouldGenerateSetup()) generateSetUpWithAnnotationsIteration(created, factory);
 
 
         for (MemberInfo m : options.getSelectedMethods()) {
@@ -93,6 +94,9 @@ public class CBGenerateAnAction extends AnAction {
                 generateMethodWithAnnotations(psiMethod.getName() + "Benchmark", options.getMode(), created, factory, options.shouldGenerateBechmarkTag());
             }
         }
+
+        if (options.shouldGenerateTearDown()) generateTearDownWithAnnotations(created, factory);
+        if (options.shouldGenerateTearDown()) generateTearDownWithAnnotationsIteration(created, factory);
 
         JavaCodeStyleManager.getInstance(project).shortenClassReferences(created);
 
@@ -124,12 +128,18 @@ public class CBGenerateAnAction extends AnAction {
     @NotNull
     private static PsiMethod generateMethodWithAnnotations(String name, String mode, PsiClass created, JVMElementFactory factory, boolean addBenchmarkTag) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void " + name + "(org.openjdk.jmh.infra.Blackhole bh){}", created);
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Benchmark");
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.BenchmarkMode(org.openjdk.jmh.annotations." + mode + ")");
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.OutputTimeUnit(java.util.concurrent.TimeUnit.SECONDS)");
+
         if (addBenchmarkTag) {
             benchmarkMethod.getModifierList().addAnnotation("com.gocypher.cybench.core.annotation.BenchmarkTag(tag=\"" + UUID.randomUUID() + "\")");
         }
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.OutputTimeUnit(java.util.concurrent.TimeUnit.SECONDS)");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Fork(1)");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Threads(1)");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Measurement(iterations = 2, time = 5, timeUnit = TimeUnit.SECONDS)");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Warmup(iterations = 1, time = 5, timeUnit = TimeUnit.SECONDS)");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.BenchmarkMode(org.openjdk.jmh.annotations." + mode + ")");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Benchmark");
+
         PsiElement add = created.add(benchmarkMethod);
 
         return benchmarkMethod;
@@ -139,7 +149,18 @@ public class CBGenerateAnAction extends AnAction {
     private static PsiMethod generateSetUpWithAnnotations(PsiClass created, JVMElementFactory factory) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void setup(){}", created);
 
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Setup");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Setup(org.openjdk.jmh.annotations.Level.Trial)");
+
+        PsiElement add = created.add(benchmarkMethod);
+
+        return benchmarkMethod;
+    }
+
+    @NotNull
+    private static PsiMethod generateSetUpWithAnnotationsIteration(PsiClass created, JVMElementFactory factory) {
+        PsiMethod benchmarkMethod = factory.createMethodFromText("public void setupIteration(){}", created);
+
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Setup(org.openjdk.jmh.annotations.Level.Iteration)");
 
         PsiElement add = created.add(benchmarkMethod);
 
@@ -149,7 +170,16 @@ public class CBGenerateAnAction extends AnAction {
     @NotNull
     private static PsiMethod generateTearDownWithAnnotations(PsiClass created, JVMElementFactory factory) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void tearDown(){}", created);
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.TearDown");
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.TearDown(org.openjdk.jmh.annotations.Level.Trial)");
+        PsiElement add = created.add(benchmarkMethod);
+
+        return benchmarkMethod;
+    }
+
+    @NotNull
+    private static PsiMethod generateTearDownWithAnnotationsIteration(PsiClass created, JVMElementFactory factory) {
+        PsiMethod benchmarkMethod = factory.createMethodFromText("public void tearDownIteration(){}", created);
+        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.TearDown(org.openjdk.jmh.annotations.Level.Iteration)");
         PsiElement add = created.add(benchmarkMethod);
 
         return benchmarkMethod;
@@ -216,16 +246,18 @@ public class CBGenerateAnAction extends AnAction {
 
         checkForLibraries(module);
 
-        PostprocessReformattingAspect.getInstance(project).postponeFormattingInside(
-                () -> WriteCommandAction.runWriteCommandAction(project, (Computable<PsiElement>) () -> {
-                    try {
-                        return generateClassAndMethods(cbGenerateDialog, psiDirectory);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
-                    return null;
-                }));
+        DumbService.getInstance(project).runWhenSmart(() ->
+                PostprocessReformattingAspect.getInstance(project).postponeFormattingInside(
+                        () -> WriteCommandAction.runWriteCommandAction(project, (Computable<PsiElement>) () -> {
+                            try {
+                                return generateClassAndMethods(cbGenerateDialog, psiDirectory);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            return null;
+                        })));
     }
 
     private void checkForLibraries(Module module) {
