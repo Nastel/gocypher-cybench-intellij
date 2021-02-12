@@ -295,7 +295,6 @@ public class CBGenerateAnAction extends DumbAwareAction {
 
     private boolean isMavenizedModule(Module module) {
         try {
-            module.getComponent("");
             Object componentInstance = module.getPicoContainer().getComponentInstance(
                     "org.jetbrains.idea.maven.project.MavenProjectsManager");
             if (componentInstance != null) {

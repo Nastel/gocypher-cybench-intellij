@@ -25,12 +25,15 @@ import com.intellij.execution.actions.ConfigurationContext;
 import com.intellij.execution.junit.JavaRunConfigurationProducerBase;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.module.Module;
+import com.intellij.openapi.roots.JavaProjectModelModificationService;
 import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.idea.maven.project.MavenProjectsManager;
 
 import java.util.Iterator;
 
@@ -54,6 +57,7 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
             return false;
         }
         configuration.getValueStore().put(CyBenchConfigurableParameters.BENCHMARK_CLASS, benchmarkClass.getQualifiedName());
+        configuration.getValueStore().put(CyBenchConfigurableParameters.REPORT_NAME, getBenchmarkName(context));
 
         setupDefaultValues(configuration);
 
@@ -66,6 +70,12 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
         configuration.setName(benchmarkClass.getName());
 
         return true;
+    }
+
+    @NotNull
+    private String getBenchmarkName(ConfigurationContext context) {
+
+        return context.getProject().getName() + "Benchmark";
     }
 
     public static void setupDefaultValues(CyBenchConfiguration configuration) {
