@@ -148,7 +148,7 @@ public class CBGenerateAnAction extends AnAction {
 
     @NotNull
     private static PsiMethod generateTearDownWithAnnotations(PsiClass created, JVMElementFactory factory) {
-        PsiMethod benchmarkMethod = factory.createMethodFromText("public void teardown(){}", created);
+        PsiMethod benchmarkMethod = factory.createMethodFromText("public void tearDown(){}", created);
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.TearDown");
         PsiElement add = created.add(benchmarkMethod);
 
