@@ -82,7 +82,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
                 Object lastPathComponent = e.getPath().getLastPathComponent();
                 if (lastPathComponent instanceof Nodes.BenchmarkTestNode && testsFinished) {
 
-                    ApplicationManager.getApplication().invokeLater(() ->CyBenchToolWindow.activateReportView(reportFile, null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject())));
+                    ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(reportFile, null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject())));
 
 
                 }
@@ -291,7 +291,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         this.testsFinished = true;
         ((ColoredTreeCellRenderer) tree.getCellRenderer()).setIcon(AllIcons.RunConfigurations.TestPassed);
         tree.updateUI();
-        ApplicationManager.getApplication().invokeLater(() ->CyBenchToolWindow.activateReportView(reportFile, this.consoleView, null));
+        ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(reportFile, this.consoleView, null));
         ApplicationManager.getApplication().invokeLater(() -> CyBenchExplorerToolWindow.refreshToolWindow());
 
     }

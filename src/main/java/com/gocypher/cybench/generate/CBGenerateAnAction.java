@@ -48,8 +48,10 @@ import com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackages
 import com.intellij.refactoring.util.classMembers.MemberInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.jps.model.java.JavaSourceRootType;
+import org.picocontainer.ComponentAdapter;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -227,7 +229,7 @@ public class CBGenerateAnAction extends AnAction {
     }
 
     private void checkForLibraries(Module module) {
-        GlobalSearchScope scope = GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module);
+        GlobalSearchScope scope = GlobalSearchScope.moduleWithDependenciesScope(module);
         PsiClass c = JavaPsiFacade.getInstance(module.getProject()).findClass("org.openjdk.jmh.annotations.Benchmark", scope);
 
         if (c == null) {
@@ -261,10 +263,21 @@ public class CBGenerateAnAction extends AnAction {
 
     private boolean isMavenizedModule(Module module) {
         try {
-            Class.forName("org.jetbrains.idea.maven.project.MavenProjectsManager");
-            return org.jetbrains.idea.maven.project.MavenProjectsManager.getInstance(project).isMavenizedModule(module);
-        } catch (ClassNotFoundException e) {
+            module.getComponent("");
+            Object componentInstance = module.getPicoContainer().getComponentInstance(
+                    "org.jetbrains.idea.maven.project.MavenProjectsManager");
+            if (componentInstance != null) {
+                ComponentAdapter componentAdapter = module.getPicoContainer().getComponentAdapter(
+                        "org.jetbrains.idea.maven.project.MavenProjectsManager");
+                Method isMavenizedModuleMethod = componentAdapter.getComponentImplementation().getMethod("isMavenizedModule", Module.class);
+                Object result = isMavenizedModuleMethod.invoke(componentInstance, module);
+                if (result instanceof Boolean) {
+                    return (Boolean) result;
+                } else return false;
+            }
+        } catch (Throwable e) {
             return false;
         }
+        return false;
     }
 }
