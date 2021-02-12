@@ -261,7 +261,7 @@ public class CBGenerateAnAction extends DumbAwareAction {
     }
 
     private void checkForLibraries(Module module) {
-        GlobalSearchScope scope = GlobalSearchScope.moduleWithDependenciesScope(module);
+        GlobalSearchScope scope = GlobalSearchScope.moduleRuntimeScope(module, true);
         PsiClass c = JavaPsiFacade.getInstance(module.getProject()).findClass("org.openjdk.jmh.annotations.Benchmark", scope);
 
         if (c == null) {

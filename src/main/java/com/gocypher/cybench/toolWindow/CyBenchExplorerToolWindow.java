@@ -170,7 +170,7 @@ public class CyBenchExplorerToolWindow {
         public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
             FileChooserDescriptor descriptor = new FileChooserDescriptor(false, true, false, false, false, false);
             descriptor.setTitle("Choose reports folder");
-            descriptor.setRoots(ProjectUtil.guessCurrentProject(toolWindowContent).getBaseDir());
+            //descriptor.setRoots(ProjectUtil.guessCurrentProject(toolWindowContent).getBaseDir());
             FileChooser.chooseFile(descriptor, null, null, CyBenchExplorerToolWindow.this::setReportFolder);
         }
     }
