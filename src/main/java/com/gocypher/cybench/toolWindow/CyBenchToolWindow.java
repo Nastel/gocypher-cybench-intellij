@@ -113,7 +113,7 @@ public class CyBenchToolWindow {
     }
 
     public static void activateReportView(File file, JPanel toolWindowContent, String selectReport) {
-        ToolWindow cyBench_report = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench report");
+        ToolWindow cyBench_report = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench Report");
         ApplicationManager.getApplication().invokeLater(() -> cyBench_report.activate(null));
 
 
