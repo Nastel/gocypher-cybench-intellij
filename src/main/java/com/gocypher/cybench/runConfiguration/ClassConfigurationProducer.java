@@ -25,7 +25,6 @@ import com.intellij.execution.actions.ConfigurationContext;
 import com.intellij.execution.junit.JavaRunConfigurationProducerBase;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.roots.JavaProjectModelModificationService;
 import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
@@ -33,8 +32,10 @@ import com.intellij.psi.PsiMethod;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.idea.maven.project.MavenProject;
 import org.jetbrains.idea.maven.project.MavenProjectsManager;
 
+import java.text.MessageFormat;
 import java.util.Iterator;
 
 public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase<CyBenchConfiguration> implements Cloneable {
@@ -49,6 +50,13 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
                 Extensions.getExtensions(com.intellij.execution.configurations.ConfigurationType.CONFIGURATION_TYPE_EP), ConfigurationType.class));
     }
 
+    public static void setupDefaultValues(CyBenchConfiguration configuration) {
+        for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
+            if (parameter.equals(CyBenchConfigurableParameters.BENCHMARK_CLASS)) continue;
+            configuration.getValueStore().put(parameter, parameter.defaultValue);
+        }
+    }
+
     @Override
     protected boolean setupConfigurationFromContext(CyBenchConfiguration configuration, ConfigurationContext context,
                                                     Ref<PsiElement> sourceElement) {
@@ -56,10 +64,11 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
         if (benchmarkClass == null) {
             return false;
         }
-        configuration.getValueStore().put(CyBenchConfigurableParameters.BENCHMARK_CLASS, benchmarkClass.getQualifiedName());
-        configuration.getValueStore().put(CyBenchConfigurableParameters.REPORT_NAME, getBenchmarkName(context));
 
         setupDefaultValues(configuration);
+
+        configuration.getValueStore().put(CyBenchConfigurableParameters.BENCHMARK_CLASS, benchmarkClass.getQualifiedName());
+        configuration.getValueStore().put(CyBenchConfigurableParameters.REPORT_NAME, getBenchmarkName(context, benchmarkClass));
 
         sourceElement.set(benchmarkClass);
         setupConfigurationModule(context, configuration);
@@ -73,16 +82,27 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
     }
 
     @NotNull
-    private String getBenchmarkName(ConfigurationContext context) {
+    private String getBenchmarkName(ConfigurationContext context, PsiClass benchmarkClass) {
+        String name = null;
+        String version = null;
+        String group = null;
 
-        return context.getProject().getName() + "Benchmark";
-    }
+        try {
+            MavenProject mavenProject = MavenProjectsManager.getInstance(context.getProject()).getRootProjects().get(0);
+            name = mavenProject.getMavenId().getArtifactId();
+            version = mavenProject.getMavenId().getVersion();
+            group = mavenProject.getMavenId().getGroupId();
 
-    public static void setupDefaultValues(CyBenchConfiguration configuration) {
-        for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
-            if (parameter.equals(CyBenchConfigurableParameters.BENCHMARK_CLASS)) continue;
-            configuration.getValueStore().put(parameter, parameter.defaultValue);
+        } catch (Exception e) {
         }
+
+
+        if (name == null)  {
+            name =context.getProject().getName();
+        }
+
+        return MessageFormat.format("Benchmark for {1}:{2}:{3} {0} ", benchmarkClass.getName(), group ,name, version );
+
     }
 
     @Override
