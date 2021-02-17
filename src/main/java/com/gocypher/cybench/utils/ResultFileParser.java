@@ -57,9 +57,7 @@ public abstract class ResultFileParser {
 
         entries.put("Total score", benchmarkOverviewReport.getTotalScore());
         entries.put("Visibility", benchmarkOverviewReport.getUploadStatus());
-
-        entries.put("Thread Count", benchmarkOverviewReport.getBenchmarkSettings().get("benchThreadCount"));
-
+        
         Object unclassifiedProperties = benchmarkOverviewReport.getEnvironmentSettings().get("unclassifiedProperties");
         if (unclassifiedProperties instanceof Map) {
             ((Map) unclassifiedProperties).forEach((k, v) -> {
