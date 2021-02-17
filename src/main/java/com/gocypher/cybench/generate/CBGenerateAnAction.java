@@ -48,6 +48,8 @@ import com.intellij.psi.util.PsiUtil;
 import com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesUtil;
 import com.intellij.refactoring.util.classMembers.MemberInfo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.idea.maven.project.MavenProjectsManager;
 import org.jetbrains.jps.model.java.JavaSourceRootType;
 import org.picocontainer.ComponentAdapter;
 
@@ -275,7 +277,7 @@ public class CBGenerateAnAction extends DumbAwareAction {
 
     public void setupLibrary(Module module) {
 
-        if (isMavenizedModule(module)) {
+        if (isMavenisedModule(module)) {
             ExternalLibraryDescriptor core = new ExternalLibraryDescriptor("org.openjdk.jmh",
                     "jmh-core", "1.26", "1.26");
             ExternalLibraryDescriptor aProcessor = new ExternalLibraryDescriptor("org.openjdk.jmh",
@@ -293,7 +295,17 @@ public class CBGenerateAnAction extends DumbAwareAction {
 
     }
 
-    private boolean isMavenizedModule(Module module) {
+    private boolean isMavenisedModule(Module module) {
+        try {
+            boolean mavenizedModule = MavenProjectsManager.getInstance(module.getProject()).isMavenizedModule(module);
+            return mavenizedModule;
+        } catch (Throwable t) {
+            return isMavenisedModuleHackyWay(module);
+        }
+    }
+
+    @Nullable
+    private Boolean isMavenisedModuleHackyWay(Module module) {
         try {
             Object componentInstance = module.getPicoContainer().getComponentInstance(
                     "org.jetbrains.idea.maven.project.MavenProjectsManager");
@@ -309,6 +321,6 @@ public class CBGenerateAnAction extends DumbAwareAction {
         } catch (Throwable e) {
             return false;
         }
-        return false;
+        return null;
     }
 }
