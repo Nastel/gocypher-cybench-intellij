@@ -27,6 +27,12 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.externalSystem.ExternalSystemManager;
+import com.intellij.openapi.externalSystem.importing.ImportSpecBuilder;
+import com.intellij.openapi.externalSystem.model.ExternalSystemDataKeys;
+import com.intellij.openapi.externalSystem.model.ProjectSystemId;
+import com.intellij.openapi.externalSystem.statistics.ExternalSystemActionsCollector;
+import com.intellij.openapi.externalSystem.util.ExternalSystemUtil;
 import com.intellij.openapi.fileEditor.ex.IdeDocumentHistory;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
@@ -51,12 +57,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.idea.maven.project.MavenProjectsManager;
 import org.jetbrains.jps.model.java.JavaSourceRootType;
+import org.jetbrains.plugins.gradle.settings.GradleSettings;
 import org.picocontainer.ComponentAdapter;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -288,9 +298,76 @@ public class CBGenerateAnAction extends DumbAwareAction {
             JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core, DependencyScope.TEST);
             JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, aProcessor, DependencyScope.TEST);
             JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, benchmarkTag, DependencyScope.TEST);
+        } else if (isGradleModule(module)) {
+            try {
+                addGradleDependency(GradleSettings.getInstance(project).getLinkedProjectsSettings().iterator().next().getExternalProjectPath());
+                refreshGradle(module);
+
+            } catch (Exception e) {
+            }
         } else {
 
             OrderEntryFix.addJarsToRoots(Arrays.asList(Utils.getJMHLibFiles()).stream().map(f -> f.getAbsolutePath()).collect(Collectors.toList()), null, module, null);
+        }
+
+    }
+
+    protected static void addGradleDependency(String projectPath) {
+        try {
+            File file = new File(projectPath + File.separator + "build.gradle");
+
+            String GRADLE_JMH_DEPENDENCY = "	implementation group: 'com.gocypher.cybench.client', name: 'gocypher-cybench-annotations', version: '1.0.0'" + "\n";
+            String GRADLE_JMH_ANNOTATION_DEPENDENCY = "	annotationProcessor  group: 'org.openjdk.jmh', name:'jmh-generator-annprocess', version:'1.26'" + "\n";
+
+            String jmhDependency = GRADLE_JMH_DEPENDENCY;
+            String jmhAnnotationDependency = GRADLE_JMH_ANNOTATION_DEPENDENCY;
+
+            String newBuildFile = "";
+
+            if (file != null && file.exists()) {
+                Scanner myReader = new Scanner(file);
+                while (myReader.hasNextLine()) {
+                    String data = myReader.nextLine();
+                    if (data.contains("org.openjdk.jmh") && data.contains("jmh-core")) {
+                        jmhDependency = "";
+                    }
+                    if (data.contains("org.openjdk.jmh") && data.contains("jmh-generator-annprocess")) {
+                        jmhAnnotationDependency = "";
+                    }
+                }
+                myReader.close();
+                myReader = new Scanner(file);
+                while (myReader.hasNextLine()) {
+                    String data = myReader.nextLine();
+                    newBuildFile += data + "\n";
+                    if (data.contains("dependencies {")) {
+                        newBuildFile += jmhDependency + jmhAnnotationDependency;
+                    }
+                }
+                myReader.close();
+                FileWriter fw_build = new FileWriter(file);
+                fw_build.write(newBuildFile);
+                fw_build.close();
+            }
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    private static void refreshGradle(Module module) {
+        ExternalSystemManager.EP_NAME.extensions().forEach(e -> {
+            ProjectSystemId eSystemId = e.getSystemId();
+            ExternalSystemUtil.refreshProjects(new ImportSpecBuilder(project, eSystemId).forceWhenUptodate(true));
+        });
+
+    }
+
+    private boolean isGradleModule(Module module) {
+        try {
+            return !GradleSettings.getInstance(module.getProject()).getLinkedProjectsSettings().isEmpty();
+        } catch (Throwable e) {
+            return false;
         }
 
     }

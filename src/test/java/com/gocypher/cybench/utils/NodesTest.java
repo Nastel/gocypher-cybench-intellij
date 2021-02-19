@@ -27,8 +27,8 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-
-class NodesTest {
+@State(Scope.Benchmark)
+public class NodesTest {
 
     @Setup
     public void setup() {

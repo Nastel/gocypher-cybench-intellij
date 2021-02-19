@@ -111,10 +111,6 @@ public class CyBenchConfigurableEditorViewTest {
 
             }
 
-            @Override
-            public void addLegacyMacro(@NotNull String s, @NotNull String s1) {
-
-            }
 
             @Override
             public void removeMacro(@NotNull String s) {

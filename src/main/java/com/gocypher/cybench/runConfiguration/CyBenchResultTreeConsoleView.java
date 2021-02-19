@@ -21,9 +21,7 @@ package com.gocypher.cybench.runConfiguration;
 
 import com.gocypher.cybench.toolWindow.CyBenchExplorerToolWindow;
 import com.gocypher.cybench.toolWindow.CyBenchToolWindow;
-import com.gocypher.cybench.utils.NodeAndTabFiller;
 import com.gocypher.cybench.utils.Nodes;
-import com.gocypher.cybench.utils.ResultFileParser;
 import com.intellij.execution.filters.Filter;
 import com.intellij.execution.filters.HyperlinkInfo;
 import com.intellij.execution.impl.ConsoleViewImpl;
@@ -31,20 +29,15 @@ import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.icons.AllIcons;
-import com.intellij.ide.ui.laf.darcula.ui.DarculaTabbedPaneUI;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.ColoredTreeCellRenderer;
-import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.treeStructure.Tree;
-import com.intellij.util.ui.UIUtil;
-import org.codehaus.jettison.json.JSONException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,10 +48,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class CyBenchResultTreeConsoleView implements ConsoleView {
     private final Project project;
@@ -82,7 +74,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
                 Object lastPathComponent = e.getPath().getLastPathComponent();
                 if (lastPathComponent instanceof Nodes.BenchmarkTestNode && testsFinished) {
 
-                    ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(reportFile, null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject())));
+                    ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject())));
 
 
                 }
@@ -291,17 +283,28 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         this.testsFinished = true;
         ((ColoredTreeCellRenderer) tree.getCellRenderer()).setIcon(AllIcons.RunConfigurations.TestPassed);
         tree.updateUI();
-        ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(reportFile, this.consoleView, null));
+        ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), this.consoleView, null));
         ApplicationManager.getApplication().invokeLater(() -> CyBenchExplorerToolWindow.refreshToolWindow());
 
     }
 
-    private void createUIComponents() {
-
+    private File getReportFile() {
+        return Stream.of(
+                reportFile.getParentFile().listFiles())
+                .filter(f -> f.getName().endsWith(".cybench"))
+                .filter(f -> f.getName().contains(reportFile.getName()
+                        .replaceAll("[^a-zA-Z0-9\\.\\-,]", "_")
+                        .replaceAll(".cybench", "")))
+                .findFirst()
+                .get();
     }
 
     public void setReportFile(String reportFileName) {
         this.reportFile = new File(ProjectUtil.guessCurrentProject(null).getBasePath() + File.separator + "reports" + File.separator + reportFileName);
+    }
+
+    private void createUIComponents() {
+
     }
 
     private static class ConsoleViewEntry {

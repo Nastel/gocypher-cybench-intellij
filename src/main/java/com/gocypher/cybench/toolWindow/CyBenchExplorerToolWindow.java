@@ -60,7 +60,9 @@ public class CyBenchExplorerToolWindow {
 
     public static void refreshToolWindow() {
         ToolWindow cyBench_explorer = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench explorer");
-        ApplicationManager.getApplication().invokeLater(() -> cyBench_explorer.activate(null));
+        if (cyBench_explorer != null) {
+            ApplicationManager.getApplication().invokeLater(() -> cyBench_explorer.activate(null));
+        }
         BrowseReportsToolWindowFactory.myToolWindow.refreshReports();
 
     }

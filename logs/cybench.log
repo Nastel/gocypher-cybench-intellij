@@ -1,0 +1,328 @@
+2021-02-19 10:27:27,483 INFO  [main!JBUIScale] - System scale factor: 2.0 (IDE-managed HiDPI)
+2021-02-19 10:27:27,763 INFO  [AWT-EventQueue-0!TestApplicationManager] - CPU cores: 8; ForkJoinPool.commonPool: java.util.concurrent.ForkJoinPool@34d6ae29[Running, parallelism = 8, size = 0, active = 0, running = 0, steals = 0, tasks = 0, submissions = 0]; factory: java.util.concurrent.ForkJoinPool$DefaultForkJoinWorkerThreadFactory@5950b112
+2021-02-19 10:27:27,967 INFO  [ApplicationImpl pooled thread 8!PluginManager] - Plugin com.intellij.java misses optional descriptor profiler-java.xml
+2021-02-19 10:27:28,064 INFO  [ApplicationImpl pooled thread 1!PluginManager] - Loaded bundled plugins: IDEA CORE (201.8743.12), JetBrains Repository Search (201.8743.12), Gradle (201.8743.12), Java (201.8743.12), Properties (201.8743.12), Maven (201.8743.12), CyBench-Intellij (201.8743.12)
+2021-02-19 10:27:28,159 WARN  [ApplicationImpl pooled thread 1!PathManagerEx] - C:\Users\slabs\.gradle\caches\modules-2\files-2.1\com.jetbrains.intellij.idea\ideaIC\2020.1.4\da9095e6ac3581f0463f7ae0ebb155647ca427ad\ideaIC-2020.1.4\system
+java.nio.file.NoSuchFileException: C:\Users\slabs\.gradle\caches\modules-2\files-2.1\com.jetbrains.intellij.idea\ideaIC\2020.1.4\da9095e6ac3581f0463f7ae0ebb155647ca427ad\ideaIC-2020.1.4\system
+	at sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:79)
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:90)
+	at sun.nio.fs.WindowsLinkSupport.getRealPath(WindowsLinkSupport.java:259)
+	at sun.nio.fs.WindowsPath.toRealPath(WindowsPath.java:836)
+	at sun.nio.fs.WindowsPath.toRealPath(WindowsPath.java:44)
+	at com.intellij.openapi.application.PathManagerEx$appSystemDir$2.invoke(pathManagerEx.kt:18)
+	at com.intellij.openapi.application.PathManagerEx$appSystemDir$2.invoke(pathManagerEx.kt)
+	at kotlin.SynchronizedLazyImpl.getValue(LazyJVM.kt:74)
+	at com.intellij.openapi.application.PathManagerEx.getAppSystemDir(pathManagerEx.kt)
+	at com.intellij.configurationStore.ApplicationStoreImpl.setPath(ApplicationStoreImpl.kt:36)
+	at com.intellij.idea.ApplicationLoader.initConfigurationStore(ApplicationLoader.kt:422)
+	at com.intellij.idea.ApplicationLoader$registerRegistryAndInitStore$1.apply(ApplicationLoader.kt:281)
+	at com.intellij.idea.ApplicationLoader$registerRegistryAndInitStore$1.apply(ApplicationLoader.kt)
+	at java.util.concurrent.CompletableFuture.uniCompose(CompletableFuture.java:952)
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:926)
+	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:474)
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1595)
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2021-02-19 10:27:28,324 INFO  [ApplicationImpl pooled thread 2!PagedFileStorage] - lower=100; upper=500; buffer=10; max=7239
+2021-02-19 10:27:28,409 INFO  [ApplicationImpl pooled thread 5!FSRecords] - Marking VFS as corrupted: 'C:\Users\slabs\.gradle\caches\modules-2\files-2.1\com.jetbrains.intellij.idea\ideaIC\2020.1.4\da9095e6ac3581f0463f7ae0ebb155647ca427ad\ideaIC-2020.1.4\system\caches\names.dat' does not exist
+2021-02-19 10:27:28,424 INFO  [ApplicationImpl pooled thread 2!FileChannelUtil] - interruptible FileChannel-s will be used for indexes
+2021-02-19 10:27:28,425 INFO  [ApplicationImpl pooled thread 2!FileChannelUtil] - interruptible FileChannel-s will be used for indexes
+2021-02-19 10:27:28,666 INFO  [IndexInfrastructure Pool!SerializationManagerImpl] - Name storage is repaired
+2021-02-19 10:27:28,703 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'FilenameIndex'; old = -1, new = 3
+2021-02-19 10:27:28,755 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'FrameworkDetectionIndex'; old = -1, new = 0
+2021-02-19 10:27:28,766 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'TodoIndex'; old = -1, new = 4107
+2021-02-19 10:27:28,803 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'IdIndex'; old = -1, new = 4112
+2021-02-19 10:27:28,826 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'filetypes'; old = -1, new = 2
+2021-02-19 10:27:28,836 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'Stubs'; old = -1, new = 46
+2021-02-19 10:27:28,965 INFO  [File Watcher!NativeFileWatcherImpl] - Native file watcher is disabled
+2021-02-19 10:27:28,984 INFO  [AWT-EventQueue-0!IdeaWin32] - Native filesystem for Windows is operational
+2021-02-19 10:27:29,038 INFO  [ApplicationImpl pooled thread 9!CertificateManager] - Default SSL context initialized
+2021-02-19 10:27:29,073 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'Trigram.Index'; old = -1, new = 4099
+2021-02-19 10:27:29,091 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'fileIncludes'; old = -1, new = 6
+2021-02-19 10:27:29,136 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'DomFileIndex'; old = -1, new = -626607036
+2021-02-19 10:27:29,147 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'RelaxSymbolIndex'; old = -1, new = 0
+2021-02-19 10:27:29,168 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'XmlTagNames'; old = -1, new = 1
+2021-02-19 10:27:29,178 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'XmlNamespaces'; old = -1, new = 7
+2021-02-19 10:27:29,188 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'html5.custom.attributes.index'; old = -1, new = 1
+2021-02-19 10:27:29,198 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'SchemaTypeInheritance'; old = -1, new = 2
+2021-02-19 10:27:29,207 INFO  [AWT-EventQueue-0!LegacyBridgeProjectLifecycleListener] - Using legacy project model to open project
+2021-02-19 10:27:29,212 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'json.file.root.values'; old = -1, new = 5
+2021-02-19 10:27:29,223 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'bytecodeAnalysis'; old = -1, new = 4107
+2021-02-19 10:27:29,374 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.auto.module.name'; old = -1, new = 5
+2021-02-19 10:27:29,390 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.source.module.name'; old = -1, new = 2
+2021-02-19 10:27:29,405 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.null.method.argument'; old = -1, new = 4097
+2021-02-19 10:27:29,420 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.simple.property'; old = -1, new = 3
+2021-02-19 10:27:29,430 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.fun.expression'; old = -1, new = 4100
+2021-02-19 10:27:29,448 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.binary.plus.expression'; old = -1, new = 4099
+2021-02-19 10:27:29,464 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'RefQueueIndex'; old = -1, new = 0
+2021-02-19 10:27:29,479 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'xmlProperties'; old = -1, new = 2
+2021-02-19 10:27:29,490 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - Indices to be rebuilt after corruption:FilenameIndex,FrameworkDetectionIndex,TodoIndex,IdIndex,filetypes,Stubs,Trigram.Index,fileIncludes,DomFileIndex,RelaxSymbolIndex,XmlTagNames,XmlNamespaces,html5.custom.attributes.index,SchemaTypeInheritance,json.file.root.values,bytecodeAnalysis,java.auto.module.name,java.source.module.name,java.null.method.argument,java.simple.property,java.fun.expression,java.binary.plus.expression,RefQueueIndex,xmlProperties
+2021-02-19 10:27:29,495 INFO  [IndexInfrastructure Pool!FileBasedIndexDataInitialization] - Initialization done: 942
+2021-02-19 10:27:29,517 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'dom.namespaceKey'; old = -1, new = 1
+2021-02-19 10:27:29,524 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'dom.elementClass'; old = -1, new = 0
+2021-02-19 10:27:29,529 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.module.name'; old = -1, new = 4
+2021-02-19 10:27:29,534 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.method.parameter.types'; old = -1, new = 3
+2021-02-19 10:27:29,540 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.extlist'; old = -1, new = 3
+2021-02-19 10:27:29,546 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.shortname'; old = -1, new = 4
+2021-02-19 10:27:29,553 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'jvm.static.member.type'; old = -1, new = 2
+2021-02-19 10:27:29,558 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'jvm.static.member.name'; old = -1, new = 2
+2021-02-19 10:27:29,564 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.method.name'; old = -1, new = 2
+2021-02-19 10:27:29,570 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.fqn'; old = -1, new = 1
+2021-02-19 10:27:29,576 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.field.name'; old = -1, new = 2
+2021-02-19 10:27:29,581 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.anonymous.baseref'; old = -1, new = 2
+2021-02-19 10:27:29,588 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.annotations'; old = -1, new = 2
+2021-02-19 10:27:29,595 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'properties.index'; old = -1, new = 2
+2021-02-19 10:27:29,601 INFO  [IndexInfrastructure Pool!StubIndexImpl] - Following stub indices will be built:jvm.static.member.type,java.anonymous.baseref,java.method.parameter.types,java.class.shortname,java.class.fqn,java.module.name,properties.index,dom.namespaceKey,dom.elementClass,java.annotations,java.class.extlist,java.field.name,java.method.name,jvm.static.member.name
+2021-02-19 10:27:29,601 INFO  [IndexInfrastructure Pool!StubIndexImpl$StubIndexInitialization] - Initialization done: 107
+2021-02-19 10:27:30,000 WARN  [AWT-EventQueue-0!maven] - Not found maven at null
+2021-02-19 10:29:45,810 INFO  [Shutdown tracker!FileBasedIndexImpl] - START INDEX SHUTDOWN
+2021-02-19 10:29:45,877 INFO  [Shutdown tracker!StubIndexImpl] - StubIndexExtension-s were unloaded
+2021-02-19 10:29:45,892 INFO  [Shutdown tracker!FileBasedIndexImpl] - END INDEX SHUTDOWN
+2021-02-19 10:29:45,892 INFO  [Shutdown tracker!SerializationManagerImpl] - START StubSerializationManager SHUTDOWN
+2021-02-19 10:29:45,892 INFO  [Shutdown tracker!SerializationManagerImpl] - END StubSerializationManager SHUTDOWN
+2021-02-19 10:29:45,892 INFO  [Shutdown tracker!PersistentFS] - VFS dispose started
+2021-02-19 10:29:45,902 INFO  [Shutdown tracker!PersistentFS] - VFS dispose completed
+2021-02-19 10:32:45,762 INFO  [Test worker!JBUIScale] - System scale factor: 1.0 (IDE-managed HiDPI)
+2021-02-19 10:32:45,933 INFO  [AWT-EventQueue-0!TestApplicationManager] - CPU cores: 8; ForkJoinPool.commonPool: java.util.concurrent.ForkJoinPool@184e3980[Running, parallelism = 8, size = 0, active = 0, running = 0, steals = 0, tasks = 0, submissions = 0]; factory: com.intellij.concurrency.IdeaForkJoinWorkerThreadFactory@6e0cb94
+2021-02-19 10:32:46,163 INFO  [ApplicationImpl pooled thread 4!PluginManager] - Plugin com.intellij.java misses optional descriptor profiler-java.xml
+2021-02-19 10:32:46,236 INFO  [ApplicationImpl pooled thread 1!PluginManager] - C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins-test\CyBench-Intellij overrides C:\workspace\CyBench-Intellij\build\resources\main
+2021-02-19 10:32:46,260 INFO  [ApplicationImpl pooled thread 1!PluginManager] - Loaded bundled plugins: IDEA CORE (201.8743.12), JetBrains Repository Search (201.8743.12), Gradle (201.8743.12), Java (201.8743.12), Properties (201.8743.12), Maven (201.8743.12)
+2021-02-19 10:32:46,261 INFO  [ApplicationImpl pooled thread 1!PluginManager] - Loaded custom plugins: CyBench-Intellij (1.0-SNAPSHOT)
+2021-02-19 10:32:46,481 INFO  [ApplicationImpl pooled thread 2!PagedFileStorage] - lower=100; upper=492; buffer=10; max=492
+2021-02-19 10:32:46,491 WARN  [ApplicationImpl pooled thread 7!DebugAttachDetector] - Unable to start DebugAttachDetector, please add `--add-exports java.base/jdk.internal.vm=ALL-UNNAMED` to VM options
+2021-02-19 10:32:46,521 INFO  [ApplicationImpl pooled thread 2!FileChannelUtil] - un-interruptible FileChannel-s will be used for indexes
+2021-02-19 10:32:46,570 INFO  [ApplicationImpl pooled thread 6!FSRecords] - Marking VFS as corrupted: 'C:\workspace\CyBench-Intellij\build\idea-sandbox\system-test\caches\names.dat' does not exist
+2021-02-19 10:32:46,593 INFO  [ApplicationImpl pooled thread 9!CertificateManager] - Default SSL context initialized
+2021-02-19 10:32:46,783 INFO  [File Watcher!NativeFileWatcherImpl] - Native file watcher is disabled
+2021-02-19 10:32:46,801 INFO  [AWT-EventQueue-0!IdeaWin32] - Native filesystem for Windows is operational
+2021-02-19 10:32:46,830 INFO  [IndexInfrastructure Pool!SerializationManagerImpl] - Name storage is repaired
+2021-02-19 10:32:46,864 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'FilenameIndex'; old = -1, new = 3
+2021-02-19 10:32:46,911 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'FrameworkDetectionIndex'; old = -1, new = 0
+2021-02-19 10:32:46,931 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'TodoIndex'; old = -1, new = 4107
+2021-02-19 10:32:46,983 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'IdIndex'; old = -1, new = 4112
+2021-02-19 10:32:47,006 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'filetypes'; old = -1, new = 2
+2021-02-19 10:32:47,006 INFO  [AWT-EventQueue-0!LegacyBridgeProjectLifecycleListener] - Using legacy project model to open project
+2021-02-19 10:32:47,026 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'Stubs'; old = -1, new = 46
+2021-02-19 10:32:47,223 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'Trigram.Index'; old = -1, new = 4099
+2021-02-19 10:32:47,246 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'fileIncludes'; old = -1, new = 6
+2021-02-19 10:32:47,304 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'DomFileIndex'; old = -1, new = -626607036
+2021-02-19 10:32:47,315 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'RelaxSymbolIndex'; old = -1, new = 0
+2021-02-19 10:32:47,327 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'XmlTagNames'; old = -1, new = 1
+2021-02-19 10:32:47,343 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'XmlNamespaces'; old = -1, new = 7
+2021-02-19 10:32:47,358 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'html5.custom.attributes.index'; old = -1, new = 1
+2021-02-19 10:32:47,377 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'SchemaTypeInheritance'; old = -1, new = 2
+2021-02-19 10:32:47,390 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'json.file.root.values'; old = -1, new = 5
+2021-02-19 10:32:47,401 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'bytecodeAnalysis'; old = -1, new = 4107
+2021-02-19 10:32:47,417 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.auto.module.name'; old = -1, new = 5
+2021-02-19 10:32:47,430 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.source.module.name'; old = -1, new = 2
+2021-02-19 10:32:47,442 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.null.method.argument'; old = -1, new = 4097
+2021-02-19 10:32:47,465 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.simple.property'; old = -1, new = 3
+2021-02-19 10:32:47,480 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.fun.expression'; old = -1, new = 4100
+2021-02-19 10:32:47,524 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.binary.plus.expression'; old = -1, new = 4099
+2021-02-19 10:32:47,551 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'RefQueueIndex'; old = -1, new = 0
+2021-02-19 10:32:47,579 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'xmlProperties'; old = -1, new = 2
+2021-02-19 10:32:47,598 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - Indices to be rebuilt after corruption:FilenameIndex,FrameworkDetectionIndex,TodoIndex,IdIndex,filetypes,Stubs,Trigram.Index,fileIncludes,DomFileIndex,RelaxSymbolIndex,XmlTagNames,XmlNamespaces,html5.custom.attributes.index,SchemaTypeInheritance,json.file.root.values,bytecodeAnalysis,java.auto.module.name,java.source.module.name,java.null.method.argument,java.simple.property,java.fun.expression,java.binary.plus.expression,RefQueueIndex,xmlProperties
+2021-02-19 10:32:47,608 INFO  [IndexInfrastructure Pool!FileBasedIndexDataInitialization] - Initialization done: 888
+2021-02-19 10:32:47,656 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'dom.namespaceKey'; old = -1, new = 1
+2021-02-19 10:32:47,678 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'dom.elementClass'; old = -1, new = 0
+2021-02-19 10:32:47,689 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.module.name'; old = -1, new = 4
+2021-02-19 10:32:47,698 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.method.parameter.types'; old = -1, new = 3
+2021-02-19 10:32:47,714 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.extlist'; old = -1, new = 3
+2021-02-19 10:32:47,730 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.shortname'; old = -1, new = 4
+2021-02-19 10:32:47,743 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'jvm.static.member.type'; old = -1, new = 2
+2021-02-19 10:32:47,760 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'jvm.static.member.name'; old = -1, new = 2
+2021-02-19 10:32:47,771 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.method.name'; old = -1, new = 2
+2021-02-19 10:32:47,779 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.fqn'; old = -1, new = 1
+2021-02-19 10:32:47,793 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.field.name'; old = -1, new = 2
+2021-02-19 10:32:47,801 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.anonymous.baseref'; old = -1, new = 2
+2021-02-19 10:32:47,811 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.annotations'; old = -1, new = 2
+2021-02-19 10:32:47,822 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'properties.index'; old = -1, new = 2
+2021-02-19 10:32:47,831 INFO  [IndexInfrastructure Pool!StubIndexImpl] - Following stub indices will be built:jvm.static.member.type,java.anonymous.baseref,java.method.parameter.types,java.class.shortname,java.class.fqn,java.module.name,properties.index,dom.namespaceKey,dom.elementClass,java.annotations,java.class.extlist,java.field.name,java.method.name,jvm.static.member.name
+2021-02-19 10:32:47,831 INFO  [IndexInfrastructure Pool!StubIndexImpl$StubIndexInitialization] - Initialization done: 223
+2021-02-19 10:32:47,934 WARN  [AWT-EventQueue-0!maven] - Not found maven at null
+2021-02-19 10:36:33,371 INFO  [Test worker!JBUIScale] - System scale factor: 1.0 (IDE-managed HiDPI)
+2021-02-19 10:36:33,576 INFO  [AWT-EventQueue-0!TestApplicationManager] - CPU cores: 8; ForkJoinPool.commonPool: java.util.concurrent.ForkJoinPool@683f2764[Running, parallelism = 8, size = 0, active = 0, running = 0, steals = 0, tasks = 0, submissions = 0]; factory: com.intellij.concurrency.IdeaForkJoinWorkerThreadFactory@14c3d2c4
+2021-02-19 10:36:33,819 INFO  [ApplicationImpl pooled thread 4!PluginManager] - Plugin com.intellij.java misses optional descriptor profiler-java.xml
+2021-02-19 10:36:33,900 INFO  [ApplicationImpl pooled thread 1!PluginManager] - C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins-test\CyBench-Intellij overrides C:\workspace\CyBench-Intellij\build\resources\main
+2021-02-19 10:36:33,915 INFO  [ApplicationImpl pooled thread 1!PluginManager] - Loaded bundled plugins: IDEA CORE (201.8743.12), JetBrains Repository Search (201.8743.12), Gradle (201.8743.12), Java (201.8743.12), Properties (201.8743.12), Maven (201.8743.12)
+2021-02-19 10:36:33,915 INFO  [ApplicationImpl pooled thread 1!PluginManager] - Loaded custom plugins: CyBench-Intellij (1.0-SNAPSHOT)
+2021-02-19 10:36:34,053 INFO  [ApplicationImpl pooled thread 2!PagedFileStorage] - lower=100; upper=492; buffer=10; max=492
+2021-02-19 10:36:34,072 WARN  [ApplicationImpl pooled thread 5!DebugAttachDetector] - Unable to start DebugAttachDetector, please add `--add-exports java.base/jdk.internal.vm=ALL-UNNAMED` to VM options
+2021-02-19 10:36:34,124 INFO  [ApplicationImpl pooled thread 2!FileChannelUtil] - un-interruptible FileChannel-s will be used for indexes
+2021-02-19 10:36:34,216 INFO  [ApplicationImpl pooled thread 9!CertificateManager] - Default SSL context initialized
+2021-02-19 10:36:34,347 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 3, new = 3
+2021-02-19 10:36:34,374 INFO  [File Watcher!NativeFileWatcherImpl] - Native file watcher is disabled
+2021-02-19 10:36:34,391 INFO  [AWT-EventQueue-0!IdeaWin32] - Native filesystem for Windows is operational
+2021-02-19 10:36:34,417 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 0, new = 0
+2021-02-19 10:36:34,437 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4107, new = 4107
+2021-02-19 10:36:34,492 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4112, new = 4112
+2021-02-19 10:36:34,532 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 2, new = 2
+2021-02-19 10:36:34,547 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 46, new = 46
+2021-02-19 10:36:34,620 INFO  [AWT-EventQueue-0!LegacyBridgeProjectLifecycleListener] - Using legacy project model to open project
+2021-02-19 10:36:34,792 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4099, new = 4099
+2021-02-19 10:36:34,811 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 6, new = 6
+2021-02-19 10:36:34,860 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = -626607036, new = -626607036
+2021-02-19 10:36:34,872 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 0, new = 0
+2021-02-19 10:36:34,888 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 1, new = 1
+2021-02-19 10:36:34,901 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 7, new = 7
+2021-02-19 10:36:34,914 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 1, new = 1
+2021-02-19 10:36:34,927 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 2, new = 2
+2021-02-19 10:36:34,954 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 5, new = 5
+2021-02-19 10:36:34,969 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4107, new = 4107
+2021-02-19 10:36:34,991 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 5, new = 5
+2021-02-19 10:36:35,003 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 2, new = 2
+2021-02-19 10:36:35,015 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4097, new = 4097
+2021-02-19 10:36:35,033 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 3, new = 3
+2021-02-19 10:36:35,043 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4100, new = 4100
+2021-02-19 10:36:35,064 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4099, new = 4099
+2021-02-19 10:36:35,084 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 0, new = 0
+2021-02-19 10:36:35,098 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 2, new = 2
+2021-02-19 10:36:35,110 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - Indices to be rebuilt after version change:FilenameIndex,FrameworkDetectionIndex,TodoIndex,IdIndex,filetypes,Stubs,Trigram.Index,fileIncludes,DomFileIndex,RelaxSymbolIndex,XmlTagNames,XmlNamespaces,html5.custom.attributes.index,SchemaTypeInheritance,json.file.root.values,bytecodeAnalysis,java.auto.module.name,java.source.module.name,java.null.method.argument,java.simple.property,java.fun.expression,java.binary.plus.expression,RefQueueIndex,xmlProperties
+2021-02-19 10:36:35,120 INFO  [IndexInfrastructure Pool!FileBasedIndexDataInitialization] - Initialization done: 900
+2021-02-19 10:36:35,130 WARN  [AWT-EventQueue-0!maven] - Incompatible index version, needs to be updated: C:\workspace\CyBench-Intellij\build\idea-sandbox\system-test\Maven\Indices\Index0
+org.jetbrains.idea.maven.indices.MavenIndexException: Incompatible index version, needs to be updated: C:\workspace\CyBench-Intellij\build\idea-sandbox\system-test\Maven\Indices\Index0
+	at org.jetbrains.idea.maven.indices.MavenIndex.<init>(MavenIndex.java:118)
+	at org.jetbrains.idea.maven.indices.MavenIndices.load(MavenIndices.java:58)
+	at org.jetbrains.idea.maven.indices.MavenIndices.<init>(MavenIndices.java:46)
+	at org.jetbrains.idea.maven.indices.MavenIndicesManager.ensureInitialized(MavenIndicesManager.java:102)
+	at org.jetbrains.idea.maven.indices.MavenIndicesManager.getIndicesObject(MavenIndicesManager.java:85)
+	at org.jetbrains.idea.maven.indices.MavenIndicesManager.createIndexForLocalRepo(MavenIndicesManager.java:174)
+	at org.jetbrains.idea.maven.onlinecompletion.MavenCompletionProviderFactory.addLocalIndex(MavenCompletionProviderFactory.java:68)
+	at org.jetbrains.idea.maven.onlinecompletion.MavenCompletionProviderFactory.getProviders(MavenCompletionProviderFactory.java:38)
+	at org.jetbrains.idea.maven.onlinecompletion.MavenCompletionProviderFactory.getProviders(MavenCompletionProviderFactory.java:25)
+	at org.jetbrains.idea.reposearch.DependencySearchService.updateProviders(DependencySearchService.kt:58)
+	at org.jetbrains.idea.reposearch.DependencySearchService.<init>(DependencySearchService.kt:186)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at com.intellij.serviceContainer.ConstructorInjectionKt.instantiateUsingPicoContainer(constructorInjection.kt:53)
+	at com.intellij.serviceContainer.ComponentManagerImpl.instantiateClassWithConstructorInjection(ComponentManagerImpl.kt:660)
+	at com.intellij.serviceContainer.ServiceComponentAdapter.createAndInitialize(ServiceComponentAdapter.kt:54)
+	at com.intellij.serviceContainer.ServiceComponentAdapter.doCreateInstance(ServiceComponentAdapter.kt:41)
+	at com.intellij.serviceContainer.BaseComponentAdapter.getInstanceUncached(BaseComponentAdapter.kt:115)
+	at com.intellij.serviceContainer.BaseComponentAdapter.getInstance(BaseComponentAdapter.kt:69)
+	at com.intellij.serviceContainer.ComponentManagerImpl.doGetService(ComponentManagerImpl.kt:411)
+	at com.intellij.serviceContainer.ComponentManagerImpl.getService(ComponentManagerImpl.kt:394)
+	at org.jetbrains.idea.reposearch.DependencySearchService$Companion.getInstance(DependencySearchService.kt:168)
+	at org.jetbrains.idea.reposearch.DependencySearchService.getInstance(DependencySearchService.kt)
+	at org.jetbrains.idea.maven.indices.MavenProjectIndicesManager.<init>(MavenProjectIndicesManager.java:48)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at com.intellij.serviceContainer.ConstructorInjectionKt.instantiateUsingPicoContainer(constructorInjection.kt:53)
+	at com.intellij.serviceContainer.ComponentManagerImpl.instantiateClassWithConstructorInjection(ComponentManagerImpl.kt:660)
+	at com.intellij.serviceContainer.MyComponentAdapter.doCreateInstance(MyComponentAdapter.kt:35)
+	at com.intellij.serviceContainer.BaseComponentAdapter.getInstanceUncached(BaseComponentAdapter.kt:115)
+	at com.intellij.serviceContainer.BaseComponentAdapter.getInstance(BaseComponentAdapter.kt:69)
+	at com.intellij.serviceContainer.BaseComponentAdapter.getInstance$default(BaseComponentAdapter.kt:62)
+	at com.intellij.serviceContainer.ComponentManagerImpl.createComponents(ComponentManagerImpl.kt:261)
+	at com.intellij.openapi.project.impl.ProjectImpl.init(ProjectImpl.java:269)
+	at com.intellij.openapi.project.impl.ProjectManagerImpl.initProject(ProjectManagerImpl.java:321)
+	at com.intellij.openapi.project.impl.ProjectManagerImpl.newProject(ProjectManagerImpl.java:215)
+	at com.intellij.testFramework.HeavyPlatformTestCase.createProject(HeavyPlatformTestCase.java:303)
+	at com.intellij.testFramework.LightPlatformTestCase.initProject(LightPlatformTestCase.java:194)
+	at com.intellij.testFramework.LightPlatformTestCase.doSetup(LightPlatformTestCase.java:275)
+	at com.intellij.testFramework.fixtures.impl.LightIdeaTestFixtureImpl.setUp(LightIdeaTestFixtureImpl.java:39)
+	at com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl.lambda$setUp$28(CodeInsightTestFixtureImpl.java:1192)
+	at com.intellij.testFramework.EdtTestUtil$Companion$runInEdtAndWait$1.invoke(EdtTestUtil.kt:18)
+	at com.intellij.testFramework.EdtTestUtil$Companion$runInEdtAndWait$1.invoke(EdtTestUtil.kt:13)
+	at com.intellij.testFramework.EdtTestUtilKt.runInEdtAndWait(EdtTestUtil.kt:44)
+	at com.intellij.testFramework.EdtTestUtil$Companion.runInEdtAndWait(EdtTestUtil.kt:18)
+	at com.intellij.testFramework.EdtTestUtil.runInEdtAndWait(EdtTestUtil.kt)
+	at com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl.setUp(CodeInsightTestFixtureImpl.java:1191)
+	at com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase.setUp(LightJavaCodeInsightFixtureTestCase.java:97)
+	at com.intellij.testFramework.UsefulTestCase.defaultRunBare(UsefulTestCase.java:382)
+	at com.intellij.testFramework.EdtTestUtil$Companion$runInEdtAndWait$1.invoke(EdtTestUtil.kt:18)
+	at com.intellij.testFramework.EdtTestUtil$Companion$runInEdtAndWait$1.invoke(EdtTestUtil.kt:13)
+	at com.intellij.testFramework.EdtTestUtilKt$runInEdtAndWait$3.run(EdtTestUtil.kt:67)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:303)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:740)
+	at com.intellij.ide.IdeEventQueue.dispatchEvent(IdeEventQueue.java:416)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+2021-02-19 10:36:35,141 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'dom.namespaceKey'; old = -1, new = 1
+2021-02-19 10:36:35,151 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'dom.elementClass'; old = -1, new = 0
+2021-02-19 10:36:35,162 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.module.name'; old = -1, new = 4
+2021-02-19 10:36:35,200 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.method.parameter.types'; old = -1, new = 3
+2021-02-19 10:36:35,217 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.extlist'; old = -1, new = 3
+2021-02-19 10:36:35,260 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.shortname'; old = -1, new = 4
+2021-02-19 10:36:35,280 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'jvm.static.member.type'; old = -1, new = 2
+2021-02-19 10:36:35,294 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'jvm.static.member.name'; old = -1, new = 2
+2021-02-19 10:36:35,304 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.method.name'; old = -1, new = 2
+2021-02-19 10:36:35,311 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.fqn'; old = -1, new = 1
+2021-02-19 10:36:35,318 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.field.name'; old = -1, new = 2
+2021-02-19 10:36:35,324 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.anonymous.baseref'; old = -1, new = 2
+2021-02-19 10:36:35,333 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.annotations'; old = -1, new = 2
+2021-02-19 10:36:35,343 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'properties.index'; old = -1, new = 2
+2021-02-19 10:36:35,349 INFO  [IndexInfrastructure Pool!StubIndexImpl] - Following stub indices will be built:jvm.static.member.type,java.anonymous.baseref,java.method.parameter.types,java.class.shortname,java.class.fqn,java.module.name,properties.index,dom.namespaceKey,dom.elementClass,java.annotations,java.class.extlist,java.field.name,java.method.name,jvm.static.member.name
+2021-02-19 10:36:35,349 INFO  [IndexInfrastructure Pool!StubIndexImpl$StubIndexInitialization] - Initialization done: 228
+2021-02-19 10:36:35,572 WARN  [AWT-EventQueue-0!maven] - Not found maven at null
+2021-02-19 10:37:28,181 INFO  [Test worker!JBUIScale] - System scale factor: 1.0 (IDE-managed HiDPI)
+2021-02-19 10:37:28,385 INFO  [AWT-EventQueue-0!TestApplicationManager] - CPU cores: 8; ForkJoinPool.commonPool: java.util.concurrent.ForkJoinPool@47bb22a2[Running, parallelism = 8, size = 0, active = 0, running = 0, steals = 0, tasks = 0, submissions = 0]; factory: com.intellij.concurrency.IdeaForkJoinWorkerThreadFactory@41813cbf
+2021-02-19 10:37:28,639 INFO  [ApplicationImpl pooled thread 4!PluginManager] - Plugin com.intellij.java misses optional descriptor profiler-java.xml
+2021-02-19 10:37:28,725 INFO  [ApplicationImpl pooled thread 1!PluginManager] - C:\workspace\CyBench-Intellij\build\idea-sandbox\plugins-test\CyBench-Intellij overrides C:\workspace\CyBench-Intellij\build\resources\main
+2021-02-19 10:37:28,749 INFO  [ApplicationImpl pooled thread 1!PluginManager] - Loaded bundled plugins: IDEA CORE (201.8743.12), JetBrains Repository Search (201.8743.12), Gradle (201.8743.12), Java (201.8743.12), Properties (201.8743.12), Maven (201.8743.12)
+2021-02-19 10:37:28,750 INFO  [ApplicationImpl pooled thread 1!PluginManager] - Loaded custom plugins: CyBench-Intellij (1.0-SNAPSHOT)
+2021-02-19 10:37:28,984 WARN  [ApplicationImpl pooled thread 7!DebugAttachDetector] - Unable to start DebugAttachDetector, please add `--add-exports java.base/jdk.internal.vm=ALL-UNNAMED` to VM options
+2021-02-19 10:37:29,011 INFO  [ApplicationImpl pooled thread 2!PagedFileStorage] - lower=100; upper=492; buffer=10; max=492
+2021-02-19 10:37:29,048 INFO  [ApplicationImpl pooled thread 2!FileChannelUtil] - un-interruptible FileChannel-s will be used for indexes
+2021-02-19 10:37:29,148 INFO  [ApplicationImpl pooled thread 9!CertificateManager] - Default SSL context initialized
+2021-02-19 10:37:29,261 INFO  [File Watcher!NativeFileWatcherImpl] - Native file watcher is disabled
+2021-02-19 10:37:29,270 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 3, new = 3
+2021-02-19 10:37:29,281 INFO  [AWT-EventQueue-0!IdeaWin32] - Native filesystem for Windows is operational
+2021-02-19 10:37:29,337 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 0, new = 0
+2021-02-19 10:37:29,363 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4107, new = 4107
+2021-02-19 10:37:29,419 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4112, new = 4112
+2021-02-19 10:37:29,457 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 2, new = 2
+2021-02-19 10:37:29,474 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 46, new = 46
+2021-02-19 10:37:29,512 INFO  [AWT-EventQueue-0!LegacyBridgeProjectLifecycleListener] - Using legacy project model to open project
+2021-02-19 10:37:29,773 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4099, new = 4099
+2021-02-19 10:37:29,800 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 6, new = 6
+2021-02-19 10:37:29,853 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = -626607036, new = -626607036
+2021-02-19 10:37:29,871 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 0, new = 0
+2021-02-19 10:37:29,893 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 1, new = 1
+2021-02-19 10:37:29,918 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 7, new = 7
+2021-02-19 10:37:29,941 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 1, new = 1
+2021-02-19 10:37:29,960 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 2, new = 2
+2021-02-19 10:37:29,979 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 5, new = 5
+2021-02-19 10:37:29,999 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4107, new = 4107
+2021-02-19 10:37:30,031 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 5, new = 5
+2021-02-19 10:37:30,052 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 2, new = 2
+2021-02-19 10:37:30,074 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4097, new = 4097
+2021-02-19 10:37:30,116 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 3, new = 3
+2021-02-19 10:37:30,144 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4100, new = 4100
+2021-02-19 10:37:30,186 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 4099, new = 4099
+2021-02-19 10:37:30,215 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 0, new = 0
+2021-02-19 10:37:30,237 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - vfs creation stamp changed; old = 2, new = 2
+2021-02-19 10:37:30,265 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - Indices to be rebuilt after version change:FilenameIndex,FrameworkDetectionIndex,TodoIndex,IdIndex,filetypes,Stubs,Trigram.Index,fileIncludes,DomFileIndex,RelaxSymbolIndex,XmlTagNames,XmlNamespaces,html5.custom.attributes.index,SchemaTypeInheritance,json.file.root.values,bytecodeAnalysis,java.auto.module.name,java.source.module.name,java.null.method.argument,java.simple.property,java.fun.expression,java.binary.plus.expression,RefQueueIndex,xmlProperties
+2021-02-19 10:37:30,278 INFO  [IndexInfrastructure Pool!FileBasedIndexDataInitialization] - Initialization done: 1144
+2021-02-19 10:37:30,318 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'dom.namespaceKey'; old = -1, new = 1
+2021-02-19 10:37:30,339 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'dom.elementClass'; old = -1, new = 0
+2021-02-19 10:37:30,355 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.module.name'; old = -1, new = 4
+2021-02-19 10:37:30,377 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.method.parameter.types'; old = -1, new = 3
+2021-02-19 10:37:30,387 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.extlist'; old = -1, new = 3
+2021-02-19 10:37:30,419 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.shortname'; old = -1, new = 4
+2021-02-19 10:37:30,432 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'jvm.static.member.type'; old = -1, new = 2
+2021-02-19 10:37:30,449 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'jvm.static.member.name'; old = -1, new = 2
+2021-02-19 10:37:30,490 WARN  [AWT-EventQueue-0!maven] - Not found maven at null
+2021-02-19 10:37:30,509 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.method.name'; old = -1, new = 2
+2021-02-19 10:37:30,540 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.class.fqn'; old = -1, new = 1
+2021-02-19 10:37:30,560 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.field.name'; old = -1, new = 2
+2021-02-19 10:37:30,572 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.anonymous.baseref'; old = -1, new = 2
+2021-02-19 10:37:30,585 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'java.annotations'; old = -1, new = 2
+2021-02-19 10:37:30,604 INFO  [IndexInfrastructure Pool!FileBasedIndexImpl] - index version changed for 'properties.index'; old = -1, new = 2
+2021-02-19 10:37:30,616 INFO  [IndexInfrastructure Pool!StubIndexImpl] - Following stub indices will be built:jvm.static.member.type,java.anonymous.baseref,java.method.parameter.types,java.class.shortname,java.class.fqn,java.module.name,properties.index,dom.namespaceKey,dom.elementClass,java.annotations,java.class.extlist,java.field.name,java.method.name,jvm.static.member.name
+2021-02-19 10:37:30,617 INFO  [IndexInfrastructure Pool!StubIndexImpl$StubIndexInitialization] - Initialization done: 336
