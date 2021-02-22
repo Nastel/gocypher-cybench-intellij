@@ -84,6 +84,8 @@ public class NodeAndTabFiller extends ResultFileParser {
 
     @Override
     protected void onEnvironmentEntries(Map<String, Object> environment) {
+        if (environment == null || environment.isEmpty()) return;
+
         HWJPanel hwjPanel = new HWJPanel();
         tabs.add("HW properties", hwjPanel);
         int[] idx = {0};
@@ -92,6 +94,7 @@ public class NodeAndTabFiller extends ResultFileParser {
 
     @Override
     protected void onJVMEntries(Map<String, Object> jvmSettings) {
+        if (jvmSettings == null || jvmSettings.isEmpty()) return;
         JVMJPanel panel = new JVMJPanel();
         tabs.add("JVM properties", panel);
         int[] idx = {0};
@@ -100,6 +103,7 @@ public class NodeAndTabFiller extends ResultFileParser {
 
     @Override
     protected void onSummaryEntries(Map<String, Object> summary) {
+        if (summary == null || summary.isEmpty()) return;
         SummaryPanel panel = new SummaryPanel();
         tabs.add("Summary", panel);
         summary.forEach((k, v) -> panel.table.getModel().addRow(getRowData(k, v)));
