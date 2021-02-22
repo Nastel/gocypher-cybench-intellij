@@ -57,8 +57,8 @@ public class CyBenchExplorerToolWindow {
         this.project = project;
     }
 
-    public static void refreshToolWindow() {
-        ToolWindow cyBench_explorer = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench explorer");
+    public static void refreshToolWindow(Project project) {
+        ToolWindow cyBench_explorer = ToolWindowManager.getInstance(project).getToolWindow("CyBench explorer");
         if (cyBench_explorer != null) {
             ApplicationManager.getApplication().invokeLater(() -> cyBench_explorer.activate(null));
         }

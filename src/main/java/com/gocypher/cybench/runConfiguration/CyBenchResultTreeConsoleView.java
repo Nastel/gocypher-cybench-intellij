@@ -284,7 +284,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         ((ColoredTreeCellRenderer) tree.getCellRenderer()).setIcon(AllIcons.RunConfigurations.TestPassed);
         tree.updateUI();
         ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), this.consoleView, null, project));
-        ApplicationManager.getApplication().invokeLater(() -> CyBenchExplorerToolWindow.refreshToolWindow());
+        ApplicationManager.getApplication().invokeLater(() -> CyBenchExplorerToolWindow.refreshToolWindow(project));
 
     }
 
@@ -300,7 +300,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
     }
 
     public void setReportFile(String reportFileName) {
-        this.reportFile = new File(ProjectUtil.guessCurrentProject(null).getBasePath() + File.separator + "reports" + File.separator + reportFileName);
+        this.reportFile = new File(project.getBasePath() + File.separator + "reports" + File.separator + reportFileName);
     }
 
     private void createUIComponents() {
