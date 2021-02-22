@@ -26,6 +26,7 @@ import com.gocypher.cybench.utils.NodeAndTabFiller;
 import com.gocypher.cybench.utils.Nodes;
 import com.gocypher.cybench.utils.ResultFileParser;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
@@ -112,8 +113,8 @@ public class CyBenchToolWindow {
         System.exit(0);
     }
 
-    public static void activateReportView(File file, JPanel toolWindowContent, String selectReport) {
-        ToolWindow cyBench_report = ToolWindowManager.getInstance(ProjectUtil.guessCurrentProject(toolWindowContent)).getToolWindow("CyBench Report");
+    public static void activateReportView(File file, JPanel toolWindowContent, String selectReport, Project project) {
+        ToolWindow cyBench_report = ToolWindowManager.getInstance(project).getToolWindow("CyBench Report");
         ApplicationManager.getApplication().invokeLater(() -> cyBench_report.activate(null));
 
 

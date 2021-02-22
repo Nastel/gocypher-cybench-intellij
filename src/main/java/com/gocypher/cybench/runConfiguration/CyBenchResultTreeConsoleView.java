@@ -74,7 +74,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
                 Object lastPathComponent = e.getPath().getLastPathComponent();
                 if (lastPathComponent instanceof Nodes.BenchmarkTestNode && testsFinished) {
 
-                    ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject())));
+                    ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject()), project));
 
 
                 }
@@ -283,7 +283,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         this.testsFinished = true;
         ((ColoredTreeCellRenderer) tree.getCellRenderer()).setIcon(AllIcons.RunConfigurations.TestPassed);
         tree.updateUI();
-        ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), this.consoleView, null));
+        ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), this.consoleView, null, project));
         ApplicationManager.getApplication().invokeLater(() -> CyBenchExplorerToolWindow.refreshToolWindow());
 
     }
@@ -294,7 +294,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
                 .filter(f -> f.getName().endsWith(".cybench"))
                 .filter(f -> f.getName().contains(reportFile.getName()
                         .replaceAll("[^a-zA-Z0-9\\.\\-,]", "_")
-                        .replaceAll(".cybench", "")))
+                        .substring(0, (int) reportFile.getName().length() - ".cybench".length())))
                 .findFirst()
                 .get();
     }

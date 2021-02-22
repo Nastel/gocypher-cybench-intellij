@@ -32,7 +32,7 @@ public class BrowseReportsToolWindowFactory implements com.intellij.openapi.wm.T
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        myToolWindow = new CyBenchExplorerToolWindow(toolWindow);
+        myToolWindow = new CyBenchExplorerToolWindow(toolWindow, project);
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(myToolWindow.getContent(), "", false);
         toolWindow.getContentManager().addContent(content);

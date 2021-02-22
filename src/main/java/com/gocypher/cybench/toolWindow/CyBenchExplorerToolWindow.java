@@ -46,16 +46,15 @@ import java.util.regex.Pattern;
 public class CyBenchExplorerToolWindow {
 
     private static JPanel toolWindowContent;
+    private final Project project;
 
     private File reportsFolder;
     private JBTable reportList;
     private boolean reloading;
 
-
-    public CyBenchExplorerToolWindow(ToolWindow toolWindow) {
-
+    public CyBenchExplorerToolWindow(ToolWindow toolWindow, Project project) {
         initComponents();
-
+        this.project = project;
     }
 
     public static void refreshToolWindow() {
@@ -85,7 +84,7 @@ public class CyBenchExplorerToolWindow {
 
             int selectionIndex = x.getLastIndex();
             File valueAt = (File) reportList.getModel().getValueAt(selectionIndex, 3);
-            ApplicationManager.getApplication().invokeLater(() ->CyBenchToolWindow.activateReportView(valueAt, toolWindowContent, null));
+            ApplicationManager.getApplication().invokeLater(() ->CyBenchToolWindow.activateReportView(valueAt, toolWindowContent, null, project));
 
             reportList.getSelectionModel().clearSelection();
         });
