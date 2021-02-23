@@ -36,6 +36,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import static com.gocypher.cybench.runConfiguration.CyBenchConfigurableParameters.COLLECT_HW;
+import static com.gocypher.cybench.runConfiguration.CyBenchConfigurableParameters.SHOULD_SEND_REPORT;
+
 
 public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfiguration> {
 
@@ -55,7 +58,14 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
                 JCheckBox jCheckBox = (JCheckBox) comp;
                 jCheckBox.setSelected(Boolean.parseBoolean(String.valueOf(cyBenchConfiguration.getValueStore().containsKey(parameter) ? cyBenchConfiguration.getValueStore().get(parameter) : parameter.defaultValue)));
                 jCheckBox.addChangeListener(e -> {
-                    cyBenchConfiguration.getValueStore().put(parameter,jCheckBox.isSelected());
+                    if (parameter == SHOULD_SEND_REPORT && jCheckBox.isSelected()) {
+                        cyBenchConfiguration.getValueStore().put(SHOULD_SEND_REPORT,true);
+                        cyBenchConfiguration.getValueStore().put(COLLECT_HW,true);
+                        ((JCheckBox)configurableStore.get(SHOULD_SEND_REPORT)).setSelected(true);
+                        ((JCheckBox)configurableStore.get(COLLECT_HW)).setSelected(true);
+                    } else {
+                        cyBenchConfiguration.getValueStore().put(parameter,jCheckBox.isSelected());
+                    }
                 });
             } else {
                 comp = new JTextField();

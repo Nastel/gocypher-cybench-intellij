@@ -37,15 +37,19 @@ public enum CyBenchConfigurableParameters {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 5, "Number of iterations", "", TYPE.NUMBER, s -> {
+    MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 3, "Number of iterations", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
+    MEASUREMENT_SECONDS(Constants.MEASUREMENT_SECONDS, 1, "Measurement time in seconds", "", TYPE.NUMBER, s -> {
+        int value = Integer.parseInt(s);
+        return value >= 0 && value <= 100;
+    }, "Value should be a number between 0 and 100"),
     WARM_UP_ITERATIONS(Constants.WARM_UP_ITERATIONS, 1, "Number of warm-up iterations", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    WARM_UP_SECONDS(Constants.WARM_UP_SECONDS, 5, "Warm-up seconds", "", TYPE.NUMBER, s -> {
+    WARM_UP_SECONDS(Constants.WARM_UP_SECONDS, 3, "Warm-up seconds", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
