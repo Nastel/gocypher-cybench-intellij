@@ -29,36 +29,36 @@ public enum CyBenchConfigurableParameters {
     REPORT_NAME(Constants.BENCHMARK_REPORT_NAME, getDefaultReportName(), "Report Name", "", TYPE.STRING, s -> true, ""),
 
 
-    FORKS(Constants.NUMBER_OF_FORKS, 1, "Number of forks", "", TYPE.NUMBER, s -> {
+    FORKS(Constants.NUMBER_OF_FORKS, 1, "Forks", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    THREADS(Constants.RUN_THREAD_COUNT, 1, "Number of threads", "", TYPE.NUMBER, s -> {
+    THREADS(Constants.RUN_THREAD_COUNT, 1, "Threads", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 3, "Number of iterations", "", TYPE.NUMBER, s -> {
+    MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 3, "Measurement Iterations", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    MEASUREMENT_SECONDS(Constants.MEASUREMENT_SECONDS, 1, "Measurement time in seconds", "", TYPE.NUMBER, s -> {
+    MEASUREMENT_SECONDS(Constants.MEASUREMENT_SECONDS, 1, "Measurement Time (s)", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 100;
     }, "Value should be a number between 0 and 100"),
-    WARM_UP_ITERATIONS(Constants.WARM_UP_ITERATIONS, 1, "Number of warm-up iterations", "", TYPE.NUMBER, s -> {
+    WARM_UP_ITERATIONS(Constants.WARM_UP_ITERATIONS, 1, "Warmup Iterations", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    WARM_UP_SECONDS(Constants.WARM_UP_SECONDS, 3, "Warm-up seconds", "", TYPE.NUMBER, s -> {
+    WARM_UP_SECONDS(Constants.WARM_UP_SECONDS, 3, "Warmup Time (s)", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"),
-    SHOULD_SEND_REPORT(Constants.SEND_REPORT, false, "Should send report to CyBench", "", TYPE.BOOLEAN, s ->
+    SHOULD_SEND_REPORT(Constants.SEND_REPORT, false, "Send Report To CyBench", "", TYPE.BOOLEAN, s ->
             true, ""),
-    COLLECT_HW(Constants.COLLECT_HW, false, "Collect HW properties", "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online", TYPE.BOOLEAN, s ->
+    COLLECT_HW(Constants.COLLECT_HW, false, "Include Hardware Properties", "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online", TYPE.BOOLEAN, s ->
             true, ""),
 
-    BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Benchmark class", "", TYPE.CLASS, s -> true, "Value should be a class");
+    BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Execute", "Benchmark class to execute", TYPE.CLASS, s -> true, "Value should be a class");
 
 
     public String error;
