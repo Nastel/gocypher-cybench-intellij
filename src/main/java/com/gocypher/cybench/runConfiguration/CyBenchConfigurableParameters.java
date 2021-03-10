@@ -58,7 +58,9 @@ public enum CyBenchConfigurableParameters {
     COLLECT_HW(Constants.COLLECT_HW, false, "Include Hardware Properties", "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online", TYPE.BOOLEAN, s ->
             true, ""),
 
-    BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Execute", "Benchmark class to execute", TYPE.CLASS, s -> true, "Value should be a class");
+    BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Execute", "Benchmark class to execute", TYPE.CLASS, s -> true, "Value should be a class"),
+    BENCH_TOKEN(Constants.USER_REPORT_TOKEN, "", "Bench Access Token", "Private benchmark store repo or empty for public", TYPE.STRING, s-> true, "");
+
 
 
     public String error;

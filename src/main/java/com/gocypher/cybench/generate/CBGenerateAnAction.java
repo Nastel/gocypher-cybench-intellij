@@ -295,9 +295,9 @@ public class CBGenerateAnAction extends DumbAwareAction {
             ExternalLibraryDescriptor benchmarkTag = new ExternalLibraryDescriptor("com.gocypher.cybench.client",
                     "gocypher-cybench-annotations", "1.0.0", "1.0.0");
 
-            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core, DependencyScope.TEST);
-            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, aProcessor, DependencyScope.TEST);
-            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, benchmarkTag, DependencyScope.TEST);
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core, DependencyScope.COMPILE);
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, aProcessor, DependencyScope.COMPILE);
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, benchmarkTag, DependencyScope.COMPILE);
         } else if (isGradleModule(module)) {
             try {
                 addGradleDependency(GradleSettings.getInstance(project).getLinkedProjectsSettings().iterator().next().getExternalProjectPath());
