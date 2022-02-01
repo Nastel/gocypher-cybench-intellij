@@ -19,13 +19,11 @@
 
 package com.gocypher.cybench.runConfiguration;
 
-import com.gocypher.cybench.runConfiguration.CyBenchConfiguration;
 import com.gocypher.cybench.utils.CyBenchIcons;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationTypeBase;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.project.Project;
-
 
 public class ConfigurationType extends ConfigurationTypeBase {
 
@@ -40,6 +38,7 @@ public class ConfigurationType extends ConfigurationTypeBase {
     public ConfigurationType() {
         super(TYPE_ID, "CyBench benchmark", "", CyBenchIcons.cyBenchSmall);
         myFactory = new ConfigurationFactory(this) {
+            @Override
             public RunConfiguration createTemplateConfiguration(Project project) {
 
                 CyBenchConfiguration configuration = new CyBenchConfiguration("cybench-configuration", project, this);

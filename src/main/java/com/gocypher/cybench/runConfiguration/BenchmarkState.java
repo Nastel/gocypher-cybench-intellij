@@ -19,6 +19,19 @@
 
 package com.gocypher.cybench.runConfiguration;
 
+import static com.gocypher.cybench.launcher.utils.Constants.CYB_REPORT_CYB_FILE;
+import static com.gocypher.cybench.launcher.utils.Constants.CYB_REPORT_JSON_FILE;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.util.Map;
+
+import org.apache.commons.io.IOCase;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.jps.model.java.compiler.ProcessorConfigProfile;
+
 import com.gocypher.cybench.launcher.utils.Constants;
 import com.gocypher.cybench.utils.Utils;
 import com.intellij.compiler.CompilerConfiguration;
@@ -41,26 +54,17 @@ import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import org.apache.commons.io.IOCase;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.jps.model.java.compiler.ProcessorConfigProfile;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.util.Map;
-
-import static com.gocypher.cybench.launcher.utils.Constants.CYB_REPORT_CYB_FILE;
-import static com.gocypher.cybench.launcher.utils.Constants.CYB_REPORT_JSON_FILE;
-
 
 public class BenchmarkState extends CommandLineState {
 
     public static final FileFilter PLUGINS_JAR_FILTER = new WildcardFileFilter("*.jar", IOCase.INSENSITIVE) {
+        private static final long serialVersionUID = 1404356016052964390L;
+
         @Override
         public boolean accept(File file) {
-            if (file.getName().startsWith("CyBench-Intellij")) return false;
+            if (file.getName().startsWith("gocypher-cybench-intellij")) {
+                return false;
+            }
             return super.accept(file);
         }
     };
@@ -74,9 +78,10 @@ public class BenchmarkState extends CommandLineState {
         this.configuration = configuration;
         Module module = configuration.getConfigurationModule().getModule();
         if (module != null) {
-            CompilerConfigurationImpl compilerConfiguration =
-                    (CompilerConfigurationImpl) CompilerConfiguration.getInstance(module.getProject());
-            ProcessorConfigProfile processorConfigProfile = compilerConfiguration.getAnnotationProcessingConfiguration(module);
+            CompilerConfigurationImpl compilerConfiguration = (CompilerConfigurationImpl) CompilerConfiguration
+                    .getInstance(module.getProject());
+            ProcessorConfigProfile processorConfigProfile = compilerConfiguration
+                    .getAnnotationProcessingConfiguration(module);
             processorConfigProfile.setEnabled(true);
             compilerConfiguration.getState();
         }
@@ -91,15 +96,13 @@ public class BenchmarkState extends CommandLineState {
 
         parameters.setMainClass(CyBenchConfiguration.JMH_START_CLASS);
 
-        JavaParametersUtil.configureModule(configuration.getConfigurationModule(), parameters, JavaParameters.JDK_AND_CLASSES_AND_TESTS, null);
-
+        JavaParametersUtil.configureModule(configuration.getConfigurationModule(), parameters,
+                JavaParameters.JDK_AND_CLASSES_AND_TESTS, null);
 
         File[] pluginJars = null;
         pluginJars = Utils.getJMHLibFiles();
 
-
         parameters.getClassPath().addAllFiles(pluginJars);
-
 
         return parameters;
     }
@@ -116,7 +119,8 @@ public class BenchmarkState extends CommandLineState {
 
     @NotNull
     @Override
-    public ExecutionResult execute(@NotNull Executor executor, @NotNull ProgramRunner runner) throws ExecutionException {
+    public ExecutionResult execute(@NotNull Executor executor, @NotNull ProgramRunner runner)
+            throws ExecutionException {
         return super.execute(executor, runner);
     }
 
@@ -139,21 +143,20 @@ public class BenchmarkState extends CommandLineState {
     private GeneralCommandLine createCommandLine() throws ExecutionException {
         JavaParameters javaParameters = createJavaParameters();
 
-        javaParameters.setUseDynamicClasspath(CommonDataKeys.PROJECT
-                .getData(DataManager.getInstance().getDataContext()));
-        for (Map.Entry<CyBenchConfigurableParameters, Object> confEntry : this.configuration.getValueStore().entrySet()) {
-            javaParameters.getVMParametersList().add("-D" + confEntry.getKey().key + "=" + String.valueOf(confEntry.getValue()));
+        javaParameters
+                .setUseDynamicClasspath(CommonDataKeys.PROJECT.getData(DataManager.getInstance().getDataContext()));
+        for (Map.Entry<CyBenchConfigurableParameters, Object> confEntry : configuration.getValueStore().entrySet()) {
+            javaParameters.getVMParametersList().add("-D" + confEntry.getKey().key + "=" + confEntry.getValue());
 
         }
-        String reportFileName = getReportFileName(String.valueOf(configuration.getValueStore().get(CyBenchConfigurableParameters.REPORT_NAME)));
+        String reportFileName = getReportFileName(
+                String.valueOf(configuration.getValueStore().get(CyBenchConfigurableParameters.REPORT_NAME)));
         javaParameters.getVMParametersList().add(getReportFNameParameter(reportFileName));
         cyBenchResultTreeConsoleView.setReportFile(reportFileName);
         javaParameters.getVMParametersList().add(getReportCybNameParameter(reportFileName.replace(".cybench", ".cyb")));
         javaParameters.getVMParametersList().add("-D" + Constants.APPEND_SCORE_TO_FNAME + "=" + Boolean.TRUE);
 
-
         GeneralCommandLine fromJavaParameters = javaParameters.toCommandLine();
-
 
         return fromJavaParameters;
     }

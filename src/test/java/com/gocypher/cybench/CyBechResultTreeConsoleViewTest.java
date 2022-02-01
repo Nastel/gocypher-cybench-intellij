@@ -19,23 +19,25 @@
 
 package com.gocypher.cybench;
 
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.gocypher.cybench.runConfiguration.CyBenchResultTreeConsoleView;
 import com.gocypher.cybench.utils.Nodes;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.ColoredTreeCellRenderer;
-import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import java.awt.*;
-
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-
-public class CyBechResultTreeConsoleViewTest  {
+public class CyBechResultTreeConsoleViewTest {
 
     private static CyBenchResultTreeConsoleView console;
 
@@ -51,11 +53,14 @@ public class CyBechResultTreeConsoleViewTest  {
 
                 consoleView = mock(ConsoleViewImpl.class);
 
-                //consoleViewPanel.add(jPanel, BorderLayout.CENTER);
+                // consoleViewPanel.add(jPanel, BorderLayout.CENTER);
                 getTree().setModel(new DefaultTreeModel(new DefaultMutableTreeNode("CyBenchBenchmark")));
                 getTree().setCellRenderer(new ColoredTreeCellRenderer() {
+                    private static final long serialVersionUID = 6874622797138562561L;
+
                     @Override
-                    public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i, boolean b3) {
+                    public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2,
+                            int i, boolean b3) {
                         setIcon(new AnimatedIcon.Default());
                         if (o instanceof DefaultMutableTreeNode) {
                             append(String.valueOf(((DefaultMutableTreeNode) o).getUserObject()));
@@ -67,14 +72,18 @@ public class CyBechResultTreeConsoleViewTest  {
 
         Object root = console.getTree().getModel().getRoot();
         DefaultMutableTreeNode newChild = new Nodes.BenchmarkClassNode("Test");
-        newChild.add(new Nodes.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringBufferReplaceAll"));
-        newChild.add(new Nodes.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringConcatMultiChars"));
-        newChild.add(new Nodes.BenchmarkTestNode("com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringReplaceAll"));
+        newChild.add(new Nodes.BenchmarkTestNode(
+                "com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringBufferReplaceAll"));
+        newChild.add(new Nodes.BenchmarkTestNode(
+                "com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringConcatMultiChars"));
+        newChild.add(new Nodes.BenchmarkTestNode(
+                "com.gocypher.cybench.jmh.jvm.client.tests.StringBenchmarks.stringReplaceAll"));
         ((DefaultMutableTreeNode) root).add(newChild);
 
         console.onBenchmarkFinished();
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 createAndShowGUI(console.getComponent());
             }
@@ -82,22 +91,20 @@ public class CyBechResultTreeConsoleViewTest  {
     }
 
     public static void createAndShowGUI(JComponent component) {
-        //Create and set up the window.
+        // Create and set up the window.
         JFrame frame = new JFrame("HelloWorldSwing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Add the ubiquitous "Hello World" label.
+        // Add the ubiquitous "Hello World" label.
         JLabel label = new JLabel("Hello World");
         frame.getContentPane().add(component);
 
-        frame.setPreferredSize(new Dimension(600,600));
-        //Display the window.
+        frame.setPreferredSize(new Dimension(600, 600));
+        // Display the window.
 
         frame.pack();
         frame.setVisible(true);
 
-
     }
-
 
 }

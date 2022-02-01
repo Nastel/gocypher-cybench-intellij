@@ -19,6 +19,15 @@
 
 package com.gocypher.cybench.runConfiguration;
 
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.intellij.diagnostic.logging.LogConfigurationPanel;
 import com.intellij.execution.*;
 import com.intellij.execution.configuration.CompatibilityAwareRunProfile;
@@ -26,18 +35,10 @@ import com.intellij.execution.configurations.*;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
-
 import com.intellij.openapi.options.SettingsEditorGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfigurationModule, Element>
         implements CommonJavaRunConfigurationParameters, CompatibilityAwareRunProfile {
@@ -52,18 +53,17 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
     private String alternativeJrePath;
     private String programParameters;
     private String workingDirectory;
-    private Map<String, String> envs = new HashMap<String, String>();
+    private Map<String, String> envs = new HashMap<>();
     private boolean passParentEnvs;
 
+    private Map<CyBenchConfigurableParameters, Object> valueStore = new EnumMap<>(CyBenchConfigurableParameters.class);
 
-
-    private Map<CyBenchConfigurableParameters, Object> valueStore = new HashMap<>();
-
-    public CyBenchConfiguration(final String name, final Project project, ConfigurationFactory configurationFactory) {
+    public CyBenchConfiguration(String name, Project project, ConfigurationFactory configurationFactory) {
         this(name, new JavaRunConfigurationModule(project, false), configurationFactory);
     }
 
-    public CyBenchConfiguration(String name, JavaRunConfigurationModule configurationModule, ConfigurationFactory factory) {
+    public CyBenchConfiguration(String name, JavaRunConfigurationModule configurationModule,
+            ConfigurationFactory factory) {
         super(name, configurationModule, factory);
     }
 
@@ -74,7 +74,7 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
 
     @Override
     public void setVMParameters(String s) {
-        this.vmParameters = s;
+        vmParameters = s;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
 
     @Override
     public void setAlternativeJrePathEnabled(boolean b) {
-        this.isAlternativeJrePathEnabled = b;
+        isAlternativeJrePathEnabled = b;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
 
     @Override
     public void setAlternativeJrePath(String s) {
-        this.alternativeJrePath = s;
+        alternativeJrePath = s;
     }
 
     @Nullable
@@ -117,7 +117,7 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
 
     @Override
     public void setProgramParameters(@Nullable String s) {
-        this.programParameters = s;
+        programParameters = s;
     }
 
     @Nullable
@@ -128,18 +128,18 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
 
     @Override
     public void setWorkingDirectory(@Nullable String s) {
-        this.workingDirectory = s;
+        workingDirectory = s;
     }
 
     @NotNull
     @Override
     public Map<String, String> getEnvs() {
-        return new HashMap<String, String>(envs);
+        return new HashMap<>(envs);
     }
 
     @Override
     public void setEnvs(@NotNull Map<String, String> map) {
-        envs = new HashMap<String, String>(map);
+        envs = new HashMap<>(map);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
 
     @Override
     public void setPassParentEnvs(boolean b) {
-        this.passParentEnvs = b;
+        passParentEnvs = b;
     }
 
     @Override
@@ -160,16 +160,18 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
     @NotNull
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-        SettingsEditorGroup<CyBenchConfiguration> group = new SettingsEditorGroup<CyBenchConfiguration>();
-        group.addEditor(ExecutionBundle.message("run.configuration.configuration.tab.title"), new CyBenchConfigurableEditorView(getProject(), this));
+        SettingsEditorGroup<CyBenchConfiguration> group = new SettingsEditorGroup<>();
+        group.addEditor(ExecutionBundle.message("run.configuration.configuration.tab.title"),
+                new CyBenchConfigurableEditorView(getProject(), this));
         JavaRunConfigurationExtensionManager.getInstance().appendEditors(this, group);
-        group.addEditor(ExecutionBundle.message("logs.tab.title"), new LogConfigurationPanel<CyBenchConfiguration>());
+        group.addEditor(ExecutionBundle.message("logs.tab.title"), new LogConfigurationPanel<>());
         return group;
     }
 
     @Nullable
     @Override
-    public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment executionEnvironment) throws ExecutionException {
+    public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment executionEnvironment)
+            throws ExecutionException {
         return new BenchmarkState(getProject(), this, executionEnvironment);
     }
 
@@ -213,6 +215,7 @@ public class CyBenchConfiguration extends ModuleBasedConfiguration<JavaRunConfig
     public boolean mustBeStoppedToRun(@NotNull RunConfiguration runConfiguration) {
         return true;
     }
+
     public Map<CyBenchConfigurableParameters, Object> getValueStore() {
         return valueStore;
     }

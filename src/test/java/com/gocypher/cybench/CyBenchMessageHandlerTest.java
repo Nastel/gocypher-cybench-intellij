@@ -19,30 +19,31 @@
 
 package com.gocypher.cybench;
 
-import com.gocypher.cybench.runConfiguration.CyBenchMessageHandler;
-import com.gocypher.cybench.runConfiguration.CyBenchResultTreeConsoleView;
-import com.intellij.execution.process.ProcessEvent;
-import com.intellij.openapi.util.Key;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import org.junit.Before;
+import org.junit.Test;
 
-public class CyBenchMessageHandlerTest  {
+import com.gocypher.cybench.runConfiguration.CyBenchMessageHandler;
+import com.gocypher.cybench.runConfiguration.CyBenchResultTreeConsoleView;
+import com.intellij.execution.process.ProcessEvent;
+import com.intellij.openapi.util.Key;
+
+public class CyBenchMessageHandlerTest {
 
     private CyBenchMessageHandler handler;
     private int foundClasses;
     private int foundMethods;
 
-
     @Before
     public void setup() {
-        this.handler = new CyBenchMessageHandler(mock(CyBenchResultTreeConsoleView.class)) {
+        handler = new CyBenchMessageHandler(mock(CyBenchResultTreeConsoleView.class)) {
 
             @Override
             protected void testClassFound(String name) {
@@ -57,53 +58,50 @@ public class CyBenchMessageHandlerTest  {
 
             @Override
             public void testStarted(String name) {
-                System.out.println("\t Benchmanrk method " + name);
+                System.out.println("\t Benchmark method " + name);
                 foundMethods++;
             }
 
             @Override
             public void testsFinished() {
-                System.out.println("Benchmanrk method end");
+                System.out.println("Benchmark method end");
             }
         };
     }
 
-
     @Test
     public void testWithSingleTestClass() throws IOException {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("singleBenchmarkOutput")));
-
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("singleBenchmarkOutput")));
 
         ProcessEvent mock = mock(ProcessEvent.class);
-
 
         String line;
         while ((line = reader.readLine()) != null) {
             when(mock.getText()).thenReturn(line);
             handler.onTextAvailable(mock, mock(Key.class));
         }
-        assertEquals(1 ,this.foundClasses);
-        assertEquals(6 ,this.foundMethods);
+        assertEquals(1, foundClasses);
+        assertEquals(6, foundMethods);
 
     }
 
     @Test
     public void testWitMultipleTestClass() throws IOException {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("multipleBenchmarkOutput")));
-
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("multipleBenchmarkOutput")));
 
         ProcessEvent mock = mock(ProcessEvent.class);
-
 
         String line;
         while ((line = reader.readLine()) != null) {
             when(mock.getText()).thenReturn(line);
             handler.onTextAvailable(mock, mock(Key.class));
         }
-        assertEquals(7 ,this.foundClasses);
-        assertEquals(37 ,this.foundMethods);
+        assertEquals(7, foundClasses);
+        assertEquals(37, foundMethods);
 
     }
 

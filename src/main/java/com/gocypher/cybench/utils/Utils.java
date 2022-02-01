@@ -19,19 +19,19 @@
 
 package com.gocypher.cybench.utils;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import com.gocypher.cybench.core.utils.JSONUtils;
 import com.gocypher.cybench.runConfiguration.BenchmarkState;
 import com.intellij.ide.plugins.cl.PluginClassLoader;
 import com.intellij.openapi.application.PluginPathManager;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.*;
-
 public class Utils {
-
 
     static ResourceBundle titles = ResourceBundle.getBundle("titles");
 
@@ -51,18 +51,19 @@ public class Utils {
         return value;
     }
 
-
     public static String getKeyName(String key) {
         if (titles.containsKey(key)) {
             return titles.getString(key);
-        } else return key;
+        } else {
+            return key;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     public static File[] getPluginClasspathHackyWay() {
         try {
-
-
-            PluginClassLoader pluginClassLoader = (PluginClassLoader) Class.forName("com.gocypher.cybench.runConfiguration.BenchmarkState").getClassLoader();
+            PluginClassLoader pluginClassLoader = (PluginClassLoader) Class
+                    .forName("com.gocypher.cybench.runConfiguration.BenchmarkState").getClassLoader();
             Field myLibDirectories;
             try {
                 myLibDirectories = PluginClassLoader.class.getDeclaredField("myLibDirectories");
@@ -80,7 +81,7 @@ public class Utils {
                     result.addAll(c);
                 }
             }
-            return result.toArray(new File[result.size()]);
+            return result.toArray(new File[0]);
 
         } catch (Exception e) {
             return null;
@@ -89,7 +90,7 @@ public class Utils {
 
     public static File[] getJMHLibFiles() {
         File[] pluginJars;
-        File pluginHome = PluginPathManager.getPluginHome("Cybench-Intellij");
+        File pluginHome = PluginPathManager.getPluginHome("gocypher-cybench-intellij");
         File lib = new File(pluginHome, "lib");
         if (lib.exists()) {
             pluginJars = lib.listFiles(BenchmarkState.PLUGINS_JAR_FILTER);

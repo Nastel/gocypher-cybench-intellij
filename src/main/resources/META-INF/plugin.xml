@@ -18,8 +18,8 @@
   -->
 
 <idea-plugin>
-    <id>com.github.mjok.cybenchintellij</id>
-    <name>CyBench-Intellij</name>
+    <id>com.gocypher.cybench.launcher.plugin</id>
+    <name>gocypher-cybench-intellij</name>
     <vendor>CyBench</vendor>
 
     <!-- Product and plugin compatibility requirements -->
@@ -51,9 +51,12 @@
         <configurationType implementation="com.gocypher.cybench.runConfiguration.ConfigurationType"/>
         <runConfigurationProducer implementation="com.gocypher.cybench.runConfiguration.ClassConfigurationProducer"/>
 
-        <runLineMarkerContributor language="JAVA" implementationClass="com.gocypher.cybench.runConfiguration.JmhRunLineMarkerContributor"/>
-        <toolWindow factoryClass="com.gocypher.cybench.toolWindow.factories.ToolWindowFactory" icon="/icons/cyBench16.svg" id="CyBench Report" anchor="bottom" canCloseContents="true"/>
-        <toolWindow factoryClass="com.gocypher.cybench.toolWindow.factories.BrowseReportsToolWindowFactory" icon="/icons/cyBench16.svg" id="CyBench Explorer" anchor="right"/>
+        <runLineMarkerContributor language="JAVA"
+                                  implementationClass="com.gocypher.cybench.runConfiguration.JmhRunLineMarkerContributor"/>
+        <toolWindow factoryClass="com.gocypher.cybench.toolWindow.factories.ToolWindowFactory"
+                    icon="/icons/cyBench16.svg" id="CyBench Report" anchor="bottom" canCloseContents="true"/>
+        <toolWindow factoryClass="com.gocypher.cybench.toolWindow.factories.BrowseReportsToolWindowFactory"
+                    icon="/icons/cyBench16.svg" id="CyBench Explorer" anchor="right"/>
 
 
         <projectService serviceImplementation="org.jetbrains.idea.maven.project.MavenProjectsManager"/>
@@ -61,11 +64,13 @@
 
 
     <actions>
-        <action id="com.gocypher.cybench.runConfiguration.RunAllCyBenchAnAction" class="com.gocypher.cybench.runConfiguration.RunAllCyBenchAnAction" text="Run all Benchmarks"
+        <action id="com.gocypher.cybench.runConfiguration.RunAllCyBenchAnAction"
+                class="com.gocypher.cybench.runConfiguration.RunAllCyBenchAnAction" text="Run all Benchmarks"
                 description="Run all benchmarks with CyBench runner" icon="/actions/execute.svg">
             <add-to-group group-id="ProjectViewPopupMenuRunGroup" anchor="first"/>
         </action>
-        <action id="com.gocypher.cybench.generate.CBGenerateAnAction" class="com.gocypher.cybench.generate.CBGenerateAnAction"
+        <action id="com.gocypher.cybench.generate.CBGenerateAnAction"
+                class="com.gocypher.cybench.generate.CBGenerateAnAction"
                 text="CyBench Benchmark Stubs">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
         </action>

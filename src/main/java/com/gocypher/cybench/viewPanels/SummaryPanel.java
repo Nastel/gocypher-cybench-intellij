@@ -19,10 +19,13 @@
 
 package com.gocypher.cybench.viewPanels;
 
-import javax.swing.*;
 import java.awt.*;
 
+import javax.swing.*;
+
 public class SummaryPanel extends JScrollPane {
+    private static final long serialVersionUID = 6194740438642464118L;
+
     public CBTable table = new CBTable();
     private JPanel insidePanel = new JPanel();
 

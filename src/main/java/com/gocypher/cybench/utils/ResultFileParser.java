@@ -19,40 +19,40 @@
 
 package com.gocypher.cybench.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gocypher.cybench.launcher.model.BenchmarkOverviewReport;
-import com.gocypher.cybench.launcher.model.BenchmarkReport;
-import org.codehaus.jettison.json.JSONException;
-
-
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.io.*;
-import java.text.DateFormat;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.codehaus.jettison.json.JSONException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gocypher.cybench.launcher.model.BenchmarkOverviewReport;
+import com.gocypher.cybench.launcher.model.BenchmarkReport;
+
 public abstract class ResultFileParser {
 
-
+    @SuppressWarnings("unchecked")
     public void parse(File file) throws IOException, JSONException {
         ObjectMapper mapper = new ObjectMapper();
         BenchmarkOverviewReport benchmarkOverviewReport = mapper.readValue(file, BenchmarkOverviewReport.class);
 
-
-//        JsonPath compile = JsonPath.compile("$.benchmarks.*.*.name");
-//        Object read = compile.read(file);
-
+        // JsonPath compile = JsonPath.compile("$.benchmarks.*.*.name");
+        // Object read = compile.read(file);
 
         Map<String, List<BenchmarkReport>> benchmarks = benchmarkOverviewReport.getBenchmarks();
-
 
         Map<String, Object> entries = new LinkedHashMap<>();
 
         entries.put("Benchmark Name", benchmarkOverviewReport.getBenchmarkSettings().get("benchReportName"));
-        entries.put("Timestamp", new SimpleDateFormat("yyy-MM-dd HH:mm:ss").format(benchmarkOverviewReport.getTimestamp()));
+        entries.put("Timestamp",
+                new SimpleDateFormat("yyy-MM-dd HH:mm:ss").format(benchmarkOverviewReport.getTimestamp()));
         entries.put("Online report", benchmarkOverviewReport.getReportURL());
 
         entries.put("Total score", benchmarkOverviewReport.getTotalScore());
@@ -60,35 +60,34 @@ public abstract class ResultFileParser {
 
         Object unclassifiedProperties = benchmarkOverviewReport.getEnvironmentSettings().get("unclassifiedProperties");
         if (unclassifiedProperties instanceof Map) {
-            ((Map) unclassifiedProperties).forEach((k, v) -> {
+            ((Map<?, ?>) unclassifiedProperties).forEach((k, v) -> {
                 if (k.equals("performanceGarbageCollectors") && v instanceof String) {
-                    entries.put(String.valueOf(k), ((List<String>) v).stream().map(vv -> String.valueOf(v)).collect(Collectors.joining(",")));
+                    entries.put(String.valueOf(k),
+                            ((List<String>) v).stream().map(vv -> String.valueOf(v)).collect(Collectors.joining(",")));
                     return;
                 }
                 if (k.equals("performanceJvmRuntimeParameters")) {
                     entries.put("performanceJvmRuntimeParameters", "");
-                    ((List<String>) v).stream().map(String::valueOf).forEach(kk -> {
-                        entries.put("\t" +kk.substring(0, kk.indexOf("=")), kk.substring(kk.indexOf("=") + 1));
-                    });
+                    ((List<String>) v).stream().map(String::valueOf).forEach(kk -> entries
+                            .put("\t" + kk.substring(0, kk.indexOf("=")), kk.substring(kk.indexOf("=") + 1)));
                     return;
                 }
                 entries.put(String.valueOf(k), String.valueOf(v));
             });
         }
 
-
         onSummaryEntries(entries);
-        onJVMEntries((Map) benchmarkOverviewReport.getEnvironmentSettings().get("jvmEnvironment"));
-        onEnvironmentEntries((Map) benchmarkOverviewReport.getEnvironmentSettings().get("environment"));
+        onJVMEntries((Map<String, Object>) benchmarkOverviewReport.getEnvironmentSettings().get("jvmEnvironment"));
+        onEnvironmentEntries((Map<String, Object>) benchmarkOverviewReport.getEnvironmentSettings().get("environment"));
 
+        Object collect = Stream.of(benchmarks.values().toArray(new List[0])).flatMap(t -> t.stream())
+                .collect(Collectors.toList());
 
-        Object collect = Stream.of(benchmarks.values().toArray(new List[benchmarks.size()])).flatMap(t -> t.stream()).collect(Collectors.toList());
-
-
-        ((List<BenchmarkReport>) collect).stream().forEach(report -> {
+        ((List<BenchmarkReport>) collect).forEach(report -> {
             onTest(report);
             try {
-                PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(BenchmarkReport.class).getPropertyDescriptors();
+                PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(BenchmarkReport.class)
+                        .getPropertyDescriptors();
                 for (int i = 0; i < propertyDescriptors.length; i++) {
                     PropertyDescriptor propertyDescriptor = propertyDescriptors[i];
                     Object value = propertyDescriptor.getReadMethod().invoke(report);
@@ -111,12 +110,10 @@ public abstract class ResultFileParser {
 
     protected abstract void onSummaryEntries(Map<String, Object> environmentSettings);
 
-
     public abstract void onTestEnd(BenchmarkReport report);
 
     public abstract void onTest(BenchmarkReport report);
 
     public abstract void ontTestResultEntry(String key, String value, int index);
-
 
 }

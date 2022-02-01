@@ -20,14 +20,14 @@
 
 package com.gocypher.cybench.runConfiguration;
 
+import java.util.Iterator;
+
 import com.intellij.execution.Location;
 import com.intellij.execution.actions.ConfigurationContext;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiMethod;
-
-import java.util.Iterator;
 
 public class ConfigurationUtils {
 
@@ -39,8 +39,8 @@ public class ConfigurationUtils {
     }
 
     public static boolean hasSetupOrTearDownAnnotation(PsiMethod method) {
-        return method.getModifierList().findAnnotation(SETUP_ANNOTATION) != null ||
-                method.getModifierList().findAnnotation(TEAR_DOWN_ANNOTATION) != null;
+        return method.getModifierList().findAnnotation(SETUP_ANNOTATION) != null
+                || method.getModifierList().findAnnotation(TEAR_DOWN_ANNOTATION) != null;
     }
 
     public static PsiMethod getAnnotatedMethod(ConfigurationContext context) {
@@ -64,33 +64,39 @@ public class ConfigurationUtils {
     }
 
     public static boolean isBenchmarkMethod(PsiElement element) {
-        if (!(element instanceof PsiIdentifier))
+        if (!(element instanceof PsiIdentifier)) {
             return false;
+        }
 
         element = element.getParent();
-        if (!(element instanceof PsiMethod))
+        if (!(element instanceof PsiMethod)) {
             return false;
+        }
 
         return isBenchmarkMethod((PsiMethod) element);
     }
 
     private static boolean isBenchmarkMethod(PsiMethod method) {
-        return method.getContainingClass() != null && method.hasModifierProperty("public") && hasBenchmarkAnnotation(method);
+        return method.getContainingClass() != null && method.hasModifierProperty("public")
+                && hasBenchmarkAnnotation(method);
     }
 
-    public static boolean isBenchmarkClass(final PsiElement psiElement) {
-        if (!(psiElement instanceof PsiIdentifier))
+    public static boolean isBenchmarkClass(PsiElement psiElement) {
+        if (!(psiElement instanceof PsiIdentifier)) {
             return false;
+        }
 
-        final PsiElement element = psiElement.getParent();
+        PsiElement element = psiElement.getParent();
 
         return element instanceof PsiClass && containsBenchmarkMethod((PsiClass) element);
     }
 
-    private static boolean containsBenchmarkMethod(final PsiClass aClass) {
-        final PsiMethod[] methods = aClass.getMethods();
-        for (final PsiMethod method : methods) {
-            if (isBenchmarkMethod(method)) return true;
+    private static boolean containsBenchmarkMethod(PsiClass aClass) {
+        PsiMethod[] methods = aClass.getMethods();
+        for (PsiMethod method : methods) {
+            if (isBenchmarkMethod(method)) {
+                return true;
+            }
         }
         return false;
     }

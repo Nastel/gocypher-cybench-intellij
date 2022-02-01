@@ -19,6 +19,21 @@
 
 package com.gocypher.cybench.runConfiguration;
 
+import java.awt.*;
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.gocypher.cybench.toolWindow.CyBenchExplorerToolWindow;
 import com.gocypher.cybench.toolWindow.CyBenchToolWindow;
 import com.gocypher.cybench.utils.Nodes;
@@ -32,29 +47,15 @@ import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.ColoredTreeCellRenderer;
 import com.intellij.ui.treeStructure.Tree;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import java.awt.*;
-import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Stream;
 
 public class CyBenchResultTreeConsoleView implements ConsoleView {
     private final Project project;
-    private final List<ConsoleViewEntry> consoleViewEntries = new LinkedList<ConsoleViewEntry>();
+    private final List<ConsoleViewEntry> consoleViewEntries = new LinkedList<>();
     protected ConsoleViewImpl consoleView;
     JPanel consoleViewPanel;
     private JPanel rootPanel;
@@ -74,8 +75,10 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
                 Object lastPathComponent = e.getPath().getLastPathComponent();
                 if (lastPathComponent instanceof Nodes.BenchmarkTestNode && testsFinished) {
 
-                    ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), null, String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject()), project));
-
+                    ApplicationManager.getApplication()
+                            .invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), null,
+                                    String.valueOf(((Nodes.BenchmarkTestNode) lastPathComponent).getUserObject()),
+                                    project));
 
                 }
 
@@ -85,11 +88,14 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
 
     public void initialize() {
 
-        consoleView = new ConsoleViewImpl(project, /*viewer=*/true);
+        consoleView = new ConsoleViewImpl(project, /* viewer= */true);
         tree.setModel(new DefaultTreeModel(new Nodes.BenchmarkRootNode("CyBenchBenchmark")));
         tree.setCellRenderer(new ColoredTreeCellRenderer() {
+            private static final long serialVersionUID = 7468884936875812351L;
+
             @Override
-            public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i, boolean b3) {
+            public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i,
+                    boolean b3) {
                 setIcon(new AnimatedIcon.Default());
                 if (o instanceof DefaultMutableTreeNode) {
                     append(String.valueOf(((DefaultMutableTreeNode) o).getUserObject()));
@@ -115,11 +121,13 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         return rootPanel;
     }
 
+    @Override
     public void clear() {
         consoleViewEntries.clear();
         consoleView.clear();
     }
 
+    @Override
     public void print(@NotNull String message, @NotNull ConsoleViewContentType contentType) {
         String[] messageLines = StringUtil.splitByLinesKeepSeparators(message);
         for (String messageLine : messageLines) {
@@ -134,12 +142,14 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         }
     }
 
-    private void printRaw(@NotNull String messageLine, @NotNull ConsoleViewContentType contentType, boolean allowFiltering) {
+    private void printRaw(@NotNull String messageLine, @NotNull ConsoleViewContentType contentType,
+            boolean allowFiltering) {
         ConsoleViewEntry consoleViewEntry = new ConsoleViewEntry(messageLine, contentType, allowFiltering);
         consoleViewEntries.add(consoleViewEntry);
         printLogEntry(consoleViewEntry);
     }
 
+    @Override
     @SuppressWarnings("unused")
     public void printHyperlink(@NotNull String message, @NotNull HyperlinkInfo hyperlinkInfo) {
         printHyperlink(message, hyperlinkInfo, true);
@@ -178,6 +188,7 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
 
     // Straight delegation to the real console view
 
+    @Override
     public void scrollTo(int row) {
         consoleView.scrollTo(row);
     }
@@ -253,9 +264,8 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
     }
 
     /**
-     * Method generated by IntelliJ IDEA GUI Designer
-     * >>> IMPORTANT!! <<<
-     * DO NOT edit this method OR call it in your code!
+     * Method generated by IntelliJ IDEA GUI Designer >>> IMPORTANT!! <<< DO NOT edit this method OR call it in your
+     * code!
      *
      * @noinspection ALL
      */
@@ -280,27 +290,26 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
     }
 
     public void onBenchmarkFinished() {
-        this.testsFinished = true;
+        testsFinished = true;
         ((ColoredTreeCellRenderer) tree.getCellRenderer()).setIcon(AllIcons.RunConfigurations.TestPassed);
         tree.updateUI();
-        ApplicationManager.getApplication().invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), this.consoleView, null, project));
+        ApplicationManager.getApplication()
+                .invokeLater(() -> CyBenchToolWindow.activateReportView(getReportFile(), consoleView, null, project));
         ApplicationManager.getApplication().invokeLater(() -> CyBenchExplorerToolWindow.refreshToolWindow(project));
 
     }
 
     private File getReportFile() {
-        return Stream.of(
-                reportFile.getParentFile().listFiles())
-                .filter(f -> f.getName().endsWith(".cybench"))
-                .filter(f -> f.getName().contains(reportFile.getName()
-                        .replaceAll("[^a-zA-Z0-9\\.\\-,]", "_")
-                        .substring(0, (int) reportFile.getName().length() - ".cybench".length())))
-                .findFirst()
-                .get();
+        return Stream
+                .of(reportFile.getParentFile().listFiles()).filter(
+                        f -> f.getName().endsWith(".cybench"))
+                .filter(f -> f.getName().contains(reportFile.getName().replaceAll("[^a-zA-Z0-9\\.\\-,]", "_")
+                        .substring(0, reportFile.getName().length() - ".cybench".length())))
+                .findFirst().get();
     }
 
     public void setReportFile(String reportFileName) {
-        this.reportFile = new File(project.getBasePath() + File.separator + "reports" + File.separator + reportFileName);
+        reportFile = new File(project.getBasePath() + File.separator + "reports" + File.separator + reportFileName);
     }
 
     private void createUIComponents() {
@@ -313,14 +322,16 @@ public class CyBenchResultTreeConsoleView implements ConsoleView {
         private final HyperlinkInfo hyperlinkInfo;
         private final boolean allowFiltering;
 
-        public ConsoleViewEntry(@NotNull String message, @NotNull ConsoleViewContentType contentType, @Nullable HyperlinkInfo hyperlinkInfo, boolean allowFiltering) {
+        public ConsoleViewEntry(@NotNull String message, @NotNull ConsoleViewContentType contentType,
+                @Nullable HyperlinkInfo hyperlinkInfo, boolean allowFiltering) {
             this.message = message;
             this.contentType = contentType;
             this.hyperlinkInfo = hyperlinkInfo;
             this.allowFiltering = allowFiltering;
         }
 
-        public ConsoleViewEntry(@NotNull String message, @NotNull ConsoleViewContentType contentType, boolean allowFiltering) {
+        public ConsoleViewEntry(@NotNull String message, @NotNull ConsoleViewContentType contentType,
+                boolean allowFiltering) {
             this(message, contentType, null, allowFiltering);
         }
 

@@ -19,6 +19,23 @@
 
 package com.gocypher.cybench.generate;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.idea.maven.project.MavenProjectsManager;
+import org.jetbrains.jps.model.java.JavaSourceRootType;
+import org.jetbrains.plugins.gradle.settings.GradleSettings;
+import org.picocontainer.ComponentAdapter;
+
 import com.gocypher.cybench.utils.Utils;
 import com.intellij.codeInsight.CodeInsightUtil;
 import com.intellij.codeInsight.daemon.impl.quickfix.OrderEntryFix;
@@ -29,9 +46,7 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.externalSystem.ExternalSystemManager;
 import com.intellij.openapi.externalSystem.importing.ImportSpecBuilder;
-import com.intellij.openapi.externalSystem.model.ExternalSystemDataKeys;
 import com.intellij.openapi.externalSystem.model.ProjectSystemId;
-import com.intellij.openapi.externalSystem.statistics.ExternalSystemActionsCollector;
 import com.intellij.openapi.externalSystem.util.ExternalSystemUtil;
 import com.intellij.openapi.fileEditor.ex.IdeDocumentHistory;
 import com.intellij.openapi.module.Module;
@@ -53,23 +68,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtil;
 import com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesUtil;
 import com.intellij.refactoring.util.classMembers.MemberInfo;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.idea.maven.project.MavenProjectsManager;
-import org.jetbrains.jps.model.java.JavaSourceRootType;
-import org.jetbrains.plugins.gradle.settings.GradleSettings;
-import org.picocontainer.ComponentAdapter;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 
 public class CBGenerateAnAction extends DumbAwareAction {
 
@@ -79,7 +77,6 @@ public class CBGenerateAnAction extends DumbAwareAction {
 
     protected static PsiClass generateClassAndMethods(CBGenerateDialog options, PsiDirectory parent) throws Exception {
 
-
         String benchmarkFileName = options.getClassName();
         JVMElementFactory factory = JVMElementFactories.getFactory(options.getTargetClass().getLanguage(), project);
 
@@ -88,7 +85,8 @@ public class CBGenerateAnAction extends DumbAwareAction {
         PsiClass created;
         if (file == null) {
             created = createPsiClass(parent, benchmarkFileName, factory);
-            created.getModifierList().addAnnotation("org.openjdk.jmh.annotations.State(org.openjdk.jmh.annotations.Scope.Benchmark)");
+            created.getModifierList()
+                    .addAnnotation("org.openjdk.jmh.annotations.State(org.openjdk.jmh.annotations.Scope.Benchmark)");
         } else {
             PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
             created = PsiTreeUtil.getChildrenOfType(psiFile, PsiClass.class)[0];
@@ -96,22 +94,29 @@ public class CBGenerateAnAction extends DumbAwareAction {
 
         PsiJavaFile createdFile = PsiTreeUtil.getParentOfType(created, PsiJavaFile.class);
 
-        if (options.shouldGenerateSetup()) generateSetUpWithAnnotations(created, factory);
-        if (options.shouldGenerateSetup()) generateSetUpWithAnnotationsIteration(created, factory);
-
+        if (options.shouldGenerateSetup()) {
+            generateSetUpWithAnnotations(created, factory);
+        }
+        if (options.shouldGenerateSetup()) {
+            generateSetUpWithAnnotationsIteration(created, factory);
+        }
 
         for (MemberInfo m : options.getSelectedMethods()) {
             if (m.getMember() instanceof PsiMethod) {
                 PsiMethod psiMethod = (PsiMethod) m.getMember();
-                generateMethodWithAnnotations(psiMethod.getName() + "Benchmark", options.getMode(), created, factory, options.shouldGenerateBechmarkTag());
+                generateMethodWithAnnotations(psiMethod.getName() + "Benchmark", options.getMode(), created, factory,
+                        options.shouldGenerateBenchmarkTag());
             }
         }
 
-        if (options.shouldGenerateTearDown()) generateTearDownWithAnnotations(created, factory);
-        if (options.shouldGenerateTearDown()) generateTearDownWithAnnotationsIteration(created, factory);
+        if (options.shouldGenerateTearDown()) {
+            generateTearDownWithAnnotations(created, factory);
+        }
+        if (options.shouldGenerateTearDown()) {
+            generateTearDownWithAnnotationsIteration(created, factory);
+        }
 
         JavaCodeStyleManager.getInstance(project).shortenClassReferences(created);
-
 
         PsiDocumentManager manager = PsiDocumentManager.getInstance(project);
         Document document = manager.getDocument(createdFile);
@@ -123,33 +128,41 @@ public class CBGenerateAnAction extends DumbAwareAction {
     }
 
     @NotNull
-    private static PsiClass createPsiClass(PsiDirectory parent, String benchmarkFileName, JVMElementFactory factory) throws Exception {
+    private static PsiClass createPsiClass(PsiDirectory parent, String benchmarkFileName, JVMElementFactory factory)
+            throws Exception {
         PsiClass created;
-        //   FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Class.java");
-        //  created = (PsiClass) FileTemplateUtil.createFromTemplate(codeTemplate, benchmarkFileName, new Properties(), parent);
+        // FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Class.java");
+        // created = (PsiClass) FileTemplateUtil.createFromTemplate(codeTemplate, benchmarkFileName, new Properties(),
+        // parent);
         created = JavaDirectoryService.getInstance().createClass(parent, benchmarkFileName);
-        //  created = factory.createClass(benchmarkFileName);
+        // created = factory.createClass(benchmarkFileName);
         parent.getVirtualFile().refresh(false, false);
 
         PsiUtil.setModifierProperty(created, PsiModifier.PUBLIC, true);
-
 
         return created;
     }
 
     @NotNull
-    private static PsiMethod generateMethodWithAnnotations(String name, String mode, PsiClass created, JVMElementFactory factory, boolean addBenchmarkTag) {
-        PsiMethod benchmarkMethod = factory.createMethodFromText("public void " + name + "(org.openjdk.jmh.infra.Blackhole bh){}", created);
+    private static PsiMethod generateMethodWithAnnotations(String name, String mode, PsiClass created,
+            JVMElementFactory factory, boolean addBenchmarkTag) {
+        PsiMethod benchmarkMethod = factory
+                .createMethodFromText("public void " + name + "(org.openjdk.jmh.infra.Blackhole bh){}", created);
 
         if (addBenchmarkTag) {
-            benchmarkMethod.getModifierList().addAnnotation("com.gocypher.cybench.core.annotation.BenchmarkTag(tag=\"" + UUID.randomUUID() + "\")");
+            benchmarkMethod.getModifierList().addAnnotation(
+                    "com.gocypher.cybench.core.annotation.BenchmarkTag(tag=\"" + UUID.randomUUID() + "\")");
         }
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.OutputTimeUnit(java.util.concurrent.TimeUnit.SECONDS)");
+        benchmarkMethod.getModifierList()
+                .addAnnotation("org.openjdk.jmh.annotations.OutputTimeUnit(java.util.concurrent.TimeUnit.SECONDS)");
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Fork(1)");
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Threads(1)");
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Measurement(iterations = 2, time = 5, timeUnit = TimeUnit.SECONDS)");
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Warmup(iterations = 1, time = 5, timeUnit = TimeUnit.SECONDS)");
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.BenchmarkMode(org.openjdk.jmh.annotations." + mode + ")");
+        benchmarkMethod.getModifierList().addAnnotation(
+                "org.openjdk.jmh.annotations.Measurement(iterations = 2, time = 5, timeUnit = TimeUnit.SECONDS)");
+        benchmarkMethod.getModifierList().addAnnotation(
+                "org.openjdk.jmh.annotations.Warmup(iterations = 1, time = 5, timeUnit = TimeUnit.SECONDS)");
+        benchmarkMethod.getModifierList()
+                .addAnnotation("org.openjdk.jmh.annotations.BenchmarkMode(org.openjdk.jmh.annotations." + mode + ")");
         benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Benchmark");
 
         PsiElement add = created.add(benchmarkMethod);
@@ -161,7 +174,8 @@ public class CBGenerateAnAction extends DumbAwareAction {
     private static PsiMethod generateSetUpWithAnnotations(PsiClass created, JVMElementFactory factory) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void setup(){}", created);
 
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Setup(org.openjdk.jmh.annotations.Level.Trial)");
+        benchmarkMethod.getModifierList()
+                .addAnnotation("org.openjdk.jmh.annotations.Setup(org.openjdk.jmh.annotations.Level.Trial)");
 
         PsiElement add = created.add(benchmarkMethod);
 
@@ -172,7 +186,8 @@ public class CBGenerateAnAction extends DumbAwareAction {
     private static PsiMethod generateSetUpWithAnnotationsIteration(PsiClass created, JVMElementFactory factory) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void setupIteration(){}", created);
 
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.Setup(org.openjdk.jmh.annotations.Level.Iteration)");
+        benchmarkMethod.getModifierList()
+                .addAnnotation("org.openjdk.jmh.annotations.Setup(org.openjdk.jmh.annotations.Level.Iteration)");
 
         PsiElement add = created.add(benchmarkMethod);
 
@@ -182,7 +197,8 @@ public class CBGenerateAnAction extends DumbAwareAction {
     @NotNull
     private static PsiMethod generateTearDownWithAnnotations(PsiClass created, JVMElementFactory factory) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void tearDown(){}", created);
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.TearDown(org.openjdk.jmh.annotations.Level.Trial)");
+        benchmarkMethod.getModifierList()
+                .addAnnotation("org.openjdk.jmh.annotations.TearDown(org.openjdk.jmh.annotations.Level.Trial)");
         PsiElement add = created.add(benchmarkMethod);
 
         return benchmarkMethod;
@@ -191,16 +207,19 @@ public class CBGenerateAnAction extends DumbAwareAction {
     @NotNull
     private static PsiMethod generateTearDownWithAnnotationsIteration(PsiClass created, JVMElementFactory factory) {
         PsiMethod benchmarkMethod = factory.createMethodFromText("public void tearDownIteration(){}", created);
-        benchmarkMethod.getModifierList().addAnnotation("org.openjdk.jmh.annotations.TearDown(org.openjdk.jmh.annotations.Level.Iteration)");
+        benchmarkMethod.getModifierList()
+                .addAnnotation("org.openjdk.jmh.annotations.TearDown(org.openjdk.jmh.annotations.Level.Iteration)");
         PsiElement add = created.add(benchmarkMethod);
 
         return benchmarkMethod;
     }
 
     public static PsiDirectory getTestRoot(Module module) {
-        List<SourceFolder> sourceFolders = ModuleRootManager.getInstance(module).getContentEntries()[0].getSourceFolders(JavaSourceRootType.TEST_SOURCE);
+        List<SourceFolder> sourceFolders = ModuleRootManager.getInstance(module).getContentEntries()[0]
+                .getSourceFolders(JavaSourceRootType.TEST_SOURCE);
         if (sourceFolders.size() == 0) {
-            sourceFolders = ModuleRootManager.getInstance(module).getContentEntries()[0].getSourceFolders(JavaSourceRootType.SOURCE);
+            sourceFolders = ModuleRootManager.getInstance(module).getContentEntries()[0]
+                    .getSourceFolders(JavaSourceRootType.SOURCE);
         }
         try {
             SourceFolder sourceFolder = sourceFolders.get(0);
@@ -218,11 +237,7 @@ public class CBGenerateAnAction extends DumbAwareAction {
     @Override
     public void update(@NotNull AnActionEvent e) {
         PsiElement data = e.getDataContext().getData(CommonDataKeys.PSI_FILE);
-        if (data instanceof PsiJavaFile) {
-            e.getPresentation().setEnabled(true);
-        } else {
-            e.getPresentation().setEnabled(false);
-        }
+        e.getPresentation().setEnabled(data instanceof PsiJavaFile);
 
     }
 
@@ -237,12 +252,11 @@ public class CBGenerateAnAction extends DumbAwareAction {
         file = anActionEvent.getData(CommonDataKeys.PSI_FILE);
         editor = anActionEvent.getData(CommonDataKeys.EDITOR);
 
-
         PsiElement element = file.findElementAt(editor.getCaretModel().getOffset());
-        final Module module = ModuleUtilCore.findModuleForPsiElement(element); //module info
+        Module module = ModuleUtilCore.findModuleForPsiElement(element); // module info
         PsiClass psiClass = PsiTreeUtil.getParentOfType(element, PsiClass.class, false);
         PsiDirectory srcDir = element.getContainingFile().getContainingDirectory();
-        PsiPackage srcPackage = JavaDirectoryService.getInstance().getPackage(srcDir); //package info
+        PsiPackage srcPackage = JavaDirectoryService.getInstance().getPackage(srcDir); // package info
         IdeDocumentHistory.getInstance(project).includeCurrentPlaceAsChangePlace();
 
         // FileTemplate codeTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate("Method.java");
@@ -254,13 +268,13 @@ public class CBGenerateAnAction extends DumbAwareAction {
 
         PsiJavaFile psiFile = PsiTreeUtil.getParentOfType(element, PsiJavaFile.class, false);
 
-        PsiDirectory psiDirectory = MoveClassesOrPackagesUtil.chooseDestinationPackage(project, psiFile.getPackageName(), getTestRoot(module));
+        PsiDirectory psiDirectory = MoveClassesOrPackagesUtil.chooseDestinationPackage(project,
+                psiFile.getPackageName(), getTestRoot(module));
 
         checkForLibraries(module);
 
-
-        DumbService.getInstance(project).runWhenSmart(() ->
-                PostprocessReformattingAspect.getInstance(project).postponeFormattingInside(
+        DumbService.getInstance(project)
+                .runWhenSmart(() -> PostprocessReformattingAspect.getInstance(project).postponeFormattingInside(
                         () -> WriteCommandAction.runWriteCommandAction(project, (Computable<PsiElement>) () -> {
                             try {
                                 return generateClassAndMethods(cbGenerateDialog, psiDirectory);
@@ -274,11 +288,12 @@ public class CBGenerateAnAction extends DumbAwareAction {
 
     private void checkForLibraries(Module module) {
         GlobalSearchScope scope = GlobalSearchScope.moduleRuntimeScope(module, true);
-        PsiClass c = JavaPsiFacade.getInstance(module.getProject()).findClass("org.openjdk.jmh.annotations.Benchmark", scope);
+        PsiClass c = JavaPsiFacade.getInstance(module.getProject()).findClass("org.openjdk.jmh.annotations.Benchmark",
+                scope);
 
         if (c == null) {
-            int libraries_not_found = Messages
-                    .showOkCancelDialog(module.getProject(), "Libraries not found. Add?", "Add libraries", "Add", "Cancel", Messages.getErrorIcon());
+            int libraries_not_found = Messages.showOkCancelDialog(module.getProject(), "Libraries not found. Add?",
+                    "Add libraries", "Add", "Cancel", Messages.getErrorIcon());
             if (libraries_not_found == Messages.OK) {
                 setupLibrary(module);
             }
@@ -288,26 +303,32 @@ public class CBGenerateAnAction extends DumbAwareAction {
     public void setupLibrary(Module module) {
 
         if (isMavenisedModule(module)) {
-            ExternalLibraryDescriptor core = new ExternalLibraryDescriptor("org.openjdk.jmh",
-                    "jmh-core", "1.26", "1.26");
+            ExternalLibraryDescriptor core = new ExternalLibraryDescriptor("org.openjdk.jmh", "jmh-core", "1.26",
+                    "1.26");
             ExternalLibraryDescriptor aProcessor = new ExternalLibraryDescriptor("org.openjdk.jmh",
                     "jmh-generator-annprocess", "1.26", "1.26");
             ExternalLibraryDescriptor benchmarkTag = new ExternalLibraryDescriptor("com.gocypher.cybench.client",
                     "gocypher-cybench-annotations", "1.0.0", "1.0.0");
 
-            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core, DependencyScope.COMPILE);
-            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, aProcessor, DependencyScope.COMPILE);
-            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, benchmarkTag, DependencyScope.COMPILE);
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core,
+                    DependencyScope.COMPILE);
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, aProcessor,
+                    DependencyScope.COMPILE);
+            JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, benchmarkTag,
+                    DependencyScope.COMPILE);
         } else if (isGradleModule(module)) {
             try {
-                addGradleDependency(GradleSettings.getInstance(project).getLinkedProjectsSettings().iterator().next().getExternalProjectPath());
+                addGradleDependency(GradleSettings.getInstance(project).getLinkedProjectsSettings().iterator().next()
+                        .getExternalProjectPath());
                 refreshGradle(module);
 
             } catch (Exception e) {
             }
         } else {
 
-            OrderEntryFix.addJarsToRoots(Arrays.asList(Utils.getJMHLibFiles()).stream().map(f -> f.getAbsolutePath()).collect(Collectors.toList()), null, module, null);
+            OrderEntryFix.addJarsToRoots(
+                    Arrays.stream(Utils.getJMHLibFiles()).map(f -> f.getAbsolutePath()).collect(Collectors.toList()),
+                    null, module, null);
         }
 
     }
@@ -316,8 +337,10 @@ public class CBGenerateAnAction extends DumbAwareAction {
         try {
             File file = new File(projectPath + File.separator + "build.gradle");
 
-            String GRADLE_JMH_DEPENDENCY = "	implementation group: 'com.gocypher.cybench.client', name: 'gocypher-cybench-annotations', version: '1.0.0'" + "\n";
-            String GRADLE_JMH_ANNOTATION_DEPENDENCY = "	annotationProcessor  group: 'org.openjdk.jmh', name:'jmh-generator-annprocess', version:'1.26'" + "\n";
+            String GRADLE_JMH_DEPENDENCY = "	implementation group: 'com.gocypher.cybench.client', name: 'gocypher-cybench-annotations', version: '1.0.0'"
+                    + "\n";
+            String GRADLE_JMH_ANNOTATION_DEPENDENCY = "	annotationProcessor  group: 'org.openjdk.jmh', name:'jmh-generator-annprocess', version:'1.26'"
+                    + "\n";
 
             String jmhDependency = GRADLE_JMH_DEPENDENCY;
             String jmhAnnotationDependency = GRADLE_JMH_ANNOTATION_DEPENDENCY;
@@ -384,16 +407,19 @@ public class CBGenerateAnAction extends DumbAwareAction {
     @Nullable
     private Boolean isMavenisedModuleHackyWay(Module module) {
         try {
-            Object componentInstance = module.getPicoContainer().getComponentInstance(
-                    "org.jetbrains.idea.maven.project.MavenProjectsManager");
+            Object componentInstance = module.getPicoContainer()
+                    .getComponentInstance("org.jetbrains.idea.maven.project.MavenProjectsManager");
             if (componentInstance != null) {
-                ComponentAdapter componentAdapter = module.getPicoContainer().getComponentAdapter(
-                        "org.jetbrains.idea.maven.project.MavenProjectsManager");
-                Method isMavenizedModuleMethod = componentAdapter.getComponentImplementation().getMethod("isMavenizedModule", Module.class);
+                ComponentAdapter componentAdapter = module.getPicoContainer()
+                        .getComponentAdapter("org.jetbrains.idea.maven.project.MavenProjectsManager");
+                Method isMavenizedModuleMethod = componentAdapter.getComponentImplementation()
+                        .getMethod("isMavenizedModule", Module.class);
                 Object result = isMavenizedModuleMethod.invoke(componentInstance, module);
                 if (result instanceof Boolean) {
                     return (Boolean) result;
-                } else return false;
+                } else {
+                    return false;
+                }
             }
         } catch (Throwable e) {
             return false;

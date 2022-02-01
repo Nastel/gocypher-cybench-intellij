@@ -19,13 +19,15 @@
 
 package com.gocypher.cybench.viewPanels;
 
-import javax.swing.*;
 import java.awt.*;
 
+import javax.swing.*;
+
 public class JVMJPanel extends JScrollPane {
+    private static final long serialVersionUID = 5569088104014298160L;
+
     public CBTable table = new CBTable();
     private JPanel insidePanel = new JPanel();
-
 
     public JVMJPanel() {
         super(null, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_ALWAYS);

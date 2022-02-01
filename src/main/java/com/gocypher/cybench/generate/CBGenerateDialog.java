@@ -19,8 +19,19 @@
 
 package com.gocypher.cybench.generate;
 
-import com.intellij.CommonBundle;
-import com.intellij.codeInsight.CodeInsightBundle;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.swing.*;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.jps.model.java.JavaSourceRootType;
+
 import com.intellij.ide.BrowserUtil;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -34,30 +45,16 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
-import com.intellij.psi.codeStyle.JavaCodeStyleSettings;
 import com.intellij.refactoring.ui.MemberSelectionTable;
 import com.intellij.refactoring.ui.PackageNameReferenceEditorCombo;
 import com.intellij.refactoring.util.RefactoringMessageUtil;
 import com.intellij.refactoring.util.classMembers.MemberInfo;
 import com.intellij.testIntegration.TestIntegrationUtils;
 import com.intellij.ui.*;
-import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.ui.JBUI;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.jps.model.java.JavaSourceRootType;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.util.List;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class CBGenerateDialog extends DialogWrapper {
     private static final String BENCHMARK_MODE_KEY = "benchmarkMode";
@@ -68,14 +65,10 @@ public class CBGenerateDialog extends DialogWrapper {
     private final PsiPackage myTargetPackage;
     private final ComboBox<String> benchmarkModeCombo = new ComboBox<>(new DefaultComboBoxModel<>());
 
-    private final JCheckBox myGenerateBeforeBox = new JCheckBox(
-            "@Setup");
-    private final JCheckBox myGenerateAfterBox = new JCheckBox(
-            "@TearDown");
-    private final JCheckBox myGenerateBenchmarkTag = new JCheckBox(
-            "@BenchmarkTag");
-    private final MemberSelectionTable myMethodsTable = new MemberSelectionTable(
-            Collections.emptyList(), null);
+    private final JCheckBox myGenerateBeforeBox = new JCheckBox("@Setup");
+    private final JCheckBox myGenerateAfterBox = new JCheckBox("@TearDown");
+    private final JCheckBox myGenerateBenchmarkTag = new JCheckBox("@BenchmarkTag");
+    private final MemberSelectionTable myMethodsTable = new MemberSelectionTable(Collections.emptyList(), null);
     protected PsiDirectory myTargetDirectory;
     private HashMap<String, String> externalProperties;
     private EditorTextField myTargetClassNameField;
@@ -85,10 +78,10 @@ public class CBGenerateDialog extends DialogWrapper {
 
     protected CBGenerateDialog(@Nullable Project project, PsiClass psiClass, PsiPackage srcPackage, Module module) {
         super(project);
-        this.myProject = project;
-        this.myTargetClass = psiClass;
-        this.myTargetPackage = srcPackage;
-        this.myTargetModule = module;
+        myProject = project;
+        myTargetClass = psiClass;
+        myTargetPackage = srcPackage;
+        myTargetModule = module;
         setTitle("Generate CyBench benchmark class");
         init();
 
@@ -107,8 +100,7 @@ public class CBGenerateDialog extends DialogWrapper {
     }
 
     private void updateMethodsTable() {
-        List<MemberInfo> methods = TestIntegrationUtils.extractClassMethods(
-                myTargetClass, false);
+        List<MemberInfo> methods = TestIntegrationUtils.extractClassMethods(myTargetClass, false);
 
         Set<PsiMember> selectedMethods = new HashSet<>();
         for (MemberInfo each : myMethodsTable.getSelectedMemberInfos()) {
@@ -195,8 +187,7 @@ public class CBGenerateDialog extends DialogWrapper {
         constr.weightx = 1;
 
         String targetPackageName = myTargetPackage != null ? myTargetPackage.getQualifiedName() : "";
-        myTargetPackageField = new PackageNameReferenceEditorCombo(targetPackageName,
-                myProject, RECENTS_KEY,
+        myTargetPackageField = new PackageNameReferenceEditorCombo(targetPackageName, myProject, RECENTS_KEY,
                 "Package");
 
         new AnAction() {
@@ -204,7 +195,8 @@ public class CBGenerateDialog extends DialogWrapper {
             public void actionPerformed(@NotNull AnActionEvent e) {
                 myTargetPackageField.getButton().doClick();
             }
-        }.registerCustomShortcutSet(new CustomShortcutSet(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.SHIFT_DOWN_MASK)),
+        }.registerCustomShortcutSet(
+                new CustomShortcutSet(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.SHIFT_DOWN_MASK)),
                 myTargetPackageField.getChildComponent());
 
         JPanel targetPackagePanel = new JPanel(new BorderLayout());
@@ -241,10 +233,9 @@ public class CBGenerateDialog extends DialogWrapper {
         myGenerateBenchmarkTag.setSelected(true);
         panel.add(myGenerateBenchmarkTag, constr);
 
-        final JLabel membersLabel = new JLabel("Select methods");
+        JLabel membersLabel = new JLabel("Select methods");
         membersLabel.setLabelFor(myMethodsTable);
         panel.add(membersLabel, constr);
-
 
         constr.insets = insets(1, 8);
         constr.gridy = gridy++;
@@ -278,7 +269,8 @@ public class CBGenerateDialog extends DialogWrapper {
                 label.setText(value);
             }
         }));
-        final DefaultComboBoxModel<String> benchmarkModeComboModel = (DefaultComboBoxModel<String>) benchmarkModeCombo.getModel();
+        DefaultComboBoxModel<String> benchmarkModeComboModel = (DefaultComboBoxModel<String>) benchmarkModeCombo
+                .getModel();
         benchmarkModeComboModel.addElement("Mode.Throughput");
         benchmarkModeComboModel.addElement("Mode.AverageTime");
         benchmarkModeComboModel.addElement("Mode.SampleTime");
@@ -299,13 +291,15 @@ public class CBGenerateDialog extends DialogWrapper {
         return myTargetClass;
     }
 
-
     public PsiDirectory getTargetDirectory() {
         return myTargetDirectory;
     }
 
     public Collection<MemberInfo> getSelectedMethods() {
-        return myMethodsTable.getSelectedMemberInfos().stream().collect(Collectors.toMap(memberInfo -> memberInfo.getMember().getName(), memberInfo -> memberInfo, (memberInfo, memberInfo2) -> memberInfo)).values();
+        return myMethodsTable.getSelectedMemberInfos().stream()
+                .collect(Collectors.toMap(memberInfo -> memberInfo.getMember().getName(), memberInfo -> memberInfo,
+                        (memberInfo, memberInfo2) -> memberInfo))
+                .values();
     }
 
     public boolean shouldGenerateTearDown() {
@@ -316,10 +310,9 @@ public class CBGenerateDialog extends DialogWrapper {
         return myGenerateBeforeBox.isSelected();
     }
 
-    public boolean shouldGenerateBechmarkTag() {
+    public boolean shouldGenerateBenchmarkTag() {
         return myGenerateBeforeBox.isSelected();
     }
-
 
     public String getMode() {
         return mode;
@@ -340,39 +333,40 @@ public class CBGenerateDialog extends DialogWrapper {
         return RefactoringMessageUtil.checkCanCreateClass(myTargetDirectory, getClassName());
     }
 
-
     @Nullable
     private PsiDirectory chooseDefaultDirectory(PsiDirectory[] directories, List<VirtualFile> roots) {
         List<PsiDirectory> dirs = new ArrayList<>();
         PsiManager psiManager = PsiManager.getInstance(myProject);
-        for (VirtualFile file : ModuleRootManager.getInstance(myTargetModule).getSourceRoots(JavaSourceRootType.TEST_SOURCE)) {
-            final PsiDirectory dir = psiManager.findDirectory(file);
+        for (VirtualFile file : ModuleRootManager.getInstance(myTargetModule)
+                .getSourceRoots(JavaSourceRootType.TEST_SOURCE)) {
+            PsiDirectory dir = psiManager.findDirectory(file);
             if (dir != null) {
                 dirs.add(dir);
             }
         }
         if (!dirs.isEmpty()) {
             for (PsiDirectory dir : dirs) {
-                final String dirName = dir.getVirtualFile().getPath();
-                if (dirName.contains("generated")) continue;
+                String dirName = dir.getVirtualFile().getPath();
+                if (dirName.contains("generated")) {
+                    continue;
+                }
                 return dir;
             }
             return dirs.get(0);
         }
         for (PsiDirectory dir : directories) {
-            final VirtualFile file = dir.getVirtualFile();
+            VirtualFile file = dir.getVirtualFile();
             for (VirtualFile root : roots) {
                 if (VfsUtilCore.isAncestor(root, file, false)) {
-                    final PsiDirectory rootDir = psiManager.findDirectory(root);
+                    PsiDirectory rootDir = psiManager.findDirectory(root);
                     if (rootDir != null) {
                         return rootDir;
                     }
                 }
             }
         }
-        return ModuleManager.getInstance(myProject)
-                .getModuleDependentModules(myTargetModule)
-                .stream().flatMap(module -> ModuleRootManager.getInstance(module).getSourceRoots(JavaSourceRootType.TEST_SOURCE).stream())
+        return ModuleManager.getInstance(myProject).getModuleDependentModules(myTargetModule).stream().flatMap(
+                module -> ModuleRootManager.getInstance(module).getSourceRoots(JavaSourceRootType.TEST_SOURCE).stream())
                 .map(root -> psiManager.findDirectory(root)).findFirst().orElse(null);
     }
 
@@ -380,6 +374,5 @@ public class CBGenerateDialog extends DialogWrapper {
         String name = myTargetPackageField.getText();
         return name != null ? name.trim() : "";
     }
-
 
 }

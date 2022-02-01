@@ -19,16 +19,19 @@
 
 package com.gocypher.cybench.runConfiguration;
 
-import com.intellij.execution.process.ProcessEvent;
-import com.intellij.execution.process.ProcessListener;
-import com.intellij.openapi.util.Key;
-import org.jetbrains.annotations.NotNull;
+import static com.gocypher.cybench.utils.Nodes.addClass;
+import static com.gocypher.cybench.utils.Nodes.addTest;
 
-import javax.swing.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.gocypher.cybench.utils.Nodes.*;
+import javax.swing.*;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.intellij.execution.process.ProcessEvent;
+import com.intellij.execution.process.ProcessListener;
+import com.intellij.openapi.util.Key;
 
 public class CyBenchMessageHandler implements ProcessListener {
     CyBenchResultTreeConsoleView tree;
@@ -81,8 +84,6 @@ public class CyBenchMessageHandler implements ProcessListener {
         addClass(name, tree.getTree());
     }
 
-
-
     protected void testClassFinished() {
     }
 
@@ -90,13 +91,10 @@ public class CyBenchMessageHandler implements ProcessListener {
         addTest(name, tree.getTree());
     }
 
-
-
     protected void testsFinished() {
         tree.onBenchmarkFinished();
 
     }
-
 
     private void expandAllNodes(JTree tree, int startingIndex, int rowCount) {
         for (int i = startingIndex; i < rowCount; ++i) {

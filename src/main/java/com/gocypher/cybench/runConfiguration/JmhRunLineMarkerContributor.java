@@ -19,6 +19,8 @@
 
 package com.gocypher.cybench.runConfiguration;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.gocypher.cybench.utils.CyBenchIcons;
 import com.intellij.execution.lineMarker.ExecutorAction;
@@ -28,9 +30,6 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 
 public class JmhRunLineMarkerContributor extends RunLineMarkerContributor {
     @Nullable
@@ -38,13 +37,13 @@ public class JmhRunLineMarkerContributor extends RunLineMarkerContributor {
     public RunLineMarkerContributor.Info getInfo(@NotNull PsiElement psiElement) {
         boolean isBenchmarkMethod = ConfigurationUtils.isBenchmarkMethod(psiElement);
         if (isBenchmarkMethod) {
-            final AnAction[] actions = ExecutorAction.getActions(0);
+            AnAction[] actions = ExecutorAction.getActions(0);
             return new Info(CyBenchIcons.cyBenchRun, new TooltipProvider(actions), actions);
         }
 
         boolean isBenchmarkClass = ConfigurationUtils.isBenchmarkClass(psiElement);
         if (isBenchmarkClass) {
-            final AnAction[] actions = ExecutorAction.getActions(0);
+            AnAction[] actions = ExecutorAction.getActions(0);
             return new Info(CyBenchIcons.cyBenchRun, new TooltipProvider(actions), actions);
         }
 

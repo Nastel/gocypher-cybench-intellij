@@ -19,15 +19,19 @@
 
 package com.gocypher.cybench.utils;
 
-import com.intellij.ui.ColoredTreeCellRenderer;
-import org.jetbrains.annotations.NotNull;
-
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.jetbrains.annotations.NotNull;
+
+import com.intellij.ui.ColoredTreeCellRenderer;
+
 public class CyBenchTreeCellRenderer extends ColoredTreeCellRenderer {
+    private static final long serialVersionUID = 7216861174748253452L;
+
     @Override
-    public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i, boolean b3) {
+    public void customizeCellRenderer(@NotNull JTree jTree, Object o, boolean b, boolean b1, boolean b2, int i,
+            boolean b3) {
         if (o instanceof Nodes.BenchmarkClassNode) {
             setIcon(CyBenchIcons.classNodeIcon);
 

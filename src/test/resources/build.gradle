@@ -10,7 +10,6 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'junit:junit:4.12'
     compile "com.gocypher.cybench.client:gocypher-cybench-runner:1.0.0"
-
 }

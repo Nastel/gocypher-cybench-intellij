@@ -19,12 +19,6 @@
 
 package com.gocypher.cybench.viewPanels;
 
-import com.intellij.ui.table.JBTable;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -32,11 +26,18 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import com.intellij.ui.table.JBTable;
+
 public class CBTable extends JBTable {
+    private static final long serialVersionUID = -456978013786415869L;
+
     public CBTable() {
 
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        getModel().setColumnIdentifiers(new String[]{"Attribute Name", "Attribute value"});
+        getModel().setColumnIdentifiers(new String[] { "Attribute Name", "Attribute value" });
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

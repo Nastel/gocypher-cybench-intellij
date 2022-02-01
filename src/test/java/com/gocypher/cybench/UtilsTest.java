@@ -19,10 +19,10 @@
 
 package com.gocypher.cybench;
 
-import org.junit.Test;
-
 import static com.gocypher.cybench.utils.Utils.convertNumToStringByLength;
 import static com.gocypher.cybench.utils.Utils.getKeyName;
+
+import org.junit.Test;
 
 public class UtilsTest {
     @Test

@@ -19,27 +19,33 @@
 
 package com.gocypher.cybench.utils;
 
-import org.jetbrains.annotations.NotNull;
+import java.io.File;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
-import java.io.File;
+
+import org.jetbrains.annotations.NotNull;
 
 public class Nodes {
     public static class BenchmarkClassNode extends DefaultMutableTreeNode {
+        private static final long serialVersionUID = 822086305327252049L;
+
         public BenchmarkClassNode(Object userObject) {
             super(userObject);
         }
     }
 
     public static class BenchmarkTestNode extends DefaultMutableTreeNode {
+        private static final long serialVersionUID = 7257365626149531299L;
+
         private String fullyQualifiedName;
+
         public BenchmarkTestNode(Object userObject) {
 
             super(getTestName(userObject));
-            this.fullyQualifiedName = String.valueOf(userObject);
+            fullyQualifiedName = String.valueOf(userObject);
         }
 
         public String getFullyQualifiedName() {
@@ -58,13 +64,18 @@ public class Nodes {
     }
 
     public static class BenchmarkRootNode extends DefaultMutableTreeNode {
+        private static final long serialVersionUID = -2379185421443688797L;
+
         public BenchmarkRootNode(Object userObject) {
             super(userObject);
         }
     }
 
     public static class BenchmarkReportFileNode extends DefaultMutableTreeNode {
+        private static final long serialVersionUID = 3933179239115266876L;
+
         File file;
+
         public BenchmarkReportFileNode(Object userObject, File file) {
             super(userObject);
             this.file = file;
@@ -97,7 +108,7 @@ public class Nodes {
 
         TreeModel model = tree.getModel();
         DefaultMutableTreeNode currentClass = findNode(name, model);
-        if (currentClass == null ) {
+        if (currentClass == null) {
             return false;
         }
 
@@ -106,10 +117,11 @@ public class Nodes {
         return true;
     }
 
-
     public static void addClass(String name, JTree tree) {
         Object root = tree.getModel().getRoot();
-        if (!findNode(name, tree.getModel()).equals(root)) return;
+        if (!findNode(name, tree.getModel()).equals(root)) {
+            return;
+        }
 
         DefaultMutableTreeNode newChild = new Nodes.BenchmarkClassNode(name);
         ((DefaultMutableTreeNode) root).add(newChild);

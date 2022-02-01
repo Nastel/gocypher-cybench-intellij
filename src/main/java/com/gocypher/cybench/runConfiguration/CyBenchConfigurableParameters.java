@@ -19,49 +19,47 @@
 
 package com.gocypher.cybench.runConfiguration;
 
-import com.gocypher.cybench.launcher.utils.Constants;
-import com.intellij.openapi.module.ModuleManager;
-
 import java.util.function.Predicate;
+
+import com.gocypher.cybench.launcher.utils.Constants;
 
 public enum CyBenchConfigurableParameters {
 
     REPORT_NAME(Constants.BENCHMARK_REPORT_NAME, getDefaultReportName(), "Report Name", "", TYPE.STRING, s -> true, ""),
 
-
     FORKS(Constants.NUMBER_OF_FORKS, 1, "Forks", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
-    }, "Value should be a number between 0 and 10"),
-    THREADS(Constants.RUN_THREAD_COUNT, 1, "Threads", "", TYPE.NUMBER, s -> {
-        int value = Integer.parseInt(s);
-        return value >= 0 && value <= 10;
-    }, "Value should be a number between 0 and 10"),
-    MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 3, "Measurement Iterations", "", TYPE.NUMBER, s -> {
-        int value = Integer.parseInt(s);
-        return value >= 0 && value <= 10;
-    }, "Value should be a number between 0 and 10"),
-    MEASUREMENT_SECONDS(Constants.MEASUREMENT_SECONDS, 1, "Measurement Time (s)", "", TYPE.NUMBER, s -> {
-        int value = Integer.parseInt(s);
-        return value >= 0 && value <= 100;
-    }, "Value should be a number between 0 and 100"),
-    WARM_UP_ITERATIONS(Constants.WARM_UP_ITERATIONS, 1, "Warmup Iterations", "", TYPE.NUMBER, s -> {
-        int value = Integer.parseInt(s);
-        return value >= 0 && value <= 10;
-    }, "Value should be a number between 0 and 10"),
-    WARM_UP_SECONDS(Constants.WARM_UP_SECONDS, 3, "Warmup Time (s)", "", TYPE.NUMBER, s -> {
-        int value = Integer.parseInt(s);
-        return value >= 0 && value <= 10;
-    }, "Value should be a number between 0 and 10"),
-    SHOULD_SEND_REPORT(Constants.SEND_REPORT, false, "Send Report To CyBench", "", TYPE.BOOLEAN, s ->
-            true, ""),
-    COLLECT_HW(Constants.COLLECT_HW, false, "Include Hardware Properties", "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online", TYPE.BOOLEAN, s ->
-            true, ""),
+    }, "Value should be a number between 0 and 10"), THREADS(Constants.RUN_THREAD_COUNT, 1, "Threads", "", TYPE.NUMBER,
+            s -> {
+                int value = Integer.parseInt(s);
+                return value >= 0 && value <= 10;
+            }, "Value should be a number between 0 and 10"), MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 3,
+                    "Measurement Iterations", "", TYPE.NUMBER, s -> {
+                        int value = Integer.parseInt(s);
+                        return value >= 0 && value <= 10;
+                    }, "Value should be a number between 0 and 10"), MEASUREMENT_SECONDS(Constants.MEASUREMENT_SECONDS,
+                            1, "Measurement Time (s)", "", TYPE.NUMBER, s -> {
+                                int value = Integer.parseInt(s);
+                                return value >= 0 && value <= 100;
+                            }, "Value should be a number between 0 and 100"), WARM_UP_ITERATIONS(
+                                    Constants.WARM_UP_ITERATIONS, 1, "Warmup Iterations", "", TYPE.NUMBER, s -> {
+                                        int value = Integer.parseInt(s);
+                                        return value >= 0 && value <= 10;
+                                    }, "Value should be a number between 0 and 10"), WARM_UP_SECONDS(
+                                            Constants.WARM_UP_SECONDS, 3, "Warmup Time (s)", "", TYPE.NUMBER, s -> {
+                                                int value = Integer.parseInt(s);
+                                                return value >= 0 && value <= 10;
+                                            }, "Value should be a number between 0 and 10"), SHOULD_SEND_REPORT(
+                                                    Constants.SEND_REPORT, false, "Send Report To CyBench", "",
+                                                    TYPE.BOOLEAN, s -> true, ""), COLLECT_HW(Constants.COLLECT_HW,
+                                                            false, "Include Hardware Properties",
+                                                            "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online",
+                                                            TYPE.BOOLEAN, s -> true, ""),
 
-    BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Execute", "Benchmark class to execute", TYPE.CLASS, s -> true, "Value should be a class"),
-    BENCH_TOKEN(Constants.USER_REPORT_TOKEN, "", "Bench Access Token", "Private benchmark store repo or empty for public", TYPE.STRING, s-> true, "");
-
-
+    BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Execute", "Benchmark class to execute", TYPE.CLASS, s -> true,
+            "Value should be a class"), BENCH_TOKEN(Constants.USER_REPORT_TOKEN, "", "Bench Access Token",
+                    "Private benchmark store repo or empty for public", TYPE.STRING, s -> true, "");
 
     public String error;
     public String key;
@@ -71,28 +69,22 @@ public enum CyBenchConfigurableParameters {
     public TYPE type;
     public Predicate<String> validator;
 
-
-    CyBenchConfigurableParameters(String key, Object defaultValue, String readableName, String detailExplanationMessage, TYPE type, Predicate<String> validator, String errorMessage) {
+    CyBenchConfigurableParameters(String key, Object defaultValue, String readableName, String detailExplanationMessage,
+            TYPE type, Predicate<String> validator, String errorMessage) {
         this.key = key;
         this.readableName = readableName;
         this.defaultValue = defaultValue;
         this.detailExplanationMessage = detailExplanationMessage;
         this.type = type;
         this.validator = validator;
-        this.error = errorMessage;
+        error = errorMessage;
     }
 
     private static Object getDefaultReportName() {
         return "Benchmark report";
     }
 
-
     public enum TYPE {
-        NUMBER,
-        BOOLEAN,
-        CLASS,
-        STRING;
+        NUMBER, BOOLEAN, CLASS, STRING
     }
 }
-
-

@@ -19,6 +19,11 @@
 
 package com.gocypher.cybench.toolWindow.factories;
 
+import java.io.File;
+import java.util.HashMap;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.gocypher.cybench.toolWindow.CyBenchToolWindow;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
@@ -26,10 +31,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.content.ContentManager;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.util.HashMap;
 
 public class ToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFactory {
     public static HashMap<File, Content> loaded = new HashMap<>();
@@ -41,7 +42,8 @@ public class ToolWindowFactory implements com.intellij.openapi.wm.ToolWindowFact
         ContentManager contentManager = toolWindow.getContentManager();
 
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        Content content = contentFactory.createContent(myToolWindow.getContent(), myToolWindow.getFile().getName(), false);
+        Content content = contentFactory.createContent(myToolWindow.getContent(), myToolWindow.getFile().getName(),
+                false);
         loaded.put(myToolWindow.getFile(), content);
         loadedWindows.put(myToolWindow.getFile(), myToolWindow);
         loadedContents.put(content, myToolWindow.getFile());

@@ -19,13 +19,13 @@
 
 package com.gocypher.cybench.utils;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-
-import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 public class NodesTest {
@@ -57,10 +57,7 @@ public class NodesTest {
     }
 
     public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder()
-                .include(NodesTest.class.getSimpleName())
-                .addProfiler("gc")
-                .output("temp.log")
+        Options opt = new OptionsBuilder().include(NodesTest.class.getSimpleName()).addProfiler("gc").output("temp.log")
                 .build();
         new Runner(opt).run();
     }

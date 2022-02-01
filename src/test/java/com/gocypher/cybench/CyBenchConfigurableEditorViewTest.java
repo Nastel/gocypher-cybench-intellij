@@ -19,13 +19,17 @@
 
 package com.gocypher.cybench;
 
+import static com.gocypher.cybench.CyBechResultTreeConsoleViewTest.createAndShowGUI;
+import static org.mockito.Mockito.mock;
 
-import com.gocypher.cybench.runConfiguration.CyBenchConfigurableEditorView;
-import com.gocypher.cybench.runConfiguration.CyBenchConfiguration;
-import com.intellij.openapi.Disposable;
-import com.intellij.openapi.application.PathMacros;
-import com.intellij.openapi.fileChooser.*;
-import com.intellij.openapi.project.Project;
+import java.awt.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.*;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Ignore;
@@ -36,60 +40,63 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-
-import static com.gocypher.cybench.CyBechResultTreeConsoleViewTest.createAndShowGUI;
-import static org.mockito.Mockito.mock;
+import com.gocypher.cybench.runConfiguration.CyBenchConfigurableEditorView;
+import com.gocypher.cybench.runConfiguration.CyBenchConfiguration;
+import com.intellij.openapi.Disposable;
+import com.intellij.openapi.application.PathMacros;
+import com.intellij.openapi.fileChooser.*;
+import com.intellij.openapi.project.Project;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PathMacros.class, FileChooserFactory.class})
+@PrepareForTest({ PathMacros.class, FileChooserFactory.class })
 
-@PowerMockIgnore({"sun.*", "javax.*"})
+@PowerMockIgnore({ "sun.*", "javax.*" })
 public class CyBenchConfigurableEditorViewTest {
 
     @Ignore
     @Test
-    public  void main() {
+    public void main() {
         PowerMockito.mockStatic(PathMacros.class);
         PowerMockito.mockStatic(FileChooserFactory.class);
         PowerMockito.when(FileChooserFactory.getInstance()).thenReturn(new FileChooserFactory() {
             @NotNull
             @Override
-            public FileChooserDialog createFileChooser(@NotNull FileChooserDescriptor fileChooserDescriptor, @Nullable Project project, @Nullable Component component) {
+            public FileChooserDialog createFileChooser(@NotNull FileChooserDescriptor fileChooserDescriptor,
+                    @Nullable Project project, @Nullable Component component) {
                 return null;
             }
 
             @NotNull
             @Override
-            public PathChooserDialog createPathChooser(@NotNull FileChooserDescriptor fileChooserDescriptor, @Nullable Project project, @Nullable Component component) {
+            public PathChooserDialog createPathChooser(@NotNull FileChooserDescriptor fileChooserDescriptor,
+                    @Nullable Project project, @Nullable Component component) {
                 return null;
             }
 
             @NotNull
             @Override
-            public FileSaverDialog createSaveFileDialog(@NotNull FileSaverDescriptor fileSaverDescriptor, @Nullable Project project) {
+            public FileSaverDialog createSaveFileDialog(@NotNull FileSaverDescriptor fileSaverDescriptor,
+                    @Nullable Project project) {
                 return null;
             }
 
             @NotNull
             @Override
-            public FileSaverDialog createSaveFileDialog(@NotNull FileSaverDescriptor fileSaverDescriptor, @NotNull Component component) {
+            public FileSaverDialog createSaveFileDialog(@NotNull FileSaverDescriptor fileSaverDescriptor,
+                    @NotNull Component component) {
                 return null;
             }
 
             @NotNull
             @Override
-            public FileTextField createFileTextField(@NotNull FileChooserDescriptor fileChooserDescriptor, boolean b, @Nullable Disposable disposable) {
+            public FileTextField createFileTextField(@NotNull FileChooserDescriptor fileChooserDescriptor, boolean b,
+                    @Nullable Disposable disposable) {
                 return null;
             }
 
             @Override
-            public void installFileCompletion(@NotNull JTextField jTextField, @NotNull FileChooserDescriptor fileChooserDescriptor, boolean b, @Nullable Disposable disposable) {
+            public void installFileCompletion(@NotNull JTextField jTextField,
+                    @NotNull FileChooserDescriptor fileChooserDescriptor, boolean b, @Nullable Disposable disposable) {
 
             }
         });
@@ -110,7 +117,6 @@ public class CyBenchConfigurableEditorViewTest {
             public void setMacro(@NotNull String s, @Nullable String s1) {
 
             }
-
 
             @Override
             public void removeMacro(@NotNull String s) {
@@ -167,11 +173,11 @@ public class CyBenchConfigurableEditorViewTest {
                 return Collections.emptySet();
             }
         });
-        CyBenchConfigurableEditorView c = new CyBenchConfigurableEditorView(mock(Project.class), mock(CyBenchConfiguration.class));
+        CyBenchConfigurableEditorView c = new CyBenchConfigurableEditorView(mock(Project.class),
+                mock(CyBenchConfiguration.class));
         createAndShowGUI(c.getComponent());
-        while
-        (true);
-
+        while (true) {
+        }
 
     }
 
