@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.gocypher.cybench.launcher.plugin'
 archivesBaseName = 'gocypher-cybench-intellij'
-version = '1.0-SNAPSHOT'
+version = '0.2-beta'
 
 sourceCompatibility = 1.8
 
