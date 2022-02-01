@@ -303,10 +303,10 @@ public class CBGenerateAnAction extends DumbAwareAction {
     public void setupLibrary(Module module) {
 
         if (isMavenisedModule(module)) {
-            ExternalLibraryDescriptor core = new ExternalLibraryDescriptor("org.openjdk.jmh", "jmh-core", "1.26",
-                    "1.26");
+            ExternalLibraryDescriptor core = new ExternalLibraryDescriptor("org.openjdk.jmh", "jmh-core", "1.33",
+                    "1.34");
             ExternalLibraryDescriptor aProcessor = new ExternalLibraryDescriptor("org.openjdk.jmh",
-                    "jmh-generator-annprocess", "1.26", "1.26");
+                    "jmh-generator-annprocess", "1.33", "1.34");
             ExternalLibraryDescriptor benchmarkTag = new ExternalLibraryDescriptor("com.gocypher.cybench.client",
                     "gocypher-cybench-annotations", "1.0.0", "1.0.0");
 
@@ -337,9 +337,9 @@ public class CBGenerateAnAction extends DumbAwareAction {
         try {
             File file = new File(projectPath + File.separator + "build.gradle");
 
-            String GRADLE_JMH_DEPENDENCY = "	implementation group: 'com.gocypher.cybench.client', name: 'gocypher-cybench-annotations', version: '1.0.0'"
+            String GRADLE_JMH_DEPENDENCY = "	implementation 'com.gocypher.cybench.client:gocypher-cybench-annotations:1.0.0'"
                     + "\n";
-            String GRADLE_JMH_ANNOTATION_DEPENDENCY = "	annotationProcessor  group: 'org.openjdk.jmh', name:'jmh-generator-annprocess', version:'1.26'"
+            String GRADLE_JMH_ANNOTATION_DEPENDENCY = "	annotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.34'"
                     + "\n";
 
             String jmhDependency = GRADLE_JMH_DEPENDENCY;
