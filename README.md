@@ -1,45 +1,61 @@
-# CyBench-Intellij
+# CyBench-IntelliJ
 
-CyBench is an integrated code benchmark platform for running, storing, analyzing & comparing performance benchmarks with one mission: help you build fast code.
+CyBench is an integrated code benchmark platform for running, storing, analyzing & comparing performance benchmarks with
+one mission: help you build fast code.
 
-Benchmark your code, algorithms, platforms, modules, libraries, API calls, JVMs, Java garbage collection (GC) settings. Test with varying runtime configurations, versions and more. Avoid making costly mistakes, which can wreck your reputation and user experience.
+Benchmark your code, algorithms, platforms, modules, libraries, API calls, JVMs, Java garbage collection (GC) settings.
+Test with varying runtime configurations, versions and more. Avoid making costly mistakes, which can wreck your
+reputation and user experience.
 
-Create & share performance scorecards with your team & community. Compare and choose best performing runtime configurations, libraries, code dependencies for your project. 
+Create & share performance scorecards with your team & community. Compare and choose best performing runtime
+configurations, libraries, code dependencies for your project.
 
-Leverage Java Microbenchmark Harness -JMH benchmarks and integrate into your development, build and CI/CD workflow. Build better, faster software with CyBench. Click here to see how CyBench works.
+Leverage Java Microbenchmark Harness -JMH benchmarks and integrate into your development, build and CI/CD workflow.
+Build better, faster software with CyBench. Click here to see how CyBench works.
 
-Intellij CyBench plugin simplifies your work creating and running benchmarks. The plugin creates two tool windows to work with the reports: 
+IntelliJ CyBench plugin simplifies your work creating and running benchmarks. The plugin creates two tool windows to
+work with the reports:
 
 * explorer view - shows you your reports already generated in project and enables you to open the selected plugin
 * reports view - show the opened reports by explorer view
 
-## Quick start
-
-* Step 1:	Create or open project
-* Step 2:	Create a benchmark, open a class you want to benchmark methods to; click `code -> generate...` or `alt+ins` to open `generate` menu, and select `CyBenchBenchmark`
-* Step 3:	If it's needed plugin asks you to add the libraries to classpath and/or dependencies
-* Step 4:	Run generated benchmark
-* Step 5:	Open the CyBench explorer window (hit refresh if you don't see the report generated) 
-* Step 6:	Select the report to open it.
-
 ## Installation
 
-Download the [latest release](https://github.com/K2NIO/gocypher-cybench-intellij/releases/latest) and install it manually using
-<kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+### Supported IntelliJ IDEA versions
+
+* Lowest:  `2018.1.x`
+* Highest: `2020.3.x`
+
+### Installation process
+
+Download the [latest release](https://github.com/K2NIO/gocypher-cybench-intellij/releases/latest) and install it
+manually using
+<kbd>Preferences</kbd> → <kbd>Plugins</kbd> → <kbd>⚙️</kbd> → <kbd>Install plugin from disk...</kbd>
 Or You can simply drag the downloaded plugin archive file and drop it into the IntelliJ IDEA Welcome screen.
 
 ![install from disc][install]
 
+## Quick start
+
+* Step 1:    Create or open project
+* Step 2:    Create a benchmark, open a class you want to benchmark methods to; click `code -> generate...` or `alt+ins`
+  to open `generate` menu, and select `CyBenchBenchmark`
+* Step 3:    If it's needed plugin asks you to add the libraries to classpath and/or dependencies
+* Step 4:    Run generated benchmark
+* Step 5:    Open the CyBench explorer window (hit refresh if you don't see the report generated)
+* Step 6:    Select the report to open it.
 
 ## Detailed instructions
 
-### Generate benchmark stubs 
+### Generate benchmark stubs
 
-Feature generates benchmark class stubs, adds necessary annotations and methods for a selected JAVA file. Benchmark method is generated for each public method found in the class.
+Feature generates benchmark class stubs, adds necessary annotations and methods for a selected JAVA file. Benchmark
+method is generated for each public method found in the class.
 
 Pre-conditions:
+
 * Selected file is Java file
-* Index for intellij files is already built 
+* Index for IntelliJ files is already built
 
 Steps:
 
@@ -51,7 +67,7 @@ Steps:
 
 ### Run
 
-If it's benchmark classes, gutter button for running bechmark on benchmark classes will appear.
+If it's benchmark classes, gutter button for running benchmark on benchmark classes will appear.
 
 For a quick run, with default configuration press `Run 'run config name' ctrl+shift+f10`.
 
@@ -59,7 +75,7 @@ For a quick run, with default configuration press `Run 'run config name' ctrl+sh
 
 To create configuration press menu button `Create 'run configuration'...`
 
-The dialog will appear to edit default settings. After editing setting hit `OK`.  
+The dialog will appear to edit default settings. After editing setting hit `OK`.
 
 ![running3]
 
@@ -67,15 +83,15 @@ Select created Run Configuration and press `Run` to start benchmarking. Benchmar
 
 ![runConsole]
 
-Once the benchmarking is finished, the report will be created in project directory under `reports` child.
-You can view all reports in Explorer window.
+Once the benchmarking is finished, the report will be created in project directory under `reports` child. You can view
+all reports in Explorer window.
 
 ![explorer]
 
 Once you click on particular report the report ToolWindow will appear at IDE's bottom panel.
 
 ![report]
- 
+
 Every test on report is displayed as item on tree at left, you can select individual tests to see the results.
 
 ![report2]
