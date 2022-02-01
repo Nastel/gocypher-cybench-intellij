@@ -129,7 +129,9 @@ public class CyBenchExplorerToolWindow {
         }
         if (reportsFolder.exists()) {
             File[] files = reportsFolder.listFiles(f -> f.getName().endsWith(".cybench"));
-            Arrays.forEach(f -> ((DefaultTableModel) reportList.getModel()).addRow(getRow(f)));
+            Arrays.asList(files).forEach(f -> {
+                ((DefaultTableModel) reportList.getModel()).addRow(getRow(f));
+            });
         }
         reloading = false;
     }

@@ -35,8 +35,8 @@ intellij {
     plugins = ['java', 'maven', 'gradle']
 }
 patchPluginXml {
-    pluginId = project.property('group')
-    version = project.property('version')
+    pluginId = "$project.group"
+    version = "$project.version"
 
     sinceBuild '180.*'
     untilBuild '203.*'
