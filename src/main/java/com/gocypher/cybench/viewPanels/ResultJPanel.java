@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020, K2N.IO.
+ * Copyright (C) 2020-2022, K2N.IO.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -8,13 +8,13 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
- * 02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ *
  */
 
 package com.gocypher.cybench.viewPanels;
@@ -74,8 +74,8 @@ public class ResultJPanel extends JPanel {
         name.setIcon(CyBenchIcons.cyBenchLarge);
         benchmarkInfo.add(name, BorderLayout.WEST);
         Spacer spacer1 = new Spacer();
-        add(spacer1, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL,
-                1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        add(spacer1, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1,
+                GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         JPanel scores = new JPanel();
         scores.setLayout(new GridLayoutManager(2, 5, new Insets(0, 0, 0, 0), -1, -1));
         add(scores,
