@@ -67,7 +67,7 @@ public class ResultFileParserTest {
                 System.out.println("\t" + index + " - " + key + " : " + value);
             }
         };
-        resultFileParser.parse(new File("C:\\Users\\slabs\\Downloads\\report.json"));
+        resultFileParser.parse(new File("./src/test/resources/report.json"));
     }
 
 }

@@ -19,10 +19,10 @@
 
 package com.gocypher.cybench.generate;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class CBGenerateAnActionTest extends LightJavaCodeInsightFixtureTestCase 
 
     @Override
     protected String getTestDataPath() {
-        return "src/test/testData";
+        return "./src/test/testdata";
     }
 
     // public void testCompletion() {
@@ -71,15 +71,17 @@ public class CBGenerateAnActionTest extends LightJavaCodeInsightFixtureTestCase 
 
     @Test
     public void testAddGradleDependency() throws IOException {
-        InputStream resourceAsStream = CBGenerateAnActionTest.class.getResourceAsStream("build.gradle");
+        // InputStream resourceAsStream = CBGenerateAnActionTest.class.getResourceAsStream("build.gradle");
+        Path resourcePath = Paths.get("./src/test/resources/build.gradle");
 
-        // File tempDir = Files.createTempDir();
-        File tempFile = File.createTempFile("", "");
+        Path tempDir = Files.createTempDirectory("");
+        // File tempFile = File.createTempFile("build_test", "gradle");
+        Path tempFile = Paths.get(tempDir.toAbsolutePath().toString(), "build.gradle");
 
-        Files.copy(resourceAsStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(resourcePath, tempFile, StandardCopyOption.REPLACE_EXISTING);
 
-        CBGenerateAnAction.addGradleDependency(tempFile.getParent());
-        tempFile.delete();
-
+        CBGenerateAnAction.addGradleDependency(tempDir.toAbsolutePath().toString());
+        tempFile.toFile().delete();
+        tempDir.toFile().delete();
     }
 }
