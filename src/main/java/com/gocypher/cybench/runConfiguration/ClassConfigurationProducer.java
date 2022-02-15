@@ -19,6 +19,7 @@
 
 package com.gocypher.cybench.runConfiguration;
 
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.Iterator;
 
@@ -93,6 +94,10 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
         String version = null;
         String group = null;
 
+        String baseDir = PathUtil.getLocalPath(context.getProject().getBaseDir());
+        File gradle = new File(baseDir + "/build.gradle");
+        File gradleKTS = new File(baseDir + "/build.gradle.kts");
+        
         try {
             MavenProject mavenProject = MavenProjectsManager.getInstance(context.getProject()).getRootProjects().get(0);
             name = mavenProject.getMavenId().getArtifactId();
@@ -104,6 +109,10 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
 
         if (name == null) {
             name = context.getProject().getName();
+        }
+
+        if (gradle.exists() || gradleKTS.exists()) {
+            return MessageFormat.format("Benchmark for {0} {1}", benchmarkClass.getName(), name);
         }
 
         return MessageFormat.format("Benchmark for {1}:{2}:{3} {0} ", benchmarkClass.getName(), group, name, version);
