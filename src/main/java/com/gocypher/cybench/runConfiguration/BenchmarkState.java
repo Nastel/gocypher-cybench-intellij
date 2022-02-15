@@ -155,6 +155,7 @@ public class BenchmarkState extends CommandLineState {
         cyBenchResultTreeConsoleView.setReportFile(reportFileName);
         javaParameters.getVMParametersList().add(getReportCybNameParameter(reportFileName.replace(".cybench", ".cyb")));
         javaParameters.getVMParametersList().add("-D" + Constants.APPEND_SCORE_TO_FNAME + "=" + Boolean.TRUE);
+        javaParameters.getVMParametersList().add("-D" + Constants.INTELLIJ_PLUGIN + "=" + Boolean.TRUE);
 
         GeneralCommandLine fromJavaParameters = javaParameters.toCommandLine();
 
