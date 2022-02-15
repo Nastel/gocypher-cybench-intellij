@@ -308,7 +308,7 @@ public class CBGenerateAnAction extends DumbAwareAction {
             ExternalLibraryDescriptor aProcessor = new ExternalLibraryDescriptor("org.openjdk.jmh",
                     "jmh-generator-annprocess", "1.33", "1.34");
             ExternalLibraryDescriptor benchmarkTag = new ExternalLibraryDescriptor("com.gocypher.cybench.client",
-                    "gocypher-cybench-annotations", "1.0.0", "1.3.1");
+                    "gocypher-cybench-annotations", "1.3.1", "1.3.2");
 
             JavaProjectModelModificationService.getInstance(module.getProject()).addDependency(module, core,
                     DependencyScope.COMPILE);
