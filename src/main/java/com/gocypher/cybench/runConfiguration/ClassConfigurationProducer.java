@@ -97,13 +97,12 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
         String baseDir = PathUtil.getLocalPath(context.getProject().getBaseDir());
         File gradle = new File(baseDir + "/build.gradle");
         File gradleKTS = new File(baseDir + "/build.gradle.kts");
-        
+
         try {
             MavenProject mavenProject = MavenProjectsManager.getInstance(context.getProject()).getRootProjects().get(0);
             name = mavenProject.getMavenId().getArtifactId();
             version = mavenProject.getMavenId().getVersion();
             group = mavenProject.getMavenId().getGroupId();
-
         } catch (Exception e) {
         }
 
@@ -116,7 +115,6 @@ public class ClassConfigurationProducer extends JavaRunConfigurationProducerBase
         }
 
         return MessageFormat.format("Benchmark for {1}:{2}:{3} {0} ", benchmarkClass.getName(), group, name, version);
-
     }
 
     @Override
