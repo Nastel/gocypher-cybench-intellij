@@ -25,7 +25,7 @@ plugins {
 
 group = 'com.gocypher.cybench.launcher.plugin'
 archivesBaseName = 'gocypher-cybench-intellij'
-version = '0.2-beta'
+version = '0.3-alpha1'
 
 sourceCompatibility = 1.8
 
@@ -38,7 +38,7 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.13.2'
-    compile 'com.gocypher.cybench.client:gocypher-cybench-runner:1.4-SNAPSHOT'
+    compile 'com.gocypher.cybench.client:gocypher-cybench-runner:2.0-ULTIMATE'
     compile 'com.jayway.jsonpath:json-path:2.7.0'
     compile 'org.json:json:20211205'
     compile 'org.codehaus.jettison:jettison:1.4.1'
@@ -50,7 +50,7 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.1.4'
+    version '2021.2.4'
     plugins = ['java', 'maven', 'gradle']
 }
 patchPluginXml {
@@ -58,8 +58,8 @@ patchPluginXml {
     version = "$project.version"
 
     sinceBuild '180.*'
-    untilBuild '203.*'
-    changeNotes """
+    untilBuild '213.*'
+    changeNotes = """
       First release.
       """
 }
