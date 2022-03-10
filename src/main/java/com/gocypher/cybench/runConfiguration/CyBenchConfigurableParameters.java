@@ -59,7 +59,8 @@ public enum CyBenchConfigurableParameters {
 
     BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Execute", "Benchmark class to execute", TYPE.CLASS, s -> true,
             "Value should be a class"), BENCH_TOKEN(Constants.USER_REPORT_TOKEN, "", "Bench Access Token",
-                    "Private benchmark store repo or empty for public", TYPE.STRING, s -> true, "");
+                    "Private benchmark store repo or empty for public", TYPE.STRING, s -> true, ""), QUERY_TOKEN(Constants.USER_QUERY_TOKEN,
+                    "", "Bench Query Token", "Provide to run automated comparisons in private repo", TYPE.STRING, s -> true, "");
 
     public String error;
     public String key;
