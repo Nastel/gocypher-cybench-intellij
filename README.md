@@ -77,6 +77,8 @@ To create configuration press menu button `Create 'run configuration'...`
 
 The dialog will appear to edit default settings. After editing setting hit `OK`.
 
+**NOTE** If you want to send your report to CyBench, make sure to check "Send Report To CyBench" and enter your "Bench Query Token" (which can found on the CyBench UI) corresponding to the workspace you want your report stored in.
+
 ![running3]
 
 You can also add a configuration for automated performance regression testing, which will run with every single
@@ -86,15 +88,17 @@ benchmark report.
 
 | Property name        | Description           | Options  |
 | ------------- |-------------| -----:|
-| **Run performance regression test** | Choose whether or not to actually run a performance regression test with your benchmark. | true or false |
-| **Scope** | Choose between comparing within current version, or between previous versions. When using `BETWEEN`, a specific version must be specified with the property `Compare version`. | `WITHIN` or `BETWEEN` |
-| **Compare version** | Used for `BETWEEN` version comparisons. | Any project version you have previously tested |
-| **Number of latest reports** | How many reports do you want to compare against? 1 will compare this report against the most recent report in the version you are comparing against. # > 1 will compare this report against the average of the scores of the most recent # reports in the version you are comparing against. | Number >= 1 |
-| **Number of allowed anomalies** | How many anomalies do you want to allow? If the number of benchmark anomalies surpasses your specified number, CyBench benchmark runner will fail... triggering your CI/CD pipeline to halt. | Number >= 0 |
-| **Comparison method** | Decide which method of comparison to use. `DELTA` will compare difference in score, and requires an additional property, `Comparison threshold`. `SD` will do comparisons regarding standard deviation. `SD` requires an additional property as well, `Deviations allowed`. | `DELTA` or `SD` |
-| **Comparison threshold** | Only used with the `DELTA` method. `GREATER` will compare raw scores, `PERCENT_CHANGE` is used to measure the percent change of the score in comparison to previous scores. `PERCENT_CHANGE` requires an additional property: `Percent change allowed`. | `GREATER` or `PERCENT_CHANGE` |
-| **Percent change allowed** | This argument is used when running assertions, makes sure your new score is within X percent of the previous scores you're comparing to. | Any Double value. |
-| **Deviations allowed** | Used with assertions to check that the new score is within the given amount of deviations from the mean. (mean being calculated from the scores being compared to). | Any Double value. |
+| **Run Performance Regression Test** | Choose whether or not to actually run a performance regression test with your benchmark. | true or false |
+| **Scope** | Choose between comparing within current version, or between previous versions. When using `BETWEEN`, a specific version must be specified with the property `Compare Version`. | `WITHIN` or `BETWEEN` |
+| **Compare Version** | Used for `BETWEEN` version comparisons. | Any project version you have previously tested |
+| **Number of Latest Reports** | How many reports do you want to compare against? 1 will compare this report against the most recent report in the version you are comparing against. # > 1 will compare this report against the average of the scores of the most recent # reports in the version you are comparing against. | Number >= 1 |
+| **Number of Allowed Anomalies** | How many anomalies do you want to allow? If the number of benchmark anomalies surpasses your specified number, CyBench benchmark runner will fail... triggering your CI/CD pipeline to halt. | Number >= 0 |
+| **Comparison Method** | Decide which method of comparison to use. `DELTA` will compare difference in score, and requires an additional property, `Comparison Threshold`. `SD` will do comparisons regarding standard deviation. `SD` requires an additional property as well, `Deviations Allowed`. | `DELTA` or `SD` |
+| **Comparison Threshold** | Only used with the `DELTA` method. `GREATER` will compare raw scores, `PERCENT_CHANGE` is used to measure the percent change of the score in comparison to previous scores. `PERCENT_CHANGE` requires an additional property: `Percent Change Allowed`. | `GREATER` or `PERCENT_CHANGE` |
+| **Percent Change Allowed** | This argument is used when running assertions, makes sure your new score is within X percent of the previous scores you're comparing to. | Any Double value. |
+| **Deviations Allowed** | Used with assertions to check that the new score is within the given amount of deviations from the mean. (mean being calculated from the scores being compared to). | Any Double value. |
+
+![running4]
 
 Select created Run Configuration and press `Run` to start benchmarking. Benchmarking console will appear.
 

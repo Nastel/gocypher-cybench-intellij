@@ -62,24 +62,24 @@ public enum CyBenchConfigurableParameters {
                     "Private benchmark store repo or empty for public", TYPE.STRING, s -> true, ""), QUERY_TOKEN(Constants.USER_QUERY_TOKEN,
                     "", "Bench Query Token", "Provide to run automated comparisons in private repo", TYPE.STRING, s -> true, ""),
                     
-    AUTO_SHOULD_RUN(Constants.AUTO_SHOULD_RUN_COMPARISON, false, "Run performance regression test", "If checked will take your defined configuration and run automated performance regression testing within your project", TYPE.BOOLEAN, s -> true, ""),
+    AUTO_SHOULD_RUN(Constants.AUTO_SHOULD_RUN_COMPARISON, false, "Run Performance Regression Test", "If checked will take your defined configuration and run automated performance regression testing within your project", TYPE.BOOLEAN, s -> true, ""),
     AUTO_SCOPE(Constants.AUTO_SCOPE, "WITHIN", "Scope", "Scope of automated performance regression testing", TYPE.STRING, s -> true, "Value should be either 'WITHIN' or 'BETWEEN'"),
-    AUTO_COMPARE_VERSION(Constants.AUTO_COMPARE_VERSION, "", "Compare version", "Project version to compare against", TYPE.STRING, s -> true, ""),
-    AUTO_LATEST_REPORTS(Constants.AUTO_LATEST_REPORTS, 1, "Number of latest reports", "Number of latest reports to compare against", TYPE.NUMBER, s -> {
+    AUTO_COMPARE_VERSION(Constants.AUTO_COMPARE_VERSION, "", "Compare Version", "Project version to compare against", TYPE.STRING, s -> true, ""),
+    AUTO_LATEST_REPORTS(Constants.AUTO_LATEST_REPORTS, 1, "Number of Latest Reports", "Number of latest reports to compare against", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 1;
     }, "Value should be a number greater than or equal to 1"),
-    AUTO_ANOMALIES_ALLOWED(Constants.AUTO_ANOMALIES_ALLOWED, 0, "Number of allowed anomalies", "Number of anomalies to allow before benchmark runner fails", TYPE.NUMBER, s -> {
+    AUTO_ANOMALIES_ALLOWED(Constants.AUTO_ANOMALIES_ALLOWED, 0, "Number of Allowed Anomalies", "Number of anomalies to allow before benchmark runner fails", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0;
     }, "Value should be a number greater than or equal to 0"),
-    AUTO_METHOD(Constants.AUTO_METHOD, "DELTA", "Comparison method", "Method to use for comparison", TYPE.STRING, s -> true, "Value should be either 'DELTA' or 'SD'"),
-    AUTO_THRESHOLD(Constants.AUTO_THRESHOLD, "GREATER", "Comparison threshold", "Threshold to use for comparison", TYPE.STRING, s -> true, "Value should be either 'GREATER' or 'PERCENT_CHANGE'"),
-    AUTO_PERCENT_CHANGE(Constants.AUTO_PERCENT_CHANGE, 0, "Percent change allowed", "Percent change allowed before an anomaly is flagged", TYPE.NUMBER, s -> {
+    AUTO_METHOD(Constants.AUTO_METHOD, "DELTA", "Comparison Method", "Method to use for comparison", TYPE.STRING, s -> true, "Value should be either 'DELTA' or 'SD'"),
+    AUTO_THRESHOLD(Constants.AUTO_THRESHOLD, "GREATER", "Comparison Threshold", "Threshold to use for comparison", TYPE.STRING, s -> true, "Value should be either 'GREATER' or 'PERCENT_CHANGE'"),
+    AUTO_PERCENT_CHANGE(Constants.AUTO_PERCENT_CHANGE, 0, "Percent Change Allowed", "Percent change allowed before an anomaly is flagged", TYPE.NUMBER, s -> {
         Double value = Double.parseDouble(s);
         return value >= 0;
     }, "Value should be a number greater than or equal to 0"),
-    AUTO_DEVIATIONS_ALLOWED(Constants.AUTO_DEVIATIONS_ALLOWED, 0, "Deviations allowed", "Deviations from mean of compared scores allowed before an anomaly is flagged", TYPE.NUMBER, s -> {
+    AUTO_DEVIATIONS_ALLOWED(Constants.AUTO_DEVIATIONS_ALLOWED, 0, "Deviations Allowed", "Deviations from mean of compared scores allowed before an anomaly is flagged", TYPE.NUMBER, s -> {
         Double value = Double.parseDouble(s);
         return value >= 0;
     }, "Value should be a number greater than or equal to 0");
