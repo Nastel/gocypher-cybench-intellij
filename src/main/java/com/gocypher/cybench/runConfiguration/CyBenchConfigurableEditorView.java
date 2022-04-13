@@ -27,10 +27,13 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.gocypher.cybench.launcher.utils.Constants;
+import com.gocypher.cybench.model.ComparisonConfig;
 import com.intellij.execution.ui.CommonJavaParametersPanel;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
@@ -49,13 +52,43 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
             CyBenchConfigurableParameters.class);
 
     public CyBenchConfigurableEditorView(Project project, CyBenchConfiguration cyBenchConfiguration) {
-        editor.setLayout(new BoxLayout(editor, BoxLayout.X_AXIS));
+        editor.setLayout(new BoxLayout(editor, BoxLayout.Y_AXIS));
         commonProgramParameters = new CommonJavaParametersPanel();
 
         // Setup for CyBench configurable fields defined in CyBenchConfigurableParameters
+        JComponent label = new JLabel("Launcher Parameters", SwingConstants.LEFT);
+        label.setBorder(new EmptyBorder(30,0,0,0));
+        commonProgramParameters.add(label);
+        boolean hasntAddedAutoConfigLabelYet = true;
+
         for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
             JComponent comp;
-            if (parameter.type == CyBenchConfigurableParameters.TYPE.BOOLEAN) {
+            if (parameter.key == Constants.AUTO_METHOD || parameter.key == Constants.AUTO_SCOPE || parameter.key == Constants.AUTO_THRESHOLD) {
+                String[] options;
+                switch (parameter.key) {
+                    case Constants.AUTO_METHOD: {
+                        options = new String[]{ComparisonConfig.Method.DELTA.name(), ComparisonConfig.Method.SD.name()};
+                        break;
+                    }
+                    case Constants.AUTO_SCOPE: {
+                        options = new String[]{ComparisonConfig.Scope.WITHIN.name(), ComparisonConfig.Scope.BETWEEN.name()};
+                        break;
+                    }
+                    case Constants.AUTO_THRESHOLD: {
+                        options = new String[]{ComparisonConfig.Threshold.GREATER.name(), ComparisonConfig.Threshold.PERCENT_CHANGE.name()};
+                        break;
+                    }
+                    default: {
+                        options = new String[0];
+                        break;
+                    }
+                }
+                comp = new JComboBox<String>(options);
+                JComboBox<String> jComboBox = (JComboBox) comp;
+                jComboBox.addActionListener(e -> {
+                    cyBenchConfiguration.getValueStore().put(parameter, jComboBox.getSelectedItem());
+                });
+            } else if (parameter.type == CyBenchConfigurableParameters.TYPE.BOOLEAN) {
                 comp = new JCheckBox();
                 JCheckBox jCheckBox = (JCheckBox) comp;
                 jCheckBox.setSelected(
@@ -86,12 +119,17 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
 
             }
             configurableStore.put(parameter, comp);
-            commonProgramParameters.add(LabeledComponent.create(comp, parameter.readableName, "West"));
 
+            if (isAutomatedConfigurationParameter(parameter.key) && hasntAddedAutoConfigLabelYet) {
+                label = new JLabel("Performance Regression Testing Automation Configuration", SwingConstants.LEFT);
+                label.setBorder(new EmptyBorder(30,0,0,0));
+                commonProgramParameters.add(label);
+                hasntAddedAutoConfigLabelYet = false;
+            }
+            commonProgramParameters.add(LabeledComponent.create(comp, parameter.readableName, "West"));
         }
 
         editor.add(commonProgramParameters);
-
     }
 
     private static void installValidator(Project project, JTextField jTextField, Predicate<String> validator,
@@ -129,7 +167,12 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
     @NotNull
     @Override
     protected JComponent createEditor() {
-
         return editor;
+    }
+
+    private boolean isAutomatedConfigurationParameter(String key) {
+        return key.equals(Constants.AUTO_ANOMALIES_ALLOWED) || key.equals(Constants.AUTO_COMPARE_VERSION) || key.equals(Constants.AUTO_DEVIATIONS_ALLOWED) || 
+                    key.equals(Constants.AUTO_LATEST_REPORTS) || key.equals(Constants.AUTO_METHOD) || key.equals(Constants.AUTO_PERCENT_CHANGE) || 
+                    key.equals(Constants.AUTO_SCOPE) || key.equals(Constants.AUTO_THRESHOLD) || key.equals(Constants.AUTO_SHOULD_RUN_COMPARISON);
     }
 }
