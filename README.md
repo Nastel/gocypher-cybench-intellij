@@ -127,3 +127,4 @@ Every test on report is displayed as item on tree at left, you can select indivi
 [running1]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running1.JPG " "
 [running2]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running2.JPG " "
 [running3]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running3.JPG " "
+[running4]: https://github.com/K2NIO/gocypher-cybench-intellij/raw/main/docs/img/running4.JPG " "
