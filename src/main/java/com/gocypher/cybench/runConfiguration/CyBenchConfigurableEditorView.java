@@ -57,33 +57,36 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
 
         // Setup for CyBench configurable fields defined in CyBenchConfigurableParameters
         JComponent label = new JLabel("Launcher Parameters", SwingConstants.LEFT);
-        label.setBorder(new EmptyBorder(30,0,0,0));
+        label.setBorder(new EmptyBorder(30, 0, 0, 0));
         commonProgramParameters.add(label);
         boolean hasntAddedAutoConfigLabelYet = true;
 
         for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
             JComponent comp;
-            if (parameter.key == Constants.AUTO_METHOD || parameter.key == Constants.AUTO_SCOPE || parameter.key == Constants.AUTO_THRESHOLD) {
+            if (parameter.key == Constants.AUTO_METHOD || parameter.key == Constants.AUTO_SCOPE
+                    || parameter.key == Constants.AUTO_THRESHOLD) {
                 String[] options;
                 switch (parameter.key) {
-                    case Constants.AUTO_METHOD: {
-                        options = new String[]{ComparisonConfig.Method.DELTA.name(), ComparisonConfig.Method.SD.name()};
-                        break;
-                    }
-                    case Constants.AUTO_SCOPE: {
-                        options = new String[]{ComparisonConfig.Scope.WITHIN.name(), ComparisonConfig.Scope.BETWEEN.name()};
-                        break;
-                    }
-                    case Constants.AUTO_THRESHOLD: {
-                        options = new String[]{ComparisonConfig.Threshold.GREATER.name(), ComparisonConfig.Threshold.PERCENT_CHANGE.name()};
-                        break;
-                    }
-                    default: {
-                        options = new String[0];
-                        break;
-                    }
+                case Constants.AUTO_METHOD: {
+                    options = new String[] { ComparisonConfig.Method.DELTA.name(), ComparisonConfig.Method.SD.name() };
+                    break;
                 }
-                comp = new JComboBox<String>(options);
+                case Constants.AUTO_SCOPE: {
+                    options = new String[] { ComparisonConfig.Scope.WITHIN.name(),
+                            ComparisonConfig.Scope.BETWEEN.name() };
+                    break;
+                }
+                case Constants.AUTO_THRESHOLD: {
+                    options = new String[] { ComparisonConfig.Threshold.GREATER.name(),
+                            ComparisonConfig.Threshold.PERCENT_CHANGE.name() };
+                    break;
+                }
+                default: {
+                    options = new String[0];
+                    break;
+                }
+                }
+                comp = new JComboBox<>(options);
                 JComboBox<String> jComboBox = (JComboBox) comp;
                 jComboBox.addActionListener(e -> {
                     cyBenchConfiguration.getValueStore().put(parameter, jComboBox.getSelectedItem());
@@ -122,7 +125,7 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
 
             if (isAutomatedConfigurationParameter(parameter.key) && hasntAddedAutoConfigLabelYet) {
                 label = new JLabel("Performance Regression Testing Automation Configuration", SwingConstants.LEFT);
-                label.setBorder(new EmptyBorder(30,0,0,0));
+                label.setBorder(new EmptyBorder(30, 0, 0, 0));
                 commonProgramParameters.add(label);
                 hasntAddedAutoConfigLabelYet = false;
             }
@@ -171,8 +174,10 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
     }
 
     private boolean isAutomatedConfigurationParameter(String key) {
-        return key.equals(Constants.AUTO_ANOMALIES_ALLOWED) || key.equals(Constants.AUTO_COMPARE_VERSION) || key.equals(Constants.AUTO_DEVIATIONS_ALLOWED) || 
-                    key.equals(Constants.AUTO_LATEST_REPORTS) || key.equals(Constants.AUTO_METHOD) || key.equals(Constants.AUTO_PERCENT_CHANGE) || 
-                    key.equals(Constants.AUTO_SCOPE) || key.equals(Constants.AUTO_THRESHOLD) || key.equals(Constants.AUTO_SHOULD_RUN_COMPARISON);
+        return key.equals(Constants.AUTO_ANOMALIES_ALLOWED) || key.equals(Constants.AUTO_COMPARE_VERSION)
+                || key.equals(Constants.AUTO_DEVIATIONS_ALLOWED) || key.equals(Constants.AUTO_LATEST_REPORTS)
+                || key.equals(Constants.AUTO_METHOD) || key.equals(Constants.AUTO_PERCENT_CHANGE)
+                || key.equals(Constants.AUTO_SCOPE) || key.equals(Constants.AUTO_THRESHOLD)
+                || key.equals(Constants.AUTO_SHOULD_RUN_COMPARISON);
     }
 }

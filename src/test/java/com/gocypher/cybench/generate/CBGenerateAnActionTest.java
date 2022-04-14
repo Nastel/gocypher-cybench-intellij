@@ -76,11 +76,11 @@ public class CBGenerateAnActionTest extends LightJavaCodeInsightFixtureTestCase 
 
         Path tempDir = Files.createTempDirectory("");
         // File tempFile = File.createTempFile("build_test", "gradle");
-        Path tempFile = Paths.get(tempDir.toAbsolutePath().toString(), "build.gradle");
+        Path tempFile = Paths.get(String.valueOf(tempDir.toAbsolutePath()), "build.gradle");
 
         Files.copy(resourcePath, tempFile, StandardCopyOption.REPLACE_EXISTING);
 
-        CBGenerateAnAction.addGradleDependency(tempDir.toAbsolutePath().toString());
+        CBGenerateAnAction.addGradleDependency(String.valueOf(tempDir.toAbsolutePath()));
         tempFile.toFile().delete();
         tempDir.toFile().delete();
     }

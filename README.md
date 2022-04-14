@@ -77,7 +77,8 @@ To create configuration press menu button `Create 'run configuration'...`
 
 The dialog will appear to edit default settings. After editing setting hit `OK`.
 
-**NOTE** If you want to send your report to CyBench, make sure to check "Send Report To CyBench" and enter your "Bench Query Token" (which can found on the CyBench UI) corresponding to the workspace you want your report stored in.
+**NOTE** If you want to send your report to CyBench, make sure to check "Send Report To CyBench" and enter your "Bench
+Query Token" (which can found on the CyBench UI) corresponding to the workspace you want your report stored in.
 
 ![running3]
 

@@ -30,59 +30,70 @@ public enum CyBenchConfigurableParameters {
     FORKS(Constants.NUMBER_OF_FORKS, 1, "Forks", "", TYPE.NUMBER, s -> {
         int value = Integer.parseInt(s);
         return value >= 0 && value <= 10;
-    }, "Value should be a number between 0 and 10"), THREADS(Constants.RUN_THREAD_COUNT, 1, "Threads", "", TYPE.NUMBER,
-            s -> {
-                int value = Integer.parseInt(s);
-                return value >= 0 && value <= 10;
-            }, "Value should be a number between 0 and 10"), MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 3,
-                    "Measurement Iterations", "", TYPE.NUMBER, s -> {
-                        int value = Integer.parseInt(s);
-                        return value >= 0 && value <= 10;
-                    }, "Value should be a number between 0 and 10"), MEASUREMENT_SECONDS(Constants.MEASUREMENT_SECONDS,
-                            1, "Measurement Time (s)", "", TYPE.NUMBER, s -> {
-                                int value = Integer.parseInt(s);
-                                return value >= 0 && value <= 100;
-                            }, "Value should be a number between 0 and 100"), WARM_UP_ITERATIONS(
-                                    Constants.WARM_UP_ITERATIONS, 1, "Warmup Iterations", "", TYPE.NUMBER, s -> {
-                                        int value = Integer.parseInt(s);
-                                        return value >= 0 && value <= 10;
-                                    }, "Value should be a number between 0 and 10"), WARM_UP_SECONDS(
-                                            Constants.WARM_UP_SECONDS, 3, "Warmup Time (s)", "", TYPE.NUMBER, s -> {
-                                                int value = Integer.parseInt(s);
-                                                return value >= 0 && value <= 10;
-                                            }, "Value should be a number between 0 and 10"), SHOULD_SEND_REPORT(
-                                                    Constants.SEND_REPORT, false, "Send Report To CyBench", "",
-                                                    TYPE.BOOLEAN, s -> true, ""), COLLECT_HW(Constants.COLLECT_HW,
-                                                            false, "Include Hardware Properties",
-                                                            "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online",
-                                                            TYPE.BOOLEAN, s -> true, ""),
+    }, "Value should be a number between 0 and 10"), //
+    THREADS(Constants.RUN_THREAD_COUNT, 1, "Threads", "", TYPE.NUMBER, s -> {
+        int value = Integer.parseInt(s);
+        return value >= 0 && value <= 10;
+    }, "Value should be a number between 0 and 10"), //
+    MEASUREMENT_ITERATIONS(Constants.MEASUREMENT_ITERATIONS, 3, "Measurement Iterations", "", TYPE.NUMBER, s -> {
+        int value = Integer.parseInt(s);
+        return value >= 0 && value <= 10;
+    }, "Value should be a number between 0 and 10"), //
+    MEASUREMENT_SECONDS(Constants.MEASUREMENT_SECONDS, 1, "Measurement Time (s)", "", TYPE.NUMBER, s -> {
+        int value = Integer.parseInt(s);
+        return value >= 0 && value <= 100;
+    }, "Value should be a number between 0 and 100"), //
+    WARM_UP_ITERATIONS(Constants.WARM_UP_ITERATIONS, 1, "Warmup Iterations", "", TYPE.NUMBER, s -> {
+        int value = Integer.parseInt(s);
+        return value >= 0 && value <= 10;
+    }, "Value should be a number between 0 and 10"), //
+    WARM_UP_SECONDS(Constants.WARM_UP_SECONDS, 3, "Warmup Time (s)", "", TYPE.NUMBER, s -> {
+        int value = Integer.parseInt(s);
+        return value >= 0 && value <= 10;
+    }, "Value should be a number between 0 and 10"), //
+    SHOULD_SEND_REPORT(Constants.SEND_REPORT, false, "Send Report To CyBench", "", TYPE.BOOLEAN, s -> true, ""), //
+    COLLECT_HW(Constants.COLLECT_HW, false, "Include Hardware Properties",
+            "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online",
+            TYPE.BOOLEAN, s -> true, ""), //
 
     BENCHMARK_CLASS(Constants.BENCHMARK_RUN_CLASSES, "", "Execute", "Benchmark class to execute", TYPE.CLASS, s -> true,
-            "Value should be a class"), BENCH_TOKEN(Constants.USER_REPORT_TOKEN, "", "Bench Access Token",
-                    "Private benchmark store repo or empty for public", TYPE.STRING, s -> true, ""), QUERY_TOKEN(Constants.USER_QUERY_TOKEN,
-                    "", "Bench Query Token", "Provide to run automated comparisons in private repo", TYPE.STRING, s -> true, ""),
-                    
-    AUTO_SHOULD_RUN(Constants.AUTO_SHOULD_RUN_COMPARISON, false, "Run Performance Regression Test", "If checked will take your defined configuration and run automated performance regression testing within your project", TYPE.BOOLEAN, s -> true, ""),
-    AUTO_SCOPE(Constants.AUTO_SCOPE, "WITHIN", "Scope", "Scope of automated performance regression testing", TYPE.STRING, s -> true, "Value should be either 'WITHIN' or 'BETWEEN'"),
-    AUTO_COMPARE_VERSION(Constants.AUTO_COMPARE_VERSION, "", "Compare Version", "Project version to compare against", TYPE.STRING, s -> true, ""),
-    AUTO_LATEST_REPORTS(Constants.AUTO_LATEST_REPORTS, 1, "Number of Latest Reports", "Number of latest reports to compare against", TYPE.NUMBER, s -> {
-        int value = Integer.parseInt(s);
-        return value >= 1;
-    }, "Value should be a number greater than or equal to 1"),
-    AUTO_ANOMALIES_ALLOWED(Constants.AUTO_ANOMALIES_ALLOWED, 0, "Number of Allowed Anomalies", "Number of anomalies to allow before benchmark runner fails", TYPE.NUMBER, s -> {
-        int value = Integer.parseInt(s);
-        return value >= 0;
-    }, "Value should be a number greater than or equal to 0"),
-    AUTO_METHOD(Constants.AUTO_METHOD, "DELTA", "Comparison Method", "Method to use for comparison", TYPE.STRING, s -> true, "Value should be either 'DELTA' or 'SD'"),
-    AUTO_THRESHOLD(Constants.AUTO_THRESHOLD, "GREATER", "Comparison Threshold", "Threshold to use for comparison", TYPE.STRING, s -> true, "Value should be either 'GREATER' or 'PERCENT_CHANGE'"),
-    AUTO_PERCENT_CHANGE(Constants.AUTO_PERCENT_CHANGE, 0, "Percent Change Allowed", "Percent change allowed before an anomaly is flagged", TYPE.NUMBER, s -> {
-        Double value = Double.parseDouble(s);
-        return value >= 0;
-    }, "Value should be a number greater than or equal to 0"),
-    AUTO_DEVIATIONS_ALLOWED(Constants.AUTO_DEVIATIONS_ALLOWED, 0, "Deviations Allowed", "Deviations from mean of compared scores allowed before an anomaly is flagged", TYPE.NUMBER, s -> {
-        Double value = Double.parseDouble(s);
-        return value >= 0;
-    }, "Value should be a number greater than or equal to 0");
+            "Value should be a class"), //
+    BENCH_TOKEN(Constants.USER_REPORT_TOKEN, "", "Bench Access Token",
+            "Private benchmark store repo or empty for public", TYPE.STRING, s -> true, ""), //
+    QUERY_TOKEN(Constants.USER_QUERY_TOKEN, "", "Bench Query Token",
+            "Provide to run automated comparisons in private repo", TYPE.STRING, s -> true, ""), //
+
+    AUTO_SHOULD_RUN(Constants.AUTO_SHOULD_RUN_COMPARISON, false, "Run Performance Regression Test",
+            "If checked will take your defined configuration and run automated performance regression testing within your project",
+            TYPE.BOOLEAN, s -> true, ""), //
+    AUTO_SCOPE(Constants.AUTO_SCOPE, "WITHIN", "Scope", "Scope of automated performance regression testing",
+            TYPE.STRING, s -> true, "Value should be either 'WITHIN' or 'BETWEEN'"), //
+    AUTO_COMPARE_VERSION(Constants.AUTO_COMPARE_VERSION, "", "Compare Version", "Project version to compare against",
+            TYPE.STRING, s -> true, ""), //
+    AUTO_LATEST_REPORTS(Constants.AUTO_LATEST_REPORTS, 1, "Number of Latest Reports",
+            "Number of latest reports to compare against", TYPE.NUMBER, s -> {
+                int value = Integer.parseInt(s);
+                return value >= 1;
+            }, "Value should be a number greater than or equal to 1"), //
+    AUTO_ANOMALIES_ALLOWED(Constants.AUTO_ANOMALIES_ALLOWED, 0, "Number of Allowed Anomalies",
+            "Number of anomalies to allow before benchmark runner fails", TYPE.NUMBER, s -> {
+                int value = Integer.parseInt(s);
+                return value >= 0;
+            }, "Value should be a number greater than or equal to 0"), //
+    AUTO_METHOD(Constants.AUTO_METHOD, "DELTA", "Comparison Method", "Method to use for comparison", TYPE.STRING,
+            s -> true, "Value should be either 'DELTA' or 'SD'"), //
+    AUTO_THRESHOLD(Constants.AUTO_THRESHOLD, "GREATER", "Comparison Threshold", "Threshold to use for comparison",
+            TYPE.STRING, s -> true, "Value should be either 'GREATER' or 'PERCENT_CHANGE'"), //
+    AUTO_PERCENT_CHANGE(Constants.AUTO_PERCENT_CHANGE, 0, "Percent Change Allowed",
+            "Percent change allowed before an anomaly is flagged", TYPE.NUMBER, s -> {
+                Double value = Double.parseDouble(s);
+                return value >= 0;
+            }, "Value should be a number greater than or equal to 0"), //
+    AUTO_DEVIATIONS_ALLOWED(Constants.AUTO_DEVIATIONS_ALLOWED, 0, "Deviations Allowed",
+            "Deviations from mean of compared scores allowed before an anomaly is flagged", TYPE.NUMBER, s -> {
+                Double value = Double.parseDouble(s);
+                return value >= 0;
+            }, "Value should be a number greater than or equal to 0");
 
     public String error;
     public String key;
