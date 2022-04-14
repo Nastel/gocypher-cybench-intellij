@@ -31,5 +31,5 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.12'
-    compile "com.gocypher.cybench.client:gocypher-cybench-runner:1.3.3"
+    compile "com.gocypher.cybench.client:gocypher-cybench-runner:1.3.5"
 }
