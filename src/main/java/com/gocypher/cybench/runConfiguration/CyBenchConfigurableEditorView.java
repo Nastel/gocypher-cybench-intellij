@@ -64,27 +64,31 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
         for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
             JComponent comp;
             if (parameter.key == Constants.AUTO_METHOD || parameter.key == Constants.AUTO_SCOPE
-                    || parameter.key == Constants.AUTO_THRESHOLD) {
+                    || parameter.key == Constants.AUTO_THRESHOLD || parameter.key == Constants.REPORT_UPLOAD_STATUS) {
                 String[] options;
                 switch (parameter.key) {
-                case Constants.AUTO_METHOD: {
-                    options = new String[] { ComparisonConfig.Method.DELTA.name(), ComparisonConfig.Method.SD.name() };
-                    break;
-                }
-                case Constants.AUTO_SCOPE: {
-                    options = new String[] { ComparisonConfig.Scope.WITHIN.name(),
-                            ComparisonConfig.Scope.BETWEEN.name() };
-                    break;
-                }
-                case Constants.AUTO_THRESHOLD: {
-                    options = new String[] { ComparisonConfig.Threshold.GREATER.name(),
-                            ComparisonConfig.Threshold.PERCENT_CHANGE.name() };
-                    break;
-                }
-                default: {
-                    options = new String[0];
-                    break;
-                }
+                    case Constants.AUTO_METHOD: {
+                        options = new String[] { ComparisonConfig.Method.DELTA.name(), ComparisonConfig.Method.SD.name() };
+                        break;
+                    }
+                    case Constants.AUTO_SCOPE: {
+                        options = new String[] { ComparisonConfig.Scope.WITHIN.name(),
+                                ComparisonConfig.Scope.BETWEEN.name() };
+                        break;
+                    }
+                    case Constants.AUTO_THRESHOLD: {
+                        options = new String[] { ComparisonConfig.Threshold.GREATER.name(),
+                                ComparisonConfig.Threshold.PERCENT_CHANGE.name() };
+                        break;
+                    }
+                    case Constants.REPORT_UPLOAD_STATUS: {
+                        options = new String[] { Constants.REPORT_PUBLIC, Constants.REPORT_PRIVATE };
+                        break;
+                    }
+                    default: {
+                        options = new String[0];
+                        break;
+                    }
                 }
                 comp = new JComboBox<>(options);
                 JComboBox<String> jComboBox = (JComboBox) comp;
