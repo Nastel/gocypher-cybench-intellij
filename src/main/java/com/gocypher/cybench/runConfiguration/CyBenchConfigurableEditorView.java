@@ -30,6 +30,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import com.gocypher.cybench.launcher.utils.Constants;
@@ -47,8 +48,8 @@ import com.intellij.ui.DocumentAdapter;
 public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfiguration> {
 
     private final CommonJavaParametersPanel commonProgramParameters;
-    private JPanel editor = new JPanel();
-    private Map<CyBenchConfigurableParameters, JComponent> configurableStore = new EnumMap<>(
+    private final JPanel editor = new JPanel();
+    private final Map<CyBenchConfigurableParameters, JComponent> configurableStore = new EnumMap<>(
             CyBenchConfigurableParameters.class);
 
     public CyBenchConfigurableEditorView(Project project, CyBenchConfiguration cyBenchConfiguration) {
@@ -59,39 +60,39 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
         JComponent label = new JLabel("Launcher Parameters", SwingConstants.LEFT);
         label.setBorder(new EmptyBorder(30, 0, 0, 0));
         commonProgramParameters.add(label);
-        boolean hasntAddedAutoConfigLabelYet = true;
+        boolean autoConfigLabelAdded = false;
 
         for (CyBenchConfigurableParameters parameter : CyBenchConfigurableParameters.values()) {
             JComponent comp;
-            if (parameter.key == Constants.AUTO_METHOD || parameter.key == Constants.AUTO_SCOPE
-                    || parameter.key == Constants.AUTO_THRESHOLD || parameter.key == Constants.REPORT_UPLOAD_STATUS) {
+            if (StringUtils.equalsAny(parameter.key, Constants.AUTO_METHOD, Constants.AUTO_SCOPE,
+                    Constants.AUTO_THRESHOLD, Constants.REPORT_UPLOAD_STATUS)) {
                 String[] options;
                 switch (parameter.key) {
-                    case Constants.AUTO_METHOD: {
-                        options = new String[] { ComparisonConfig.Method.DELTA.name(), ComparisonConfig.Method.SD.name() };
-                        break;
-                    }
-                    case Constants.AUTO_SCOPE: {
-                        options = new String[] { ComparisonConfig.Scope.WITHIN.name(),
-                                ComparisonConfig.Scope.BETWEEN.name() };
-                        break;
-                    }
-                    case Constants.AUTO_THRESHOLD: {
-                        options = new String[] { ComparisonConfig.Threshold.GREATER.name(),
-                                ComparisonConfig.Threshold.PERCENT_CHANGE.name() };
-                        break;
-                    }
-                    case Constants.REPORT_UPLOAD_STATUS: {
-                        options = new String[] { Constants.REPORT_PUBLIC, Constants.REPORT_PRIVATE };
-                        break;
-                    }
-                    default: {
-                        options = new String[0];
-                        break;
-                    }
+                case Constants.AUTO_METHOD: {
+                    options = new String[] { ComparisonConfig.Method.DELTA.name(), ComparisonConfig.Method.SD.name() };
+                    break;
+                }
+                case Constants.AUTO_SCOPE: {
+                    options = new String[] { ComparisonConfig.Scope.WITHIN.name(),
+                            ComparisonConfig.Scope.BETWEEN.name() };
+                    break;
+                }
+                case Constants.AUTO_THRESHOLD: {
+                    options = new String[] { ComparisonConfig.Threshold.GREATER.name(),
+                            ComparisonConfig.Threshold.PERCENT_CHANGE.name() };
+                    break;
+                }
+                case Constants.REPORT_UPLOAD_STATUS: {
+                    options = new String[] { Constants.REPORT_PUBLIC, Constants.REPORT_PRIVATE };
+                    break;
+                }
+                default: {
+                    options = new String[0];
+                    break;
+                }
                 }
                 comp = new JComboBox<>(options);
-                JComboBox<String> jComboBox = (JComboBox) comp;
+                JComboBox<String> jComboBox = (JComboBox<String>) comp;
                 jComboBox.addActionListener(e -> {
                     cyBenchConfiguration.getValueStore().put(parameter, jComboBox.getSelectedItem());
                 });
@@ -127,11 +128,11 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
             }
             configurableStore.put(parameter, comp);
 
-            if (isAutomatedConfigurationParameter(parameter.key) && hasntAddedAutoConfigLabelYet) {
+            if (isAutomatedConfigurationParameter(parameter.key) && !autoConfigLabelAdded) {
                 label = new JLabel("Performance Regression Testing Automation Configuration", SwingConstants.LEFT);
                 label.setBorder(new EmptyBorder(30, 0, 0, 0));
                 commonProgramParameters.add(label);
-                hasntAddedAutoConfigLabelYet = false;
+                autoConfigLabelAdded = true;
             }
             commonProgramParameters.add(LabeledComponent.create(comp, parameter.readableName, "West"));
         }
@@ -177,7 +178,7 @@ public class CyBenchConfigurableEditorView extends SettingsEditor<CyBenchConfigu
         return editor;
     }
 
-    private boolean isAutomatedConfigurationParameter(String key) {
+    private static boolean isAutomatedConfigurationParameter(String key) {
         return key.equals(Constants.AUTO_ANOMALIES_ALLOWED) || key.equals(Constants.AUTO_COMPARE_VERSION)
                 || key.equals(Constants.AUTO_DEVIATIONS_ALLOWED) || key.equals(Constants.AUTO_LATEST_REPORTS)
                 || key.equals(Constants.AUTO_METHOD) || key.equals(Constants.AUTO_PERCENT_CHANGE)

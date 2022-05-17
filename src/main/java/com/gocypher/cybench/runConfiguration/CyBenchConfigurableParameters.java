@@ -52,8 +52,9 @@ public enum CyBenchConfigurableParameters {
         return value >= 0 && value <= 10;
     }, "Value should be a number between 0 and 10"), //
     SHOULD_SEND_REPORT(Constants.SEND_REPORT, false, "Send Report To CyBench", "", TYPE.BOOLEAN, s -> true, ""), //
-    SEND_REPORT_WHERE(Constants.REPORT_UPLOAD_STATUS, "public", "Report Upload Status", 
-        "Select whether or not to send report to a public or private repository", TYPE.STRING, s-> true, "Value should be either 'public' or 'private'"), //
+    SEND_REPORT_WHERE(Constants.REPORT_UPLOAD_STATUS, "public", "Report Upload Status",
+            "Select whether or not to send report to a public or private repository", TYPE.STRING, s -> true,
+            "Value should be either 'public' or 'private'"), //
     COLLECT_HW(Constants.COLLECT_HW, false, "Include Hardware Properties",
             "If checked collects information about processor, memory, graphics, discs, network, os etc. If it's not checked report is not eligible for storing online",
             TYPE.BOOLEAN, s -> true, ""), //
