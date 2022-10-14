@@ -22,6 +22,7 @@ package com.gocypher.cybench;
 import static com.gocypher.cybench.CyBechResultTreeConsoleViewTest.createAndShowGUI;
 import static org.mockito.Mockito.mock;
 
+import java.util.List;
 import java.awt.*;
 import java.util.Collection;
 import java.util.Collections;
@@ -119,9 +120,15 @@ public class CyBenchConfigurableEditorViewTest {
             }
 
             @Override
-            public void removeMacro(@NotNull String s) {
+            public void addIgnoredMacro(@NotNull List<String> list) {
 
             }
+
+//          DEPRECATED
+//          @Override
+//          public void removeMacro(@NotNull String s) {
+//
+//          }
 
             @NotNull
             @Override
@@ -152,10 +159,11 @@ public class CyBenchConfigurableEditorViewTest {
 
             }
 
-            @Override
-            public void addIgnoredMacro(@NotNull String s) {
-
-            }
+//          DEPRECATED
+//          @Override
+//          public void addIgnoredMacro(@NotNull String s) {
+//
+//          }
 
             @Override
             public boolean isIgnoredMacroName(@NotNull String s) {
