@@ -20,12 +20,12 @@
 plugins {
     id 'java'
     id 'java-library'
-    id 'org.jetbrains.intellij' version '0.7.3'
+    id 'org.jetbrains.intellij' version '1.0'
 }
 
 group = 'com.gocypher.cybench.launcher.plugin'
 archivesBaseName = 'gocypher-cybench-intellij'
-version = '1.1-SNAPSHOT'
+version = '1.2-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -51,16 +51,23 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.1.4'
+    version = '2021.3.2'
     plugins = ['java', 'maven', 'gradle']
 }
 patchPluginXml {
     pluginId = "$project.group"
     version = "$project.version"
 
-    sinceBuild '180.*'
-    untilBuild '203.*'
-    changeNotes """
-      First release.
+    sinceBuild = '180'
+    untilBuild = '213.*'
+    changeNotes = """
+      Second release. (Gradle Plugin Update)
+      - Updated CyBench Runner Library to use latest (1.4-SNAPSHOT)
+      - Updated IntelliJ Gradle plug-in from v0.7.3 -> v1.0.0
+        - Latest IntelliJ Gradle plug-in (v1.9.0) requires J11, among other upgrades
+      - Added compatibility with newest IntelliJ (2021.3.2)
+      - Fixed issue with duplicate Maven Services causing crashes
+      - Fixed issue with IntelliJ complaining about abstract methods not being overridden
+      - Removed deprecrated test methods
       """
 }
