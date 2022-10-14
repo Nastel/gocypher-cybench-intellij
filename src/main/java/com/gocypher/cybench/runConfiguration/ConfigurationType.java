@@ -45,7 +45,15 @@ public class ConfigurationType extends ConfigurationTypeBase {
                 configuration.setPassParentEnvs(true);
                 return configuration;
             }
+            @Override
+            public String getId() {
+                return TYPE_ID;
+            }
+
         };
         addFactory(myFactory);
+
     }
+
+
 }
